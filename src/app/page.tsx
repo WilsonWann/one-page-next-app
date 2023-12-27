@@ -1,13 +1,11 @@
 'use client'
 
-import Image, { StaticImageData } from 'next/image'
-import LiteYouTubeEmbed from 'react-lite-youtube-embed'
-import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 import wilson from './../assets/wilson.jpg'
 import gubami from './../assets/gubami.jpg'
 import lalaport from './../assets/lalaport.jpg'
 import sansanyakiniku from './../assets/sansanyakiniku.png'
 import ImageBlock from './components/ImageBlock'
+import LiteYoutube from './components/LiteYoutube'
 export default function Home() {
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24 scroll-m-0 overflow-auto'>
@@ -35,10 +33,10 @@ export default function Home() {
        */}
       <nav> </nav>
 
-      {/* react-iframe video */}
-      <LiteYouTubeEmbed
-        id='L2vS_050c-M'
-        title='What’s new in Material Design for the web (Chrome Dev Summit 2019)'
+      {/* react-lite-youtube video */}
+      <LiteYoutube
+        id={'L2vS_050c-M'}
+        title={'What’s new in Material Design for the web (Chrome Dev Summit 2019)'}
       />
 
       {/* images */}
