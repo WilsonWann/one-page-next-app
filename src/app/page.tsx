@@ -7,6 +7,7 @@ import sansanyakiniku from './../assets/sansanyakiniku.png'
 import ImageBlock from './components/ImageBlock'
 import LiteYoutube from './components/LiteYoutube'
 import Header from './components/Header'
+import Promotion from './@schedule/promotion'
 
 export default function Home() {
   return (
@@ -22,7 +23,11 @@ export default function Home() {
       {/** closable banner fixed div
        * schedule promotion
        */}
-      <div></div>
+      <Promotion
+        title={
+          '🎄聖誕佳節滿800元超商免運費！滿1500元宅配免運,加入會員好處多~紅利點數可折抵現金喔!!'
+        }
+      />
 
       {/** nav bar popover div
        * item1

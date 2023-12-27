@@ -14,7 +14,7 @@ type ImageProps = {
 const ImageDiv = styled.div<ImageProps>`
   position: relative;
   width: 100vw;
-  height: calc((${(props) => props.height} / ${(props) => props.width}) * 100vw);
+  height: calc((${(props) => props.height / props.width}) * 100vw);
 `
 
 const ImageBlock = (props: Props) => {
