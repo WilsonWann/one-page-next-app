@@ -6,16 +6,18 @@ import lalaport from './../assets/lalaport.jpg'
 import sansanyakiniku from './../assets/sansanyakiniku.png'
 import ImageBlock from './components/ImageBlock'
 import LiteYoutube from './components/LiteYoutube'
+import Header from './components/Header'
+
 export default function Home() {
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between p-24 scroll-m-0 overflow-auto'>
+    <main className='flex min-h-screen flex-col items-center justify-between p-24 pt-12'>
       {/** header fixed div
        * logo
        * account login/register
        * cart
        * hamburger
        */}
-      <div> </div>
+      <Header />
 
       {/** closable banner fixed div
        * schedule promotion
@@ -31,7 +33,7 @@ export default function Home() {
        * login
        * register
        */}
-      <nav> </nav>
+      <nav></nav>
 
       {/* react-lite-youtube video */}
       <LiteYoutube
