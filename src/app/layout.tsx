@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Header, Promotion, Navbar } from '@/lib/components'
+import { Header, Promotion, Navbar, FixedButtons } from '@/lib/components'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,6 +28,8 @@ export default function RootLayout(props: {
         {props.children}
         {/* {props.auth} */}
         {/* {props.schedule} */}
+
+        <FixedButtons />
       </body>
     </html>
   )
