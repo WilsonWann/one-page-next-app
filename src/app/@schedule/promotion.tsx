@@ -1,6 +1,6 @@
 import React from 'react'
-import { IoClose } from 'react-icons/io5'
 import styled from '@emotion/styled'
+import CloseButton from '../components/CloseButton'
 
 const Modal = styled.div`
   position: fixed;
@@ -27,16 +27,6 @@ const ModalTitle = styled.h3`
   color: #4d4d4d;
 `
 
-const CloseButton = styled.label`
-  padding-left: 1.5rem;
-  margin-left: auto;
-  cursor: pointer;
-
-  &:hover svg {
-    opacity: 0.6;
-  }
-`
-
 const ModalState = styled.input`
   display: none;
 
@@ -59,9 +49,7 @@ const Promotion = (props: Props) => {
       <ModalState type='checkbox' id='modal' defaultChecked={true} />
       <Modal id='promotion-modal'>
         <ModalTitle>{title}</ModalTitle>
-        <CloseButton htmlFor='modal'>
-          <IoClose size={20} />
-        </CloseButton>
+        <CloseButton htmlFor={'modal'} />
       </Modal>
     </>
   )

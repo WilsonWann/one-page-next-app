@@ -6,40 +6,9 @@ import lalaport from './../assets/lalaport.jpg'
 import sansanyakiniku from './../assets/sansanyakiniku.png'
 import ImageBlock from './components/ImageBlock'
 import LiteYoutube from './components/LiteYoutube'
-import Header from './components/Header'
-import Promotion from './@schedule/promotion'
-
 export default function Home() {
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between p-24 pt-12'>
-      {/** header fixed div
-       * logo
-       * account login/register
-       * cart
-       * hamburger
-       */}
-      <Header />
-
-      {/** closable banner fixed div
-       * schedule promotion
-       */}
-      <Promotion
-        title={
-          '🎄聖誕佳節滿800元超商免運費！滿1500元宅配免運,加入會員好處多~紅利點數可折抵現金喔!!'
-        }
-      />
-
-      {/** nav bar popover div
-       * item1
-       * item2
-       * item3
-       *
-       * Member
-       * login
-       * register
-       */}
-      <nav></nav>
-
+    <main className='flex min-h-screen flex-col items-center justify-between'>
       {/* react-lite-youtube video */}
       <LiteYoutube
         id={'L2vS_050c-M'}
@@ -47,7 +16,7 @@ export default function Home() {
       />
 
       {/* images */}
-      <ImageBlock image={wilson} alt={'wilson'} />
+      <ImageBlock image={wilson} alt={'Wilson'} />
       <ImageBlock image={gubami} alt={'牛肉麵'} />
       <ImageBlock image={lalaport} alt={'拉拉寶都'} />
       <ImageBlock image={sansanyakiniku} alt={'三三燒肉'} />

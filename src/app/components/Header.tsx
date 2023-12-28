@@ -2,8 +2,11 @@ import React from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { LuUser2 } from 'react-icons/lu'
 import { IoCartOutline } from 'react-icons/io5'
-import { IoLogoModelS } from 'react-icons/io'
+
 import styled from '@emotion/styled'
+import { useAtom } from 'jotai'
+import { navbarOpenAtom } from '@/atoms/routingAtoms'
+import Logo from './Logo'
 
 const HeaderWrapper = styled.div`
   position: fixed;
@@ -29,13 +32,14 @@ const ButtonWrapper = styled.div`
 `
 
 const Header = () => {
+  const [navbarOpen, toggleNavbar] = useAtom(navbarOpenAtom)
   return (
     <HeaderWrapper>
-      <IoLogoModelS size={36} />
+      <Logo />
       <ButtonWrapper>
         <LuUser2 size={22} />
         <IoCartOutline size={22} />
-        <RxHamburgerMenu size={22} />
+        <RxHamburgerMenu size={22} onClick={() => toggleNavbar(!navbarOpen)} />
       </ButtonWrapper>
     </HeaderWrapper>
   )
