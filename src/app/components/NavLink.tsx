@@ -2,16 +2,27 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { navbarOpenAtom } from '@/atoms/routingAtoms'
+import { useAtom } from 'jotai'
 
 type Props = {
   href: string
   exact?: boolean
-  children: React.ReactNode
+  children?: React.ReactNode
   externalLink?: boolean
+  onClick?: () => void
 }
 
 const NavLink = (props: Props) => {
-  const { href, exact = true, children, externalLink = false, ...rest } = props
+  const [, toggleNavbar] = useAtom(navbarOpenAtom)
+  const {
+    href,
+    children = '',
+    exact = true,
+    externalLink = false,
+    onClick = () => toggleNavbar(false),
+    ...rest
+  } = props
   //! className props need props check
   let className = rest.className
   const pathname = usePathname()
@@ -30,7 +41,7 @@ const NavLink = (props: Props) => {
   }
 
   return (
-    <Link href={href} {...rest} className={className}>
+    <Link href={href} {...rest} className={className} onClick={onClick}>
       {children}
     </Link>
   )

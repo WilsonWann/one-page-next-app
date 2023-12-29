@@ -9,7 +9,6 @@ import ImageBlock from './components/ImageBlock'
 import LiteYoutube from './components/LiteYoutube'
 import ShoppingArea from './components/ShoppingArea'
 import MarketingBlock from './components/MarketingBlock'
-import Footer from './components/Footer'
 
 export default function Home() {
   return (
@@ -105,11 +104,6 @@ export default function Home() {
        * go to top button
        */}
       <div></div>
-      {/** footer
-       * store information
-       * pay info
-       */}
-      <Footer />
     </main>
   )
 }

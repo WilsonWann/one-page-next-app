@@ -7,6 +7,7 @@ import { navbarOpenAtom } from '@/atoms/routingAtoms'
 import { useAtom } from 'jotai'
 import Logo from './Logo'
 import CloseButton from './CloseButton'
+import { usePathname } from 'next/navigation'
 
 const wordColorAnimation = keyframes`
   0%{
@@ -124,22 +125,20 @@ const NavFooterCaption = styled.h2`
 `
 
 const Navbar = () => {
+  const pathname = usePathname()
+  console.log('🚀 ~ file: Navbar.tsx:129 ~ Navbar ~ pathname:', pathname)
   const [navbarOpen, toggleNavbar] = useAtom(navbarOpenAtom)
-
   useEffect(() => {
     document.body.style.overflow = navbarOpen ? 'hidden' : 'auto'
   }, [navbarOpen])
 
   return (
     <>
-      <NavbarBackdrop
-        className={navbarOpen ? 'active' : ''}
-        onClick={() => toggleNavbar(!navbarOpen)}
-      />
+      <NavbarBackdrop className={navbarOpen ? 'active' : ''} onClick={() => toggleNavbar(false)} />
       <NavbarWrapper className={navbarOpen ? 'active' : ''}>
         <NavHeader>
           <Logo />
-          <CloseButton onClick={() => toggleNavbar(!navbarOpen)} />
+          <CloseButton onClick={() => toggleNavbar(false)} />
         </NavHeader>
         <NavMenu>
           <NavAnimatedItem href={'/wilson'}>威爾森</NavAnimatedItem>

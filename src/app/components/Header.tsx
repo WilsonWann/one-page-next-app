@@ -32,14 +32,14 @@ const ButtonWrapper = styled.div`
 `
 
 const Header = () => {
-  const [navbarOpen, toggleNavbar] = useAtom(navbarOpenAtom)
+  const [, toggleNavbar] = useAtom(navbarOpenAtom)
   return (
     <HeaderWrapper>
       <Logo />
       <ButtonWrapper>
         <UserIcon />
         <CartIcon />
-        <RxHamburgerMenu size={22} onClick={() => toggleNavbar(!navbarOpen)} />
+        <RxHamburgerMenu size={22} onClick={() => toggleNavbar(true)} />
       </ButtonWrapper>
     </HeaderWrapper>
   )

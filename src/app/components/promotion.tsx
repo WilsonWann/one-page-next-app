@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import CloseButton from '../components/CloseButton'
+import CloseButton from './CloseButton'
 
 const Modal = styled.div`
   position: fixed;
