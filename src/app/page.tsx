@@ -6,6 +6,7 @@ import lalaport from './../assets/lalaport.jpg'
 import sansanyakiniku from './../assets/sansanyakiniku.png'
 import ImageBlock from './components/ImageBlock'
 import LiteYoutube from './components/LiteYoutube'
+import ShoppingArea from './components/ShoppingArea'
 export default function Home() {
   return (
     <main className='flex min-h-screen flex-col items-center justify-between'>
@@ -16,27 +17,22 @@ export default function Home() {
       />
 
       {/* images */}
-      <ImageBlock image={wilson} alt={'Wilson'} />
-      <ImageBlock image={gubami} alt={'牛肉麵'} />
-      <ImageBlock image={lalaport} alt={'拉拉寶都'} />
-      <ImageBlock image={sansanyakiniku} alt={'三三燒肉'} />
+      <ImageBlock customType={'default'} image={wilson} alt={'Wilson'} />
+      <ImageBlock customType={'default'} image={gubami} alt={'牛肉麵'} />
+      <ImageBlock customType={'default'} image={lalaport} alt={'拉拉寶都'} />
+      <ImageBlock customType={'default'} image={sansanyakiniku} alt={'三三燒肉'} />
 
       {/* marketing paragraph */}
       <div></div>
 
-      {/* tabs */}
-      <div>
-        {/* tab1 */}
-        {/* tab2 */}
-        {/* tab3 */}
-        {/* tab4 */}
-      </div>
+      <ShoppingArea />
 
       {/* cart items */}
       {/* check auth */}
       {/* if not logged in */}
       {/* not logged in block*/}
-      <div></div>
+      {/* //! test */}
+      <div style={{ position: 'relative', width: '300px', height: '300px' }}></div>
       {/* if logged in */}
       {/* logged in block*/}
       <div>

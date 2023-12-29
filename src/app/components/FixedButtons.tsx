@@ -5,7 +5,7 @@ import { HiArrowNarrowUp } from 'react-icons/hi'
 
 const ButtonWrapper = styled.div`
   position: fixed;
-  right: 1rem;
+  right: 0.6rem;
   bottom: 5rem;
   height: fit-content;
   width: fit-content;
@@ -37,6 +37,7 @@ const CircleButton = styled.div<CircleButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 3px 3px 3px rgba(0, 0, 0, 0.3);
 `
 const FixedButtons = () => {
   return (

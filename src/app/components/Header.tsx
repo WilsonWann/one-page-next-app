@@ -1,12 +1,12 @@
 import React from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
-import { LuUser2 } from 'react-icons/lu'
-import { IoCartOutline } from 'react-icons/io5'
 
 import styled from '@emotion/styled'
 import { useAtom } from 'jotai'
 import { navbarOpenAtom } from '@/atoms/routingAtoms'
 import Logo from './Logo'
+import CartIcon from './CartIcon'
+import UserIcon from './UserIcon'
 
 const HeaderWrapper = styled.div`
   position: fixed;
@@ -37,8 +37,8 @@ const Header = () => {
     <HeaderWrapper>
       <Logo />
       <ButtonWrapper>
-        <LuUser2 size={22} />
-        <IoCartOutline size={22} />
+        <UserIcon />
+        <CartIcon />
         <RxHamburgerMenu size={22} onClick={() => toggleNavbar(!navbarOpen)} />
       </ButtonWrapper>
     </HeaderWrapper>
