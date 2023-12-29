@@ -2,10 +2,16 @@ import Link from 'next/link'
 import React from 'react'
 import { IoLogoModelS } from 'react-icons/io'
 
-const Logo = () => {
+type Props = {
+  size?: number
+}
+
+const Logo = (props: Props) => {
+  const { size = 36 } = props
+
   return (
     <Link href={'/'}>
-      <IoLogoModelS size={36} />
+      <IoLogoModelS size={size} />
     </Link>
   )
 }

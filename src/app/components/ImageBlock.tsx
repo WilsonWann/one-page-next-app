@@ -19,38 +19,38 @@ type CustomHeightProps = {
   customType: 'height'
   customHeight: string
 }
-type ImageProps = {
+
+type ImageDefaultProps = {
+  customType: 'default'
   width: number
   height: number
-  customWidth?: string
-  customHeight?: string
 }
+
+type ImageProps = ImageDefaultProps | CustomWidthProps | CustomHeightProps
 
 const ImageDiv = styled.div<ImageProps>`
   position: relative;
+
   ${(props) =>
-    !props.customWidth &&
-    !props.customHeight &&
+    props.customType === 'default' &&
     `
       width: 100vw;
       height: calc((${props.height / props.width}) * 100vw);
     `}
 
   ${(props) =>
-    props.customHeight &&
+    props.customType === 'height' &&
     `
-      // width: calc((${props.width / props.height}) * ${props.customHeight});
       width: 100%;
       height: ${props.customHeight};
       overflow: hidden;
     `} 
     
      ${(props) =>
-    props.customWidth &&
+    props.customType === 'width' &&
     `
       width: ${props.customWidth};
-      height: 100%;
-      // height: calc((${props.height / props.width}) * ${props.customWidth});      
+      height: 100%;      
       overflow: hidden;
     `}
 `
@@ -60,7 +60,7 @@ const ImageBlock = (props: Props) => {
 
   if (customType === 'default') {
     return (
-      <ImageDiv width={image.width} height={image.height}>
+      <ImageDiv customType={customType} width={image.width} height={image.height}>
         <Image src={image} alt={alt} blurDataURL={image.blurDataURL} fill />
       </ImageDiv>
     )
@@ -68,7 +68,7 @@ const ImageBlock = (props: Props) => {
 
   if (customType === 'height') {
     return (
-      <ImageDiv width={image.width} height={image.height} customHeight={props.customHeight}>
+      <ImageDiv customType={customType} customHeight={props.customHeight}>
         <Image
           src={image}
           alt={alt}
@@ -81,7 +81,7 @@ const ImageBlock = (props: Props) => {
 
   if (customType === 'width') {
     return (
-      <ImageDiv width={image.width} height={image.height} customWidth={props.customWidth}>
+      <ImageDiv customType={customType} customWidth={props.customWidth}>
         <Image
           src={image}
           alt={alt}
