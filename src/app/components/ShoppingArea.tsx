@@ -16,6 +16,7 @@ import { TfiLayoutGrid2Alt, TfiLayoutGrid3Alt, TfiLayoutGrid4Alt } from 'react-i
 import { useAtom } from 'jotai'
 import { shoppingAreaDisplayColumnAtom } from '@/atoms/routingAtoms'
 import HorizontalLine from './HorizontalLine'
+import DisplayTitle from './DisplayTitle'
 
 const arr = [
   {
@@ -47,11 +48,6 @@ const arr = [
     alt: '麥當勞'
   }
 ]
-
-const DisplayTitle = styled.h2`
-  margin-top: 2rem;
-  font-size: x-large;
-`
 
 const DisplayControlPanel = styled.div`
   display: flex;
@@ -102,7 +98,7 @@ const ShoppingArea = (props: Props) => {
   const [columnNumber, setColumn] = useAtom(shoppingAreaDisplayColumnAtom)
   return (
     <>
-      <DisplayTitle>精選單品</DisplayTitle>
+      <DisplayTitle title={'精選單品'} />
       <DisplayControlPanel>
         <IoSquareSharp size={12} color={'#999'} onClick={() => setColumn(1)} />
         <TfiLayoutGrid2Alt size={12} color={'#999'} onClick={() => setColumn(2)} />

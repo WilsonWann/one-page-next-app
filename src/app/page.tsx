@@ -7,6 +7,8 @@ import sansanyakiniku from './../assets/sansanyakiniku.png'
 import ImageBlock from './components/ImageBlock'
 import LiteYoutube from './components/LiteYoutube'
 import ShoppingArea from './components/ShoppingArea'
+import MarketingBlock from './components/MarketingBlock'
+
 export default function Home() {
   return (
     <main className='flex min-h-screen flex-col items-center justify-between'>
@@ -23,7 +25,13 @@ export default function Home() {
       <ImageBlock customType={'default'} image={sansanyakiniku} alt={'三三燒肉'} />
 
       {/* marketing paragraph */}
-      <div></div>
+      <MarketingBlock
+        title={'優惠折扣'}
+        label={'優惠折扣'}
+        content={
+          ' ～ 🎄聖誕佳節滿800元超商免運費！滿1500元宅配免運,加入會員好處多~紅利點數可折抵現金喔!!'
+        }
+      />
 
       <ShoppingArea />
 
