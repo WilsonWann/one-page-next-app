@@ -9,8 +9,30 @@ import ImageBlock from './components/ImageBlock'
 import LiteYoutube from './components/LiteYoutube'
 import ShoppingArea from './components/ShoppingArea'
 import MarketingBlock from './components/MarketingBlock'
+import { useEffect } from 'react'
+import { useAtom } from 'jotai'
+import { getCartAtom, productModalOpenAtom, setSelectedIdAtom, shoppingListAtom } from '@/atoms'
+import { ShoppingItem } from '@/types'
+import ProductModal from './components/ProductModal'
+import Item from './components/Item'
+import CartItem from './components/CartItem'
 
 export default function Home() {
+  const [shoppingList, setShoppingList] = useAtom(shoppingListAtom)
+
+  const [modalOpen] = useAtom(productModalOpenAtom)
+  const [cartList] = useAtom(getCartAtom)
+
+  useEffect(() => {
+    function getData() {
+      fetch('/api/getServerData')
+        .then((res) => res.json())
+        .then((data: ShoppingItem[]) => setShoppingList(data))
+    }
+
+    getData()
+  }, [setShoppingList])
+
   return (
     <main className='flex min-h-screen flex-col items-center justify-between'>
       {/* react-lite-youtube video */}
@@ -31,13 +53,16 @@ export default function Home() {
           ' ～ 🎄聖誕佳節滿800元超商免運費！滿1500元宅配免運,加入會員好處多~紅利點數可折抵現金喔!!'
         }
       />
-      <ShoppingArea />
+      <ShoppingArea data={shoppingList} />
+      <ProductModal active={modalOpen} />
       {/* cart items */}
       {/* check auth */}
       {/* if not logged in */}
       {/* not logged in block*/}
       {/* //! test */}
-      <div style={{ position: 'relative', width: '300px', height: '300px' }}></div>
+      <div style={{ position: 'relative', width: '100vw', height: 'fit-content' }}>
+        {cartList.length > 0 && cartList.map((item, index) => <CartItem key={index} item={item} />)}
+      </div>
       {/* if logged in */}
       {/* logged in block*/}
       <div>

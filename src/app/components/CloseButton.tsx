@@ -3,8 +3,13 @@ import { IoClose } from 'react-icons/io5'
 import styled from '@emotion/styled'
 
 const CloseLabel = styled.label`
-  padding-left: 1.5rem;
-  margin-left: auto;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 
   &:hover svg {

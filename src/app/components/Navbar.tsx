@@ -3,11 +3,12 @@ import React, { useEffect } from 'react'
 import NavLink from './NavLink'
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/react'
-import { navbarOpenAtom } from '@/atoms/routingAtoms'
+import { navbarOpenAtom } from '@/atoms'
 import { useAtom } from 'jotai'
 import Logo from './Logo'
 import CloseButton from './CloseButton'
 import { usePathname } from 'next/navigation'
+import Backdrop from './Backdrop'
 
 const wordColorAnimation = keyframes`
   0%{
@@ -33,23 +34,14 @@ const activeWordColorAnimation = keyframes`
   }
 `
 
-const NavbarBackdrop = styled.div`
-  position: fixed;
-  top: 0;
-  height: 100vh;
-  left: -100vw;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: calc(99999 + 1);
+type NavbarWrapperProps = {
+  active: boolean
+}
 
-  &.active {
-    left: 0;
-  }
-`
-const NavbarWrapper = styled.nav`
+const NavbarWrapper = styled.nav<NavbarWrapperProps>`
   position: fixed;
   top: 0;
-  left: -76vw;
+  left: ${(props) => (props.active ? '0' : '-76vw')};
   background-color: white;
   height: 100vh;
   display: block;
@@ -60,9 +52,9 @@ const NavbarWrapper = styled.nav`
   display: flex;
   flex-direction: column;
 
-  &.active {
+  /* &.active {
     left: 0;
-  }
+  } */
 
   & p,
   & h2,
@@ -71,7 +63,7 @@ const NavbarWrapper = styled.nav`
   }
 `
 
-const NavHeader = styled.p`
+const NavHeader = styled.div`
   position: relative;
   height: 3rem;
   width: 100%;
@@ -123,22 +115,24 @@ const NavFooterCaption = styled.h2`
   line-height: 4rem;
   font-size: larger;
 `
+const CloseButtonWrapper = styled.div`
+  padding-left: 1.5rem;
+`
 
 const Navbar = () => {
   const pathname = usePathname()
-  console.log('🚀 ~ file: Navbar.tsx:129 ~ Navbar ~ pathname:', pathname)
+  // console.log('🚀 ~ file: Navbar.tsx:129 ~ Navbar ~ pathname:', pathname)
   const [navbarOpen, toggleNavbar] = useAtom(navbarOpenAtom)
-  useEffect(() => {
-    document.body.style.overflow = navbarOpen ? 'hidden' : 'auto'
-  }, [navbarOpen])
 
   return (
     <>
-      <NavbarBackdrop className={navbarOpen ? 'active' : ''} onClick={() => toggleNavbar(false)} />
-      <NavbarWrapper className={navbarOpen ? 'active' : ''}>
+      <Backdrop active={navbarOpen} onClick={() => toggleNavbar(false)} />
+      <NavbarWrapper active={navbarOpen}>
         <NavHeader>
           <Logo />
-          <CloseButton onClick={() => toggleNavbar(false)} />
+          <CloseButtonWrapper>
+            <CloseButton onClick={() => toggleNavbar(false)} />
+          </CloseButtonWrapper>
         </NavHeader>
         <NavMenu>
           <NavAnimatedItem href={'/wilson'}>威爾森</NavAnimatedItem>

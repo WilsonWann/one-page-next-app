@@ -3,7 +3,7 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 
 import styled from '@emotion/styled'
 import { useAtom } from 'jotai'
-import { navbarOpenAtom } from '@/atoms/routingAtoms'
+import { navbarOpenAtom } from '@/atoms'
 import Logo from './Logo'
 import CartIcon from './CartIcon'
 import UserIcon from './UserIcon'

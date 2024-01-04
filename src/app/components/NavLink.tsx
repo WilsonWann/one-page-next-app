@@ -2,7 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { navbarOpenAtom } from '@/atoms/routingAtoms'
+import { navbarOpenAtom } from '@/atoms'
 import { useAtom } from 'jotai'
 
 type Props = {

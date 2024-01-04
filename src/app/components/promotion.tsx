@@ -38,6 +38,10 @@ const ModalState = styled.input`
     top: -1rem;
   }
 `
+
+const CloseButtonWrapper = styled.div`
+  margin-left: 'auto';
+`
 type Props = {
   title: string
 }
@@ -49,7 +53,9 @@ const Promotion = (props: Props) => {
       <ModalState type='checkbox' id='modal' defaultChecked={true} />
       <Modal id='promotion-modal'>
         <ModalTitle>{title}</ModalTitle>
-        <CloseButton htmlFor={'modal'} />
+        <CloseButtonWrapper>
+          <CloseButton htmlFor={'modal'} />
+        </CloseButtonWrapper>
       </Modal>
     </>
   )

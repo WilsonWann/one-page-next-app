@@ -25,13 +25,18 @@ const CheckoutText = styled.div`
   line-height: 1rem;
   color: white;
 `
-type Props = {}
+type Props = {
+  showIcon?: boolean
+  iconText?: string
+  onClick: () => void
+}
 
 const AddToCartButton = (props: Props) => {
+  const { showIcon = true, iconText = '選購', onClick } = props
   return (
-    <CheckoutButton>
-      <CartIcon size={16} color={'white'} bold />
-      <CheckoutText>選購</CheckoutText>
+    <CheckoutButton onClick={onClick}>
+      {showIcon && <CartIcon size={16} color={'white'} bold />}
+      <CheckoutText>{iconText}</CheckoutText>
     </CheckoutButton>
   )
 }

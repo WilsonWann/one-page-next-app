@@ -1,12 +1,12 @@
 // pages/_app.tsx
-import { Provider } from 'jotai'
+import { Provider as JotaiProvider } from 'jotai'
 import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider>
+    <JotaiProvider>
       <Component {...pageProps} />
-    </Provider>
+    </JotaiProvider>
   )
 }
 
