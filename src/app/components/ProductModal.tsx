@@ -1,9 +1,15 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { ShoppingItem } from '@/types'
 import Backdrop from './Backdrop'
 import Item from './Item'
-import { selectedShoppingItemAtom, productModalOpenAtom, addToCartAtom } from '@/atoms'
+import {
+  productModalOpenAtom,
+  addToCartAtom,
+  upperBoundWarningAtom,
+  lowerBoundWarningAtom,
+  takeOnHandAtom,
+  productModalErrorAtom
+} from '@/atoms'
 import { useAtom } from 'jotai'
 import Counter from './Counter'
 import CloseButton from './CloseButton'
@@ -37,26 +43,29 @@ const CloseButtonWrapper = styled.div`
 `
 
 type Props = {
-  // item: ShoppingItem | null
   active: boolean
 }
 
 const ProductModal = (props: Props) => {
   const { active } = props
-  const [, setModalOpen] = useAtom(productModalOpenAtom)
-  const [selectedItem] = useAtom(selectedShoppingItemAtom)
-  const [, addToCart] = useAtom(addToCartAtom)
 
+  const [, setModalOpen] = useAtom(productModalOpenAtom)
+  const [takeOnHandItem] = useAtom(takeOnHandAtom)
+  console.log('🚀 ~ file: ProductModal.tsx:57 ~ ProductModal ~ takeOnHandItem:', takeOnHandItem)
+  const [, addToCart] = useAtom(addToCartAtom)
+  const [productModalError] = useAtom(productModalErrorAtom)
+
+  // const [upperBoundWarning] = useAtom(productModalWarningAtom)
   return (
     <>
       <Backdrop active={active} onClick={() => setModalOpen(false)} />
       <ItemSelector padding={'1rem'} active={active}>
-        {selectedItem && (
+        {takeOnHandItem && (
           <>
             <Item
-              item={selectedItem}
+              item={takeOnHandItem}
               align={'start'}
-              subtotal={<div style={{ whiteSpace: 'nowrap' }}>Hello WorldHello WorldHello</div>}
+              subtotal={<div style={{ whiteSpace: 'nowrap' }}>小計：{takeOnHandItem.subtotal}</div>}
               addToCartButton={
                 <AddToCartButton
                   showIcon={false}
@@ -68,7 +77,8 @@ const ProductModal = (props: Props) => {
               <CloseButtonWrapper>
                 <CloseButton onClick={() => setModalOpen(false)} />
               </CloseButtonWrapper>
-              <Counter />
+              <Counter count={takeOnHandItem.quantity} />
+              {productModalError.error && <p>{productModalError.error.errorMessage}</p>}
             </Item>
           </>
         )}

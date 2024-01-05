@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from '@emotion/styled'
-import { quantityAtom, dispatchAtom } from '@/atoms'
+import { counterAtom, dispatchAtom, lowerBoundWarningAtom, upperBoundWarningAtom } from '@/atoms'
 import { useAtom } from 'jotai'
 
 const CounterWrapper = styled.div`
@@ -37,25 +37,26 @@ const CounterWrapper = styled.div`
 `
 
 type Props = {
-  id?: number
-  count?: number
+  cartItemId?: number
+  count: number
 }
 
 const Counter = (props: Props) => {
-  const [atom] = useAtom(quantityAtom)
-  const { id = -1, count = atom } = props
+  // const [qCount] = useAtom(counterAtom)
+  const { cartItemId, count } = props
   const [, counter] = useAtom(dispatchAtom)
-
   return (
-    <CounterWrapper>
-      <button type='button' onClick={() => counter({ type: 'DEC', id })}>
-        -
-      </button>
-      <input type='number' readOnly={true} value={count} />
-      <button type='button' onClick={() => counter({ type: 'INC', id })}>
-        +
-      </button>
-    </CounterWrapper>
+    <>
+      <CounterWrapper>
+        <button type='button' onClick={() => counter('DEC', cartItemId)}>
+          -
+        </button>
+        <input type='number' readOnly={true} value={count} />
+        <button type='button' onClick={() => counter('INC', cartItemId)}>
+          +
+        </button>
+      </CounterWrapper>
+    </>
   )
 }
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from '@emotion/styled'
 import Item from './Item'
 import { CartItem } from '@/types'
@@ -6,7 +6,7 @@ import TrashIcon from './TrashIcon'
 import ImageBlock from './ImageBlock'
 import Counter from './Counter'
 import { useAtom } from 'jotai'
-import { removeCartAtom } from '@/atoms'
+import { removeCartAtom, quantityAtom } from '@/atoms'
 
 const CartWrapper = styled.div`
   position: relative;
@@ -57,7 +57,7 @@ const Price = styled.div`
   color: grey;
   text-decoration: line-through;
   text-decoration-color: grey;
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 1px;
 `
 
 const SpecialPrice = styled.div`
@@ -89,7 +89,11 @@ type Props = {
 
 const CartItem = (props: Props) => {
   const { item } = props
+  console.log('🚀 ~ file: CartItem.tsx:92 ~ CartItem ~ item:', item)
   const [, removeCart] = useAtom(removeCartAtom)
+  const [quantity, setQuantity] = useAtom(quantityAtom)
+  console.log('🚀 ~ file: CartItem.tsx:96 ~ CartItem ~ quantity:', quantity)
+
   return (
     <CartWrapper>
       <RemoveButtonWrapper>
@@ -104,7 +108,8 @@ const CartItem = (props: Props) => {
             NT$ {item.specialPrice} * <b>{item.quantity}</b>
           </SpecialPrice>
         </PriceWrapper>
-        <Counter id={item.id} count={item.quantity} />
+        <Counter cartItemId={item.id} count={item.quantity} />
+        {item.error && <p>{item.error.errorMessage}</p>}
       </div>
       <div>NT$ {item.subtotal}</div>
     </CartWrapper>

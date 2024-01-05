@@ -1,12 +1,47 @@
 import { atom } from 'jotai'
+import { updateCartAtom, updateTakeOnHandItemAtom } from '.'
 
-export const baseAtom = atom(1)
-export const quantityAtom = atom((get) => get(baseAtom)) // read only
-export const incAtom = atom(null, (_get, set) => {
-  set(baseAtom, (prev) => prev + 1 > 3 ? 3 : prev + 1)
+const baseAtom = atom(1)
+
+export const counterAtom = atom((get) => get(baseAtom))
+export const resetCounterAtom = atom(
+  null,
+  (_get, set) => set(baseAtom, 1)
+)
+export const incAtom = atom(null, (get, set) => {
+  set(baseAtom, (prev) => {
+    if (prev + 1 > 3) {
+      return 3
+    } else {
+      return prev + 1
+    }
+  })
 })
 export const decAtom = atom(null, (_get, set) => {
-  set(baseAtom, (prev) => prev - 1 < 1 ? 1 : prev - 1)
+  set(baseAtom, (prev) => {
+    if (prev - 1 < 1) {
+      return 1
+    } else {
+      return prev - 1
+    }
+  })
 })
 
-// continued from the previous code
+export const dispatchAtom = atom(
+  null,
+  (get, set, type: "INC" | "DEC", cartItemId?: number) => {
+    if (type === 'INC') {
+      set(incAtom)
+    } else if (type === 'DEC') {
+      set(decAtom)
+    } else {
+      throw new Error('unknown action')
+    }
+    if (!cartItemId) {
+      set(updateTakeOnHandItemAtom, type)
+      return
+    }
+
+    set(updateCartAtom, cartItemId, type)
+  }
+)

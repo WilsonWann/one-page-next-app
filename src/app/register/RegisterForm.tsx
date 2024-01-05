@@ -17,7 +17,6 @@ const RegisterForm = (props: Props) => {
     handleSubmit,
     formState: { errors }
   } = useForm()
-  console.log('🚀 ~ file: registerForm.tsx:19 ~ RegisterForm ~ errors:', errors)
 
   return (
     <form style={{ width: '100%' }} onSubmit={handleSubmit((data) => console.log(data))}>

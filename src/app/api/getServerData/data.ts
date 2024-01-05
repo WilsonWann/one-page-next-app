@@ -16,7 +16,8 @@ export const shoppingList: ShoppingItem[] = [
     subtitle: '送禮首選～原價1860，特價1500，限時春節早鳥優惠再9.5折',
     content: '精緻金排球*1顆\n禮盒*1盒\n沒用氣泡紙*10堆',
     price: 1860,
-    specialPrice: 1500
+    specialPrice: 1500,
+    maxQuantity: 2
   },
   {
     id: 1,
@@ -26,7 +27,8 @@ export const shoppingList: ShoppingItem[] = [
     subtitle: '送禮首選～原價19900，特價100，限時春節早鳥優惠再10折',
     content: '過期牛肉麵*2組\n禮盒*1盒\n衛生筷*10雙',
     price: 19900,
-    specialPrice: 100
+    specialPrice: 100,
+    maxQuantity: 1
   },
   {
     id: 2,
@@ -56,7 +58,8 @@ export const shoppingList: ShoppingItem[] = [
     subtitle: '熱銷NO.1',
     content: '一入270g\n一組4罐\n辣度:中辣',
     price: 1000,
-    specialPrice: 800
+    specialPrice: 800,
+    maxQuantity: 5
   },
   {
     id: 5,
@@ -66,7 +69,8 @@ export const shoppingList: ShoppingItem[] = [
     subtitle: '新春限定優惠組合',
     content: '港式臘味干貝XO醬*2瓶\n皮卡丘*2隻',
     price: 1860,
-    specialPrice: 1500
+    specialPrice: 1500,
+    maxQuantity: 10
   },
   {
     id: 6,

@@ -2,19 +2,13 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 import { IoSquareSharp } from 'react-icons/io5'
-import { TfiLayoutGrid2Alt, TfiLayoutGrid3Alt, TfiLayoutGrid4Alt } from 'react-icons/tfi'
+import { TfiLayoutGrid2Alt, TfiLayoutGrid3Alt } from 'react-icons/tfi'
 import { useAtom } from 'jotai'
-import {
-  productModalOpenAtom,
-  shoppingAreaDisplayColumnAtom,
-  selectedShoppingItemAtom,
-  setSelectedIdAtom
-} from '@/atoms'
+import { shoppingAreaDisplayColumnAtom } from '@/atoms'
 import HorizontalLine from './HorizontalLine'
 import DisplayTitle from './DisplayTitle'
 import CardItem from './CardItem'
 import { ShoppingItem } from '@/types'
-import ProductModal from './ProductModal'
 
 const DisplayControlPanel = styled.div`
   display: flex;
@@ -51,8 +45,6 @@ type Props = {
 const ShoppingArea = (props: Props) => {
   const { data } = props
   const [columnNumber, setColumn] = useAtom(shoppingAreaDisplayColumnAtom)
-  const [modalOpen] = useAtom(productModalOpenAtom)
-  const [, setItemId] = useAtom(setSelectedIdAtom)
   return (
     <>
       <DisplayTitle title={'精選單品'} />

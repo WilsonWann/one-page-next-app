@@ -8,11 +8,7 @@ type Props = {
 
 const CardItem = (props: Props) => {
   const { item } = props
-  return (
-    <>
-      <Item item={item} />
-    </>
-  )
+  return <Item item={item} />
 }
 
 export default CardItem

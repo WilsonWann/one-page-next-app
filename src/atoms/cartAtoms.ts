@@ -1,84 +1,111 @@
 import { atom } from 'jotai'
-import { CartItem, ProductModalType, ShoppingItem } from '@/types'
-import { countAtom } from '.'
-import { baseAtom, decAtom, incAtom, quantityAtom } from './counterAtoms'
+import { CartItem, ErrorProps, TakeOnHandItem } from '@/types'
+import { takeOnHandAtom, productModalOpenAtom, resetCounterAtom, resetTakeOnHandItemIdAtom } from '.'
 
-const updateCart = (cartItems: CartItem[], id: number, quantity: number): CartItem[] => {
-  return cartItems.map(item => ({
-    ...item,
-    quantity: item.id === id ? quantity : item.quantity,
-    subtotal: item.id === id ? item.specialPrice * quantity : item.subtotal
-  }))
+
+const setCartItemError = (cartItem: CartItem, isError: boolean, limit?: number, error?: ErrorProps) => {
+  console.log("🚀 ~ file: counterAtoms.ts:20 ~ setCartItemError ~ cartItem:", cartItem)
+  if (isError === true) {
+    switch (error?.errorType) {
+      case 'upperBound': {
+        cartItem.error = {
+          errorType: 'upperBound',
+          errorMessage: `最高為：${limit}`
+        }
+      } break;
+      case 'lowerBound': {
+        cartItem.error = {
+          errorType: 'lowerBound',
+          errorMessage: '最低為：1'
+        }
+      } break;
+
+      default:
+        throw new Error('unknown errorType')
+    }
+  } else {
+    if (cartItem.error) {
+      cartItem.error = undefined
+    }
+  }
+}
+
+const getCartItemAvailableQuantity = (cartItem: CartItem, type: "INC" | "DEC"): number => {
+  const quantity = type === 'INC' ? cartItem.quantity + 1 : cartItem.quantity - 1
+  const maxQuantity = cartItem.maxQuantity ?? 3
+  if (quantity < 1) {
+    setCartItemError(cartItem, true, 1, { errorType: 'lowerBound' })
+    return 1
+  } else if (quantity > maxQuantity) {
+    setCartItemError(cartItem, true, maxQuantity, { errorType: 'upperBound' })
+    return maxQuantity
+  } else {
+    setCartItemError(cartItem, false)
+    return quantity
+  }
+}
+
+export const updateCart = (cartItems: CartItem[], id: number, type: "INC" | "DEC"): CartItem[] => {
+  const selectedIndex = cartItems.findIndex(item => item.id === id)
+  if (selectedIndex === -1) return cartItems
+
+  const selectedItem = cartItems.at(selectedIndex)!
+  const quantity = getCartItemAvailableQuantity(selectedItem, type)
+  const subtotal = selectedItem.specialPrice * quantity
+  const newItem = {
+    ...selectedItem,
+    quantity,
+    subtotal
+  } satisfies CartItem
+  return cartItems.toSpliced(selectedIndex, 1, newItem)
 }
 const removeCart = (cartItems: CartItem[], id: number): CartItem[] => {
   return cartItems.filter(item => item.id !== id)
 }
-const addToCart = (cartItems: CartItem[], item: ShoppingItem, quantity: number): CartItem[] => {
+const addToCart = (cartItems: CartItem[], onHandItem: TakeOnHandItem): CartItem[] => {
+  if (!onHandItem) return cartItems
+  if (cartItems.some(cartItem => cartItem.id === onHandItem.id)) {
+    const selectedItem = cartItems.find(cartItem => cartItem.id === onHandItem.id)!
+    return [
+      ...cartItems.filter(cartItem => cartItem.id !== onHandItem.id),
+      {
+        ...selectedItem,
+        quantity: selectedItem.quantity + onHandItem.quantity,
+        subtotal: selectedItem.subtotal * (selectedItem.specialPrice * onHandItem.quantity)
+      }
+    ]
+  }
   return [
     ...cartItems,
     {
-      ...item,
-      quantity,
-      subtotal: item.specialPrice * quantity
+      ...onHandItem,
     }
   ]
 }
 
-const getSelectedShoppingItem = (shoppingList: ShoppingItem[], id: number) => {
-  return shoppingList.filter(item => item.id === id)[0]
-}
-
-const selectedIdAtom = atom<number>(-1)
-export const productModalOpenAtom = atom<boolean>(false)
-
-export const setSelectedIdAtom = atom(
-  null,
-  (get, set, id: number) => {
-    set(selectedIdAtom, id)
-    set(productModalOpenAtom, true)
-  }
-)
-
-
 const cartListAtom = atom<CartItem[]>([])
-console.log("🚀 ~ file: cartAtoms.ts:47 ~ cartListAtom:", cartListAtom)
-export const shoppingListAtom = atom<ShoppingItem[]>([])
-export const selectedShoppingItemAtom = atom(get =>
-  getSelectedShoppingItem(get(shoppingListAtom), get(selectedIdAtom))
-)
+export const getCartListAtom = atom(get => get(cartListAtom))
 
-export const getCartAtom = atom(get => get(cartListAtom))
 export const addToCartAtom = atom(
   null,
   (get, set) => {
-    set(cartListAtom, addToCart(get(cartListAtom), get(selectedShoppingItemAtom), get(baseAtom)))
-    set(baseAtom, 1)
-    set(selectedIdAtom, -1)
+    set(cartListAtom, addToCart(get(getCartListAtom), get(takeOnHandAtom)))
+    set(resetCounterAtom)
+    set(resetTakeOnHandItemIdAtom)
     set(productModalOpenAtom, false)
   }
 )
-// const updateCartAtom = atom()
+
 export const removeCartAtom = atom(
   null,
   (get, set, id: number) => {
-    set(cartListAtom, removeCart(get(cartListAtom), id))
+    set(cartListAtom, removeCart(get(getCartListAtom), id))
   }
 )
 
-export const dispatchAtom = atom(
+export const updateCartAtom = atom(
   null,
-  (get, set, { type, id }: { type: string, id: number }) => {
-    switch (type) {
-      case 'INC': {
-        set(incAtom)
-        set(cartListAtom, updateCart(get(cartListAtom), id, get(quantityAtom)))
-      } break;
-      case 'DEC': {
-        set(decAtom)
-        set(cartListAtom, updateCart(get(cartListAtom), id, get(quantityAtom)))
-      } break;
-      default:
-        throw new Error('unknown action')
-    }
+  (get, set, id: number, type: "INC" | "DEC") => {
+    set(cartListAtom, updateCart(get(getCartListAtom), id, type))
   }
 )

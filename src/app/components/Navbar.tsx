@@ -121,7 +121,6 @@ const CloseButtonWrapper = styled.div`
 
 const Navbar = () => {
   const pathname = usePathname()
-  // console.log('🚀 ~ file: Navbar.tsx:129 ~ Navbar ~ pathname:', pathname)
   const [navbarOpen, toggleNavbar] = useAtom(navbarOpenAtom)
 
   return (

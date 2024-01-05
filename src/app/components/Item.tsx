@@ -3,9 +3,8 @@ import styled from '@emotion/styled'
 import ImageBlock from './ImageBlock'
 import { ShoppingItem } from '@/types'
 import { useAtom } from 'jotai'
-import { shoppingAreaDisplayColumnAtom } from '@/atoms'
+import { shoppingAreaDisplayColumnAtom, setTakeOnHandItemIdAtom } from '@/atoms'
 import AddToCartButton from './AddToCartButton'
-import { setSelectedIdAtom } from '@/atoms/cartAtoms'
 
 type ItemWrapperProps = {
   align: string
@@ -87,7 +86,7 @@ type Props = {
 
 const Item = (props: Props) => {
   const [columnNumber] = useAtom(shoppingAreaDisplayColumnAtom)
-  const [, setItemId] = useAtom(setSelectedIdAtom)
+  const [, setItemId] = useAtom(setTakeOnHandItemIdAtom)
   const {
     item,
     align = 'center',

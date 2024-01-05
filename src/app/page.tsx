@@ -11,7 +11,7 @@ import ShoppingArea from './components/ShoppingArea'
 import MarketingBlock from './components/MarketingBlock'
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
-import { getCartAtom, productModalOpenAtom, setSelectedIdAtom, shoppingListAtom } from '@/atoms'
+import { getCartListAtom, productModalOpenAtom, shoppingListAtom } from '@/atoms'
 import { ShoppingItem } from '@/types'
 import ProductModal from './components/ProductModal'
 import Item from './components/Item'
@@ -21,7 +21,8 @@ export default function Home() {
   const [shoppingList, setShoppingList] = useAtom(shoppingListAtom)
 
   const [modalOpen] = useAtom(productModalOpenAtom)
-  const [cartList] = useAtom(getCartAtom)
+  const [cartList] = useAtom(getCartListAtom)
+  console.log('🚀 ~ file: page.tsx:25 ~ Home ~ cartList:', cartList)
 
   useEffect(() => {
     function getData() {
