@@ -58,21 +58,16 @@ export default function Home() {
       />
       <ShoppingArea data={shoppingList} />
       <ProductModal active={modalOpen} />
-      {/* cart items */}
-      {/* check auth */}
-      {/* if not logged in */}
-      {/* not logged in block*/}
+
       <CartList cartList={cartList} />
       <CartDiscount />
       <CartSubtotal />
+      {/* check auth */}
+      {/* if not logged in */}
+      {/* not logged in block*/}
       {/* if logged in */}
       {/* logged in block*/}
-      <div>
-        {/* cart item1 */}
-        {/* cart item2 */}
-        {/* cart item3 */}
-        {/* cart item4 */}
-      </div>
+
       {/* discount reminder */}
       <div>
         {/* button: take discount */}

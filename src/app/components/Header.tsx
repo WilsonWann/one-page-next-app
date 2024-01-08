@@ -3,7 +3,7 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 
 import styled from '@emotion/styled'
 import { useAtom } from 'jotai'
-import { navbarOpenAtom } from '@/atoms'
+import { getCartItemQuantityAtom, navbarOpenAtom } from '@/atoms'
 import Logo from './Logo'
 import CartIcon from './CartIcon'
 import UserIcon from './UserIcon'
@@ -33,12 +33,13 @@ const ButtonWrapper = styled.div`
 
 const Header = () => {
   const [, toggleNavbar] = useAtom(navbarOpenAtom)
+  const [cartItemQuantity] = useAtom(getCartItemQuantityAtom)
   return (
     <HeaderWrapper>
       <Logo />
       <ButtonWrapper>
-        <UserIcon />
-        <CartIcon />
+        <UserIcon type='default' />
+        <CartIcon itemNumber={cartItemQuantity} />
         <RxHamburgerMenu size={22} onClick={() => toggleNavbar(true)} />
       </ButtonWrapper>
     </HeaderWrapper>

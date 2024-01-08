@@ -100,6 +100,7 @@ const resetCartErrorModalAtom = atom(
     set(cartErrorModalAtom, {})
   }
 )
+export const getCartItemQuantityAtom = atom(get => get(getCartListAtom).reduce((acc, curr) => acc + curr.quantity, 0))
 export const getCartListSubtotalAtom = atom(get => get(getCartListAtom).reduce((acc, curr) => acc + curr.subtotal, 0))
 export const getCartDiscountAtom = atom(get => get(cartDiscountAtom))
 
