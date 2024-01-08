@@ -15,14 +15,16 @@ import { getCartListAtom, productModalOpenAtom, shoppingListAtom } from '@/atoms
 import { ShoppingItem } from '@/types'
 import ProductModal from './components/ProductModal'
 import Item from './components/Item'
-import CartItem from './components/CartItem'
+import CartListItem from './components/CartListItem'
+import CartList from './components/CartList'
+import CartSubtotal from './components/CartSubtotal'
+import CartDiscount from './components/CartDiscount'
 
 export default function Home() {
   const [shoppingList, setShoppingList] = useAtom(shoppingListAtom)
 
   const [modalOpen] = useAtom(productModalOpenAtom)
   const [cartList] = useAtom(getCartListAtom)
-  console.log('🚀 ~ file: page.tsx:25 ~ Home ~ cartList:', cartList)
 
   useEffect(() => {
     function getData() {
@@ -60,10 +62,9 @@ export default function Home() {
       {/* check auth */}
       {/* if not logged in */}
       {/* not logged in block*/}
-      {/* //! test */}
-      <div style={{ position: 'relative', width: '100vw', height: 'fit-content' }}>
-        {cartList.length > 0 && cartList.map((item, index) => <CartItem key={index} item={item} />)}
-      </div>
+      <CartList cartList={cartList} />
+      <CartDiscount />
+      <CartSubtotal />
       {/* if logged in */}
       {/* logged in block*/}
       <div>

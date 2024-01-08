@@ -1,10 +1,11 @@
 'use client'
 import React from 'react'
 import styled from '@emotion/styled'
-import usePreventScroll from '../hook/usePreventScroll'
 
 type BackDropProps = {
   active: boolean
+  backgroundColor: string
+  zIndex: number
 }
 
 const BackdropDiv = styled.div<BackDropProps>`
@@ -13,19 +14,32 @@ const BackdropDiv = styled.div<BackDropProps>`
   height: 100vh;
   left: ${(props) => (props.active ? '0' : '-100vw')};
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: calc(99999 + 1);
+  background-color: ${(props) => props.backgroundColor};
+  z-index: ${(props) => props.zIndex};
 `
 
 type Props = {
   active: boolean
-  onClick: () => void
+  onClick?: () => void
+  backgroundColor?: string
+  zIndex?: number
 }
 
 const Backdrop = (props: Props) => {
-  const { active, onClick } = props
-  usePreventScroll({ active })
-  return <BackdropDiv active={active} onClick={onClick} />
+  const {
+    active,
+    onClick = () => {},
+    backgroundColor = 'rgba(0, 0, 0, 0.8)',
+    zIndex = 10000
+  } = props
+  return (
+    <BackdropDiv
+      active={active}
+      onClick={onClick}
+      backgroundColor={backgroundColor}
+      zIndex={zIndex}
+    />
+  )
 }
 
 export default Backdrop

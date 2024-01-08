@@ -23,6 +23,7 @@ type Props = {
 
 const CloseButton = (props: Props) => {
   const { htmlFor = '', onClick = () => {} } = props
+
   return (
     <CloseLabel htmlFor={htmlFor} onClick={onClick}>
       <IoClose size={20} />

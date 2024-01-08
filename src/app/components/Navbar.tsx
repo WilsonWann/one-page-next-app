@@ -9,6 +9,7 @@ import Logo from './Logo'
 import CloseButton from './CloseButton'
 import { usePathname } from 'next/navigation'
 import Backdrop from './Backdrop'
+import usePreventScroll from '../hook/usePreventScroll'
 
 const wordColorAnimation = keyframes`
   0%{
@@ -123,6 +124,7 @@ const Navbar = () => {
   const pathname = usePathname()
   const [navbarOpen, toggleNavbar] = useAtom(navbarOpenAtom)
 
+  usePreventScroll({ active: navbarOpen })
   return (
     <>
       <Backdrop active={navbarOpen} onClick={() => toggleNavbar(false)} />

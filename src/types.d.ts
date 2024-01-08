@@ -17,23 +17,25 @@ type OrderProps = {
 }
 type QuantityProps = {
   quantity: number
-  subtotal?: number
+  subtotal: number
 }
 
 type UpperErrorProps = {
   errorType: 'upperBound',
-  errorMessage?: string
+  errorMessage: string
 }
 
 type LowerErrorProps = {
   errorType: 'lowerBound',
-  errorMessage?: string
+  errorMessage: string
 }
 
 type ProductErrorProps = { error?: ErrorProps }
 
 type ErrorProps = UpperErrorProps | LowerErrorProps
 
-type TakeOnHandItem = (ShoppingItem & QuantityProps) | undefined
+type TakeOnHandItem = (ShoppingItem & QuantityProps)
 
 type CartItem = ShoppingItem & QuantityProps & { error?: ErrorProps }
+
+type CartErrorProps = ProductErrorProps

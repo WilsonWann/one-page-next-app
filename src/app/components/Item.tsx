@@ -5,6 +5,7 @@ import { ShoppingItem } from '@/types'
 import { useAtom } from 'jotai'
 import { shoppingAreaDisplayColumnAtom, setTakeOnHandItemIdAtom } from '@/atoms'
 import AddToCartButton from './AddToCartButton'
+import numberFormat from '@/helper/NumberFormat'
 
 type ItemWrapperProps = {
   align: string
@@ -108,8 +109,8 @@ const Item = (props: Props) => {
         <small>{item.subtitle}</small>
       </ItemTitle>
       <PriceWrapper>
-        <Price>原價：{item.price}</Price>
-        <SpecialPrice>現在特價只要{item.specialPrice}元</SpecialPrice>
+        <Price>原價：{numberFormat(item.price)}</Price>
+        <SpecialPrice>現在特價只要{numberFormat(item.specialPrice)}元</SpecialPrice>
       </PriceWrapper>
       {children}
       <Content>{item.content}</Content>

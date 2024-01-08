@@ -5,15 +5,17 @@ import Item from './Item'
 import {
   productModalOpenAtom,
   addToCartAtom,
-  upperBoundWarningAtom,
-  lowerBoundWarningAtom,
   takeOnHandAtom,
-  productModalErrorAtom
+  productModalErrorAtom,
+  cartErrorModalAtom
 } from '@/atoms'
 import { useAtom } from 'jotai'
 import Counter from './Counter'
 import CloseButton from './CloseButton'
 import AddToCartButton from './AddToCartButton'
+import CartErrorModal from './CartErrorModal'
+import usePreventScroll from '../hook/usePreventScroll'
+import numberFormat from '@/helper/NumberFormat'
 
 type ItemSelectorProps = {
   active: boolean
@@ -51,11 +53,11 @@ const ProductModal = (props: Props) => {
 
   const [, setModalOpen] = useAtom(productModalOpenAtom)
   const [takeOnHandItem] = useAtom(takeOnHandAtom)
-  console.log('🚀 ~ file: ProductModal.tsx:57 ~ ProductModal ~ takeOnHandItem:', takeOnHandItem)
   const [, addToCart] = useAtom(addToCartAtom)
   const [productModalError] = useAtom(productModalErrorAtom)
+  const [cartModalError] = useAtom(cartErrorModalAtom)
 
-  // const [upperBoundWarning] = useAtom(productModalWarningAtom)
+  usePreventScroll({ active: !!cartModalError.error?.errorMessage })
   return (
     <>
       <Backdrop active={active} onClick={() => setModalOpen(false)} />
@@ -65,7 +67,11 @@ const ProductModal = (props: Props) => {
             <Item
               item={takeOnHandItem}
               align={'start'}
-              subtotal={<div style={{ whiteSpace: 'nowrap' }}>小計：{takeOnHandItem.subtotal}</div>}
+              subtotal={
+                <div style={{ whiteSpace: 'nowrap' }}>
+                  小計：{numberFormat(takeOnHandItem.subtotal)}
+                </div>
+              }
               addToCartButton={
                 <AddToCartButton
                   showIcon={false}
@@ -83,6 +89,7 @@ const ProductModal = (props: Props) => {
           </>
         )}
       </ItemSelector>
+      {cartModalError.error && <CartErrorModal errorMessage={cartModalError.error.errorMessage} />}
     </>
   )
 }

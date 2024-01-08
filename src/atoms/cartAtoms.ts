@@ -1,7 +1,6 @@
 import { atom } from 'jotai'
-import { CartItem, ErrorProps, TakeOnHandItem } from '@/types'
-import { takeOnHandAtom, productModalOpenAtom, resetCounterAtom, resetTakeOnHandItemIdAtom } from '.'
-
+import { CartErrorProps, CartItem, ErrorProps, TakeOnHandItem } from '@/types'
+import { takeOnHandAtom, productModalOpenAtom, resetCounterAtom, resetTakeOnHandItemIdAtom, resetProductModalErrorAtom } from '.'
 
 const setCartItemError = (cartItem: CartItem, isError: boolean, limit?: number, error?: ErrorProps) => {
   console.log("🚀 ~ file: counterAtoms.ts:20 ~ setCartItemError ~ cartItem:", cartItem)
@@ -62,7 +61,7 @@ export const updateCart = (cartItems: CartItem[], id: number, type: "INC" | "DEC
 const removeCart = (cartItems: CartItem[], id: number): CartItem[] => {
   return cartItems.filter(item => item.id !== id)
 }
-const addToCart = (cartItems: CartItem[], onHandItem: TakeOnHandItem): CartItem[] => {
+const addToCart = (cartItems: CartItem[], onHandItem: TakeOnHandItem | undefined): CartItem[] => {
   if (!onHandItem) return cartItems
   if (cartItems.some(cartItem => cartItem.id === onHandItem.id)) {
     const selectedItem = cartItems.find(cartItem => cartItem.id === onHandItem.id)!
@@ -83,16 +82,53 @@ const addToCart = (cartItems: CartItem[], onHandItem: TakeOnHandItem): CartItem[
   ]
 }
 
+const countCartAndOnHand = (cartItems: CartItem[], onHandItem: TakeOnHandItem | undefined): number => {
+  // no onHandItem
+  if (!onHandItem) return cartItems.reduce((acc, curr) => acc + curr.quantity, 0)
+
+  return cartItems.reduce((acc, curr) => acc + curr.quantity, 0) + onHandItem.quantity
+
+}
+
+const cartMaxLimitAtom = atom<number>(5)
+const cartDiscountAtom = atom<number>(2000)
+
+export const cartErrorModalAtom = atom<CartErrorProps>({})
+const resetCartErrorModalAtom = atom(
+  null,
+  (_get, set) => {
+    set(cartErrorModalAtom, {})
+  }
+)
+export const getCartListSubtotalAtom = atom(get => get(getCartListAtom).reduce((acc, curr) => acc + curr.subtotal, 0))
+export const getCartDiscountAtom = atom(get => get(cartDiscountAtom))
+
 const cartListAtom = atom<CartItem[]>([])
 export const getCartListAtom = atom(get => get(cartListAtom))
 
 export const addToCartAtom = atom(
   null,
   (get, set) => {
+    const total = countCartAndOnHand(get(getCartListAtom), get(takeOnHandAtom))
+    if (total > get(cartMaxLimitAtom)) {
+      set(cartErrorModalAtom, {
+        error: {
+          errorType: 'upperBound',
+          errorMessage: `一般商品最多只能購買${get(cartMaxLimitAtom)}件`
+        }
+      })
+      setTimeout(() => {
+        set(resetCartErrorModalAtom)
+      }, 2000)
+      return
+    }
+
+    set(resetCartErrorModalAtom)
     set(cartListAtom, addToCart(get(getCartListAtom), get(takeOnHandAtom)))
     set(resetCounterAtom)
     set(resetTakeOnHandItemIdAtom)
     set(productModalOpenAtom, false)
+    set(resetProductModalErrorAtom)
   }
 )
 
@@ -106,6 +142,24 @@ export const removeCartAtom = atom(
 export const updateCartAtom = atom(
   null,
   (get, set, id: number, type: "INC" | "DEC") => {
+
     set(cartListAtom, updateCart(get(getCartListAtom), id, type))
+    const total = countCartAndOnHand(get(getCartListAtom), undefined)
+    if (total > get(cartMaxLimitAtom)) {
+      set(cartErrorModalAtom, {
+        error: {
+          errorType: 'upperBound',
+          errorMessage: `一般商品最多只能購買${get(cartMaxLimitAtom)}件`
+        }
+      })
+      setTimeout(() => {
+        set(cartListAtom, updateCart(get(getCartListAtom), id, type === 'INC' ? 'DEC' : 'INC'))
+        set(resetCartErrorModalAtom)
+      }, 2000)
+      return
+    }
+
+    set(resetCartErrorModalAtom)
+
   }
 )

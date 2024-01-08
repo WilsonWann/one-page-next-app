@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
-import { counterAtom, dispatchAtom, lowerBoundWarningAtom, upperBoundWarningAtom } from '@/atoms'
+import { dispatchAtom } from '@/atoms'
 import { useAtom } from 'jotai'
 
 const CounterWrapper = styled.div`
@@ -18,7 +18,6 @@ const CounterWrapper = styled.div`
     justify-content: inherit;
     align-items: inherit;
     height: 2rem;
-    /* line-height: 2rem; */
     padding: 0;
     margin: 0;
     box-sizing: content-box;
@@ -32,7 +31,6 @@ const CounterWrapper = styled.div`
   & input {
     width: 3rem;
     text-align: center;
-    /* flex: 2 1 0; */
   }
 `
 
@@ -42,7 +40,6 @@ type Props = {
 }
 
 const Counter = (props: Props) => {
-  // const [qCount] = useAtom(counterAtom)
   const { cartItemId, count } = props
   const [, counter] = useAtom(dispatchAtom)
   return (

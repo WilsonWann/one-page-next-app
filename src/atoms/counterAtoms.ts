@@ -37,11 +37,14 @@ export const dispatchAtom = atom(
     } else {
       throw new Error('unknown action')
     }
-    if (!cartItemId) {
+
+    //* takeOnHand item selected
+    if (cartItemId === undefined) {
       set(updateTakeOnHandItemAtom, type)
       return
     }
 
+    //* cart item selected
     set(updateCartAtom, cartItemId, type)
   }
 )

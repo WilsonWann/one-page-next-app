@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
-import Item from './Item'
-import { CartItem } from '@/types'
+import { CartItem as CartListItem } from '@/types'
 import TrashIcon from './TrashIcon'
 import ImageBlock from './ImageBlock'
 import Counter from './Counter'
 import { useAtom } from 'jotai'
-import { removeCartAtom, quantityAtom } from '@/atoms'
+import { removeCartAtom } from '@/atoms'
+import numberFormat from '@/helper/NumberFormat'
 
 const CartWrapper = styled.div`
   position: relative;
@@ -19,12 +19,10 @@ const CartWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* text-align: ${(props) => props.align}; */
-  /* gap: 0.5rem; */
 
   border-bottom: 1px solid rgba(87, 90, 93, 1);
 
-  & > *:first-of-type {
+  &:first-of-type {
     border-top: 1px solid rgba(87, 90, 93, 1);
   }
 `
@@ -68,31 +66,13 @@ const SpecialPrice = styled.div`
   }
 `
 
-const Content = styled.small`
-  color: grey;
-  white-space: pre-wrap;
-  text-align: inherit;
-`
-
-const CartFooter = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-`
-
 type Props = {
-  item: CartItem
+  item: CartListItem
 }
 
-const CartItem = (props: Props) => {
+const CartListItem = (props: Props) => {
   const { item } = props
-  console.log('🚀 ~ file: CartItem.tsx:92 ~ CartItem ~ item:', item)
   const [, removeCart] = useAtom(removeCartAtom)
-  const [quantity, setQuantity] = useAtom(quantityAtom)
-  console.log('🚀 ~ file: CartItem.tsx:96 ~ CartItem ~ quantity:', quantity)
 
   return (
     <CartWrapper>
@@ -103,17 +83,17 @@ const CartItem = (props: Props) => {
       <div>
         <CartTitle>{item.title}</CartTitle>
         <PriceWrapper>
-          <Price>NT$ {item.price}</Price>
+          <Price>{numberFormat(item.price)}</Price>
           <SpecialPrice>
-            NT$ {item.specialPrice} * <b>{item.quantity}</b>
+            {numberFormat(item.specialPrice)} * <b>{item.quantity}</b>
           </SpecialPrice>
         </PriceWrapper>
         <Counter cartItemId={item.id} count={item.quantity} />
         {item.error && <p>{item.error.errorMessage}</p>}
       </div>
-      <div>NT$ {item.subtotal}</div>
+      <div>{numberFormat(item.subtotal)}</div>
     </CartWrapper>
   )
 }
 
-export default CartItem
+export default CartListItem
