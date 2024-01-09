@@ -15,7 +15,7 @@ import CloseButton from './CloseButton'
 import AddToCartButton from './AddToCartButton'
 import CartErrorModal from './CartErrorModal'
 import usePreventScroll from '../hook/usePreventScroll'
-import numberFormat from '@/helper/NumberFormat'
+import numberFormat from '@/helper/numberFormat'
 
 type ItemSelectorProps = {
   active: boolean
@@ -44,6 +44,9 @@ const CloseButtonWrapper = styled.div`
   background-color: white;
 `
 
+const ErrorMessage = styled.p`
+  color: red;
+`
 type Props = {
   active: boolean
 }
@@ -55,6 +58,10 @@ const ProductModal = (props: Props) => {
   const [takeOnHandItem] = useAtom(takeOnHandAtom)
   const [, addToCart] = useAtom(addToCartAtom)
   const [productModalError] = useAtom(productModalErrorAtom)
+  console.log(
+    '🚀 ~ file: ProductModal.tsx:61 ~ ProductModal ~ productModalError:',
+    productModalError
+  )
   const [cartModalError] = useAtom(cartErrorModalAtom)
 
   usePreventScroll({ active: !!cartModalError.error?.errorMessage })
@@ -67,6 +74,7 @@ const ProductModal = (props: Props) => {
             <Item
               item={takeOnHandItem}
               align={'start'}
+              padding={'1rem'}
               subtotal={
                 <div style={{ whiteSpace: 'nowrap' }}>
                   小計：{numberFormat(takeOnHandItem.subtotal)}
@@ -84,7 +92,9 @@ const ProductModal = (props: Props) => {
                 <CloseButton onClick={() => setModalOpen(false)} />
               </CloseButtonWrapper>
               <Counter count={takeOnHandItem.quantity} />
-              {productModalError.error && <p>{productModalError.error.errorMessage}</p>}
+              {productModalError.error && (
+                <ErrorMessage>{productModalError.error.errorMessage}</ErrorMessage>
+              )}
             </Item>
           </>
         )}

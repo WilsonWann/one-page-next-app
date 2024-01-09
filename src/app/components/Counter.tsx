@@ -9,9 +9,7 @@ const CounterWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: fit-content;
-  & > *:first-of-type {
-    border-left: 1px solid rgba(0, 0, 0, 0.2);
-  }
+
   & > * {
     display: inherit;
     flex-direction: inherit;
@@ -20,20 +18,28 @@ const CounterWrapper = styled.div`
     height: 2rem;
     padding: 0;
     margin: 0;
-    box-sizing: content-box;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-left: none;
-  }
-
-  & button {
-    width: 2rem;
-  }
-  & input {
-    width: 3rem;
-    text-align: center;
   }
 `
 
+const CounterButton = styled.div`
+  width: 2rem;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: none;
+  cursor: pointer;
+`
+const DecrementButton = styled(CounterButton)`
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+`
+const IncrementButton = styled(CounterButton)``
+
+const CounterPanel = styled.div`
+  width: 3rem;
+  text-align: center;
+  border-radius: unset;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: none;
+`
 type Props = {
   cartItemId?: number
   count: number
@@ -45,13 +51,9 @@ const Counter = (props: Props) => {
   return (
     <>
       <CounterWrapper>
-        <button type='button' onClick={() => counter('DEC', cartItemId)}>
-          -
-        </button>
-        <input type='number' readOnly={true} value={count} />
-        <button type='button' onClick={() => counter('INC', cartItemId)}>
-          +
-        </button>
+        <DecrementButton onClick={() => counter('DEC', cartItemId)}>-</DecrementButton>
+        <CounterPanel>{count}</CounterPanel>
+        <IncrementButton onClick={() => counter('INC', cartItemId)}>+</IncrementButton>
       </CounterWrapper>
     </>
   )

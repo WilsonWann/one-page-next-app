@@ -90,8 +90,11 @@ const countCartAndOnHand = (cartItems: CartItem[], onHandItem: TakeOnHandItem | 
 
 }
 
+
+
 const cartMaxLimitAtom = atom<number>(5)
-const cartDiscountAtom = atom<number>(2000)
+
+const cartDiscountThresholdAtom = atom<number>(2000)
 
 export const cartErrorModalAtom = atom<CartErrorProps>({})
 const resetCartErrorModalAtom = atom(
@@ -102,7 +105,7 @@ const resetCartErrorModalAtom = atom(
 )
 export const getCartItemQuantityAtom = atom(get => get(getCartListAtom).reduce((acc, curr) => acc + curr.quantity, 0))
 export const getCartListSubtotalAtom = atom(get => get(getCartListAtom).reduce((acc, curr) => acc + curr.subtotal, 0))
-export const getCartDiscountAtom = atom(get => get(cartDiscountAtom))
+export const getCartDiscountThresholdAtom = atom(get => get(cartDiscountThresholdAtom))
 
 const cartListAtom = atom<CartItem[]>([])
 export const getCartListAtom = atom(get => get(cartListAtom))

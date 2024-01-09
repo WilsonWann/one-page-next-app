@@ -19,6 +19,7 @@ import CartListItem from './components/CartListItem'
 import CartList from './components/CartList'
 import CartSubtotal from './components/CartSubtotal'
 import CartDiscount from './components/CartDiscount'
+import CheckoutBlock from './components/CheckoutBlock'
 
 export default function Home() {
   const [shoppingList, setShoppingList] = useAtom(shoppingListAtom)
@@ -62,6 +63,9 @@ export default function Home() {
       <CartList cartList={cartList} />
       <CartDiscount />
       <CartSubtotal />
+
+      {/* need login? */}
+
       {/* check auth */}
       {/* if not logged in */}
       {/* not logged in block*/}
@@ -69,20 +73,12 @@ export default function Home() {
       {/* logged in block*/}
 
       {/* discount reminder */}
-      <div>
-        {/* button: take discount */}
-        {/* paragraph: discount reminder detail */}
-      </div>
-      {/* subtotal */}
+      <CheckoutBlock />
+
       <div></div>
       {/* member login */}
       {/* next auth */}
-      <div>
-        {/* facebook login */}
-        {/* line login */}
-        {/* email login */}
-        {/* ... login */}
-      </div>
+
       {/* fraud and member rights reminder */}
       <div></div>
       {/* logistics form */}

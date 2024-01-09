@@ -5,7 +5,7 @@ import { ShoppingItem } from '@/types'
 import { useAtom } from 'jotai'
 import { shoppingAreaDisplayColumnAtom, setTakeOnHandItemIdAtom } from '@/atoms'
 import AddToCartButton from './AddToCartButton'
-import numberFormat from '@/helper/NumberFormat'
+import numberFormat from '@/helper/numberFormat'
 
 type ItemWrapperProps = {
   align: string
@@ -29,9 +29,20 @@ const ItemWrapper = styled.div<ItemWrapperProps>`
     margin-top: auto;
   }
 `
+type ItemContentProps = {
+  padding?: string
+}
+const CardImageBlock = styled(ImageBlock)<ItemContentProps>``
 
-const CardImageBlock = styled(ImageBlock)``
-
+const ItemContentWrapper = styled.div<ItemContentProps>`
+  ${(props) =>
+    props.padding &&
+    `
+padding: ${props.padding};
+border-top: 1px solid rgba(0, 0, 0, 0.2);
+width: 100%;
+`}
+`
 const ItemTitle = styled.h3`
   display: flex;
   flex-direction: column;
@@ -80,6 +91,7 @@ const ItemFooter = styled.div`
 type Props = {
   item: ShoppingItem
   align?: string
+  padding?: string
   children?: React.ReactNode
   subtotal?: React.ReactNode
   addToCartButton?: React.ReactNode
@@ -98,22 +110,34 @@ const Item = (props: Props) => {
 
   return (
     <ItemWrapper align={align}>
-      <CardImageBlock
-        image={item.image}
-        alt={item.alt}
-        customType={'height'}
-        customHeight={`${16 / columnNumber}rem`}
-      />
-      <ItemTitle>
-        {item.title}
-        <small>{item.subtitle}</small>
-      </ItemTitle>
-      <PriceWrapper>
-        <Price>原價：{numberFormat(item.price)}</Price>
-        <SpecialPrice>現在特價只要{numberFormat(item.specialPrice)}元</SpecialPrice>
-      </PriceWrapper>
-      {children}
-      <Content>{item.content}</Content>
+      {props.padding ? (
+        <CardImageBlock
+          image={item.image}
+          alt={item.alt}
+          customType={'height'}
+          customHeight={`${16}rem`}
+        />
+      ) : (
+        <CardImageBlock
+          image={item.image}
+          alt={item.alt}
+          customType={'height'}
+          customHeight={`${16 / columnNumber}rem`}
+        />
+      )}
+
+      <ItemContentWrapper padding={props.padding}>
+        <ItemTitle>
+          {item.title}
+          <small>{item.subtitle}</small>
+        </ItemTitle>
+        <PriceWrapper>
+          <Price>原價：{numberFormat(item.price)}</Price>
+          <SpecialPrice>現在特價只要{numberFormat(item.specialPrice)}元</SpecialPrice>
+        </PriceWrapper>
+        {children}
+        <Content>{item.content}</Content>
+      </ItemContentWrapper>
       <ItemFooter>
         {subtotal}
         {addToCartButton}

@@ -66,6 +66,9 @@ const SpecialPrice = styled.div`
   }
 `
 
+const ErrorMessage = styled.p`
+  color: red;
+`
 type Props = {
   item: CartListItem
 }
@@ -89,7 +92,7 @@ const CartListItem = (props: Props) => {
           </SpecialPrice>
         </PriceWrapper>
         <Counter cartItemId={item.id} count={item.quantity} />
-        {item.error && <p>{item.error.errorMessage}</p>}
+        {item.error && <ErrorMessage>{item.error.errorMessage}</ErrorMessage>}
       </div>
       <div>{numberFormat(item.subtotal)}</div>
     </CartWrapper>

@@ -72,7 +72,6 @@ export const updateTakeOnHandItemAtom = atom(
     } satisfies TakeOnHandItem
     set(takeOnHandAtom, newItem)
 
-    if (error)
-      set(productModalErrorAtom, { error })
+    set(productModalErrorAtom, { error })
   }
 )

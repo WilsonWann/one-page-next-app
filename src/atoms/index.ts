@@ -1,5 +1,7 @@
-export { addToCartAtom, updateCartAtom, removeCartAtom, getCartListAtom, cartErrorModalAtom, getCartListSubtotalAtom, getCartDiscountAtom, getCartItemQuantityAtom } from './cartAtoms'
+export { addToCartAtom, updateCartAtom, removeCartAtom, getCartListAtom, cartErrorModalAtom, getCartListSubtotalAtom, getCartDiscountThresholdAtom, getCartItemQuantityAtom } from './cartAtoms'
+export { getLogisticsDetailAtom, getLogisticsAtom, getPaymentTypeAtom, logisticsTypeAtom, mainLogisticsAtom, paymentTypesAtom, setLogisticsTypeAtom } from './checkoutAtoms'
 export { counterAtom, resetCounterAtom, dispatchAtom } from './counterAtoms'
+export { getInStorePickupCouponAtom, getHomeDeliveryCouponAtom } from './couponAtom'
 export { quantityAtom } from './quantityAtoms'
 export { navbarOpenAtom, shoppingAreaDisplayColumnAtom, productModalOpenAtom } from './routingAtoms'
 export { getTakeOnHandItemIdAtom, resetTakeOnHandItemIdAtom, setTakeOnHandItemIdAtom } from './selectedIdAtoms'

@@ -69,7 +69,7 @@ export const shoppingList: ShoppingItem[] = [
     subtitle: '新春限定優惠組合',
     content: '港式臘味干貝XO醬*2瓶\n皮卡丘*2隻',
     price: 1860,
-    specialPrice: 1500,
+    specialPrice: 440,
     maxQuantity: 10
   },
   {
