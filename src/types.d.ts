@@ -1,5 +1,5 @@
 import { StaticImageData } from "next/image"
-import { Logistics, InStorePickup, Payment, LogisticsMode } from '@/const'
+import { Logistics, InStorePickup, Payment, LogisticsMode, Gender, TimeToReceive } from '@/const'
 
 type ShoppingItem = {
   id: number
@@ -13,9 +13,6 @@ type ShoppingItem = {
   maxQuantity?: number
 }
 
-type OrderProps = {
-  order: number
-}
 type QuantityProps = {
   quantity: number
   subtotal: number
@@ -79,4 +76,28 @@ type Coupon = {
   description: string
   threshold: number
   active: boolean
+}
+
+type TimeToReceiveType = typeof TimeToReceive[number]
+type GenderType = typeof Gender[number]
+type AddressType = {
+  city: string
+  district: string
+  street: string
+}
+type RecipientType = {
+  name: string
+  cellphone: string
+  address: AddressType
+  timeToReceive: string
+  gender: GenderType
+  email: string
+  note: string
+}
+
+type GoodsDeliverType = {
+  logistics: LogisticsProps
+  cartItems: CartItem[]
+  subtotal: number
+  recipient: RecipientType
 }

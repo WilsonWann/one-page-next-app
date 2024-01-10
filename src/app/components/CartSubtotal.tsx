@@ -2,9 +2,12 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { useAtom } from 'jotai'
 import { getCartListSubtotalAtom } from '@/atoms'
-import numberFormat from '@/helper/NumberFormat'
+import numberFormat from '@/helper/numberFormat'
 
-const CartSubtotalWrapper = styled.div`
+type CartSubtotalWrapperType = {
+  padding: string
+}
+const CartSubtotalWrapper = styled.div<CartSubtotalWrapperType>`
   position: relative;
 
   display: flex;
@@ -13,22 +16,24 @@ const CartSubtotalWrapper = styled.div`
   align-content: center;
   width: -webkit-fill-available;
   width: -moz-available;
-  padding: 1rem;
+  padding: ${(props) => props.padding};
 `
 
 const Subtotal = styled.div`
   font-size: 'larger';
 `
 type Props = {
+  title?: string
   freight?: number
+  padding?: string
 }
 
 const CartSubtotal = (props: Props) => {
-  const { freight = 0 } = props
+  const { title = '小計', freight = 0, padding = '1rem' } = props
   const [cartListSubtotal] = useAtom(getCartListSubtotalAtom)
   return (
-    <CartSubtotalWrapper>
-      <div>小計</div>
+    <CartSubtotalWrapper padding={padding}>
+      <div>{title}</div>
       <Subtotal>{numberFormat(cartListSubtotal + freight)}</Subtotal>
     </CartSubtotalWrapper>
   )

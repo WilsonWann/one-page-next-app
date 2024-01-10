@@ -4,7 +4,7 @@ import { CartItem } from '@/types'
 import CartListItem from './CartListItem'
 import { useAtom } from 'jotai'
 import { getCartListSubtotalAtom } from '@/atoms'
-import numberFormat from '@/helper/NumberFormat'
+import numberFormat from '@/helper/numberFormat'
 
 const CartListWrapper = styled.div`
   position: relative;

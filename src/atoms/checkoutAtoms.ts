@@ -5,18 +5,18 @@ import type {
 } from '@/types'
 import { Logistics, Payments, OnlinePayments } from '@/const'
 import { getInStorePickupCouponAtom, getHomeDeliveryCouponAtom } from '.'
-function getCouponAndReturnFreight<T>(logistics: T, coupon: Coupon, payment: typeof Payments[number]) {
+function getCouponAndReturnFreight<LogisticsProps>(logistics: LogisticsProps, coupon: Coupon, payment: typeof Payments[number]): LogisticsProps {
   if (coupon.active) {
     return {
       ...logistics,
       freight: undefined,
       payment
-    }
+    } satisfies LogisticsProps
   }
   return {
     ...logistics,
     payment
-  }
+  } satisfies LogisticsProps
 }
 
 const homeDelivery: HomeDeliveryType = {
@@ -56,8 +56,8 @@ const sevenElevenPickUpAtom = atom<SevenElevenPickupType>(get => getCouponAndRet
 const familyMartPickUpAtom = atom<FamilyMartPickupType>(get => getCouponAndReturnFreight(familyMartPickUp, get(getInStorePickupCouponAtom), get(paymentTypesAtom)))
 const hiLifePickUpAtom = atom<HiLifePickupType>(get => getCouponAndReturnFreight(hiLifePickUp, get(getInStorePickupCouponAtom), get(paymentTypesAtom)))
 
-export const getLogisticsDetailAtom = atom(
-  get => [
+export const getLogisticsDetailAtom = atom<LogisticsProps[]>(
+  (get) => [
     get(homeDeliveryAtom),
     get(sevenElevenPickUpAtom),
     get(familyMartPickUpAtom),

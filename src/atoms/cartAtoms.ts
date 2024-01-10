@@ -1,55 +1,44 @@
 import { atom } from 'jotai'
+import { cartMaxLimit } from '@/const'
 import { CartErrorProps, CartItem, ErrorProps, TakeOnHandItem } from '@/types'
 import { takeOnHandAtom, productModalOpenAtom, resetCounterAtom, resetTakeOnHandItemIdAtom, resetProductModalErrorAtom } from '.'
 
-const setCartItemError = (cartItem: CartItem, isError: boolean, limit?: number, error?: ErrorProps) => {
-  console.log("🚀 ~ file: counterAtoms.ts:20 ~ setCartItemError ~ cartItem:", cartItem)
-  if (isError === true) {
-    switch (error?.errorType) {
-      case 'upperBound': {
-        cartItem.error = {
-          errorType: 'upperBound',
-          errorMessage: `最高為：${limit}`
-        }
-      } break;
-      case 'lowerBound': {
-        cartItem.error = {
-          errorType: 'lowerBound',
-          errorMessage: '最低為：1'
-        }
-      } break;
-
-      default:
-        throw new Error('unknown errorType')
-    }
+function generateError(quantity: number, maxQuantity: number): ErrorProps | undefined {
+  if (quantity < 1) {
+    return {
+      errorType: 'lowerBound',
+      errorMessage: '最低為：1'
+    } satisfies ErrorProps
+  } else if (quantity > maxQuantity) {
+    return {
+      errorType: 'upperBound',
+      errorMessage: `最高為：${maxQuantity}`
+    } satisfies ErrorProps
   } else {
-    if (cartItem.error) {
-      cartItem.error = undefined
-    }
+    return undefined
   }
 }
-
-const getCartItemAvailableQuantity = (cartItem: CartItem, type: "INC" | "DEC"): number => {
+function getCartItemQuantity(cartItem: CartItem, type: "INC" | "DEC"): number {
   const quantity = type === 'INC' ? cartItem.quantity + 1 : cartItem.quantity - 1
   const maxQuantity = cartItem.maxQuantity ?? 3
-  if (quantity < 1) {
-    setCartItemError(cartItem, true, 1, { errorType: 'lowerBound' })
-    return 1
-  } else if (quantity > maxQuantity) {
-    setCartItemError(cartItem, true, maxQuantity, { errorType: 'upperBound' })
-    return maxQuantity
-  } else {
-    setCartItemError(cartItem, false)
+
+  const error = generateError(quantity, maxQuantity)
+  cartItem.error = error
+  if (!error) {
     return quantity
+  } else if (error.errorType === 'lowerBound') {
+    return 1
+  } else {
+    return maxQuantity
   }
 }
 
-export const updateCart = (cartItems: CartItem[], id: number, type: "INC" | "DEC"): CartItem[] => {
+export function updateCart(cartItems: CartItem[], id: number, type: "INC" | "DEC"): CartItem[] {
   const selectedIndex = cartItems.findIndex(item => item.id === id)
   if (selectedIndex === -1) return cartItems
 
   const selectedItem = cartItems.at(selectedIndex)!
-  const quantity = getCartItemAvailableQuantity(selectedItem, type)
+  const quantity = getCartItemQuantity(selectedItem, type)
   const subtotal = selectedItem.specialPrice * quantity
   const newItem = {
     ...selectedItem,
@@ -58,10 +47,10 @@ export const updateCart = (cartItems: CartItem[], id: number, type: "INC" | "DEC
   } satisfies CartItem
   return cartItems.toSpliced(selectedIndex, 1, newItem)
 }
-const removeCart = (cartItems: CartItem[], id: number): CartItem[] => {
+function removeCart(cartItems: CartItem[], id: number): CartItem[] {
   return cartItems.filter(item => item.id !== id)
 }
-const addToCart = (cartItems: CartItem[], onHandItem: TakeOnHandItem | undefined): CartItem[] => {
+function addToCart(cartItems: CartItem[], onHandItem: TakeOnHandItem | undefined): CartItem[] {
   if (!onHandItem) return cartItems
   if (cartItems.some(cartItem => cartItem.id === onHandItem.id)) {
     const selectedItem = cartItems.find(cartItem => cartItem.id === onHandItem.id)!
@@ -82,7 +71,7 @@ const addToCart = (cartItems: CartItem[], onHandItem: TakeOnHandItem | undefined
   ]
 }
 
-const countCartAndOnHand = (cartItems: CartItem[], onHandItem: TakeOnHandItem | undefined): number => {
+function countCartAndOnHand(cartItems: CartItem[], onHandItem: TakeOnHandItem | undefined): number {
   // no onHandItem
   if (!onHandItem) return cartItems.reduce((acc, curr) => acc + curr.quantity, 0)
 
@@ -90,24 +79,19 @@ const countCartAndOnHand = (cartItems: CartItem[], onHandItem: TakeOnHandItem | 
 
 }
 
-
-
-const cartMaxLimitAtom = atom<number>(5)
-
-const cartDiscountThresholdAtom = atom<number>(2000)
-
-export const cartErrorModalAtom = atom<CartErrorProps>({})
+const cartMaxLimitAtom = atom<number>(cartMaxLimit)
+const cartListAtom = atom<CartItem[]>([])
 const resetCartErrorModalAtom = atom(
   null,
   (_get, set) => {
     set(cartErrorModalAtom, {})
   }
 )
+
+export const cartErrorModalAtom = atom<CartErrorProps>({})
 export const getCartItemQuantityAtom = atom(get => get(getCartListAtom).reduce((acc, curr) => acc + curr.quantity, 0))
 export const getCartListSubtotalAtom = atom(get => get(getCartListAtom).reduce((acc, curr) => acc + curr.subtotal, 0))
-export const getCartDiscountThresholdAtom = atom(get => get(cartDiscountThresholdAtom))
 
-const cartListAtom = atom<CartItem[]>([])
 export const getCartListAtom = atom(get => get(cartListAtom))
 
 export const addToCartAtom = atom(

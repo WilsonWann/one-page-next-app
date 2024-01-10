@@ -6,7 +6,7 @@ import ImageBlock from './ImageBlock'
 import Counter from './Counter'
 import { useAtom } from 'jotai'
 import { removeCartAtom } from '@/atoms'
-import numberFormat from '@/helper/NumberFormat'
+import numberFormat from '@/helper/numberFormat'
 
 const CartWrapper = styled.div`
   position: relative;

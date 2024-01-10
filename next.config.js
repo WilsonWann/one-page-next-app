@@ -10,6 +10,13 @@ const nextConfig = {
       },
     ]
   },
+  compiler: {
+    emotion: {
+      sourceMap: true,
+      autoLabel: 'dev-only',
+      labelFormat: '[filename]__[local]',
+    }
+  }
 }
 
 module.exports = nextConfig
