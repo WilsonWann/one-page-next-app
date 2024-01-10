@@ -1,5 +1,5 @@
 import React from 'react'
-import { BlockTitle, BlockContent, RadioButton, Label } from './FormBlock'
+import { BlockTitle, BlockContent, RadioButton, Label, Block } from './FormBlock'
 import { useAtom } from 'jotai'
 import { getTimeToReceiveAtom, timeToReceiveTypeAtom } from '@/atoms'
 
@@ -8,7 +8,7 @@ const TimeToReceiveBlock = () => {
   const [timeToReceiveType, setTimeToReceiveType] = useAtom(timeToReceiveTypeAtom)
 
   return (
-    <>
+    <Block gap={'1rem'}>
       <BlockTitle htmlFor={'timeToReceive'}>方便收貨時間</BlockTitle>
       <BlockContent>
         {timeToReceives.map((timeToReceive, index) => (
@@ -28,7 +28,7 @@ const TimeToReceiveBlock = () => {
           </div>
         ))}
       </BlockContent>
-    </>
+    </Block>
   )
 }
 

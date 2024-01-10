@@ -1,10 +1,10 @@
 import { atom } from 'jotai'
 import type {
   Coupon,
-  FamilyMartPickupType, HiLifePickupType, HomeDeliveryType, LogisticsProps, SevenElevenPickupType
+  FamilyMartPickupType, GoodsDeliverType, HiLifePickupType, HomeDeliveryType, LogisticsProps, SevenElevenPickupType
 } from '@/types'
 import { Logistics, Payments, OnlinePayments } from '@/const'
-import { getInStorePickupCouponAtom, getHomeDeliveryCouponAtom } from '.'
+import { getInStorePickupCouponAtom, getHomeDeliveryCouponAtom, getCartListAtom, getCartListSubtotalAtom, recipientAtom } from '.'
 function getCouponAndReturnFreight<LogisticsProps>(logistics: LogisticsProps, coupon: Coupon, payment: typeof Payments[number]): LogisticsProps {
   if (coupon.active) {
     return {
@@ -123,5 +123,20 @@ export const getPaymentTypeAtom = atom(
     })
 
     return paymentType
+  }
+)
+
+export const getGoodsDeliverAtom = atom<GoodsDeliverType>(
+  get => {
+    const logistics = get(mainLogisticsAtom)
+    const cartItems = get(getCartListAtom)
+    const subtotal = get(getCartListSubtotalAtom) + (logistics.freight ?? 0)
+    const recipient = get(recipientAtom)
+    return {
+      logistics,
+      cartItems,
+      subtotal,
+      recipient,
+    } satisfies GoodsDeliverType
   }
 )

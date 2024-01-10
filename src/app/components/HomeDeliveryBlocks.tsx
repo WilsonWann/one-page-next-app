@@ -1,35 +1,27 @@
 import React from 'react'
-import { Block, BlockTitle, BlockContent, BlockCol } from './FormBlock'
+import { Block } from './FormBlock'
 import CityBlock from './CityBlock'
 import DistrictBlock from './DistrictBlock'
 import TimeToReceiveBlock from './TimeToReceiveBlock'
-import { useAtom } from 'jotai'
-import { streetAtom } from '@/atoms'
 import StreetBlock from './StreetBlock'
+import DefaultAddress from './DefaultAddress'
 
-const HomeDeliveryBlocks = () => {
+type Props = {
+  addressError?: any
+}
+
+const HomeDeliveryBlocks = (props: Props) => {
+  const { addressError } = props
+  console.log('🚀 ~ HomeDeliveryBlocks ~ addressError:', addressError)
   return (
     <>
-      <Block direction={'row'} gap={'1rem'}>
-        <BlockCol>
-          <CityBlock />
-        </BlockCol>
-        <BlockCol>
-          <DistrictBlock />
-        </BlockCol>
+      <Block required direction={'row'} gap={'1rem'}>
+        <CityBlock error={addressError?.city} />
+        <DistrictBlock error={addressError?.district} />
       </Block>
-      <Block>
-        <StreetBlock />
-      </Block>
-      <Block gap={'1rem'}>
-        <TimeToReceiveBlock />
-      </Block>
-      <Block>
-        <BlockContent>
-          <input type='checkbox' id='defaultAddress' />
-        </BlockContent>
-        <BlockTitle htmlFor={'defaultAddress'}>儲存為常用地址</BlockTitle>
-      </Block>
+      <StreetBlock required error={addressError?.street} />
+      <TimeToReceiveBlock />
+      <DefaultAddress />
     </>
   )
 }

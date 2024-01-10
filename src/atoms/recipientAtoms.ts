@@ -51,7 +51,7 @@ const cityAtom = atom<string | -1>(-1)
 export const getCityAtom = atom(get => get(cityAtom))
 export const setCityAtom = atom(
   null,
-  (get, set, city: string) => {
+  (get, set, city: string | -1) => {
     set(cityAtom, city)
     set(districtAtom, -1)
   }
@@ -70,22 +70,6 @@ const addressAtom = atom(
     const city = get(getCityAtom)
     const district = get(districtAtom)
     const street = get(streetAtom)
-    if (city === -1) {
-      return {
-        city: undefined,
-        district: undefined,
-        street: street
-      }
-
-    }
-    if (district === -1) {
-      return {
-        city: city,
-        district: undefined,
-        street: street
-      }
-
-    }
     return {
       city: city,
       district: district,
@@ -93,6 +77,16 @@ const addressAtom = atom(
     }
   }
 )
+
+const defaultAddressAtom = atom<boolean>(false)
+export const getDefaultAddressAtom = atom(get => get(defaultAddressAtom))
+export const setDefaultAddressAtom = atom(
+  null,
+  (get, set, defaultAddress: boolean) => {
+    set(defaultAddressAtom, defaultAddress)
+  }
+)
+
 export const timeToReceiveTypeAtom = atom<TimeToReceiveType>('unset')
 export const genderTypeAtom = atom<GenderType>('unset')
 

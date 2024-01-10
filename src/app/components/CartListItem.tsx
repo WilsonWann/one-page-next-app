@@ -7,6 +7,7 @@ import Counter from './Counter'
 import { useAtom } from 'jotai'
 import { removeCartAtom } from '@/atoms'
 import numberFormat from '@/helper/numberFormat'
+import ErrorMessage from './ErrorMessage'
 
 const CartWrapper = styled.div`
   position: relative;
@@ -66,9 +67,6 @@ const SpecialPrice = styled.div`
   }
 `
 
-const ErrorMessage = styled.p`
-  color: red;
-`
 type Props = {
   item: CartListItem
 }

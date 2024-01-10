@@ -1,18 +1,31 @@
 import React from 'react'
-import { BlockTitle, BlockContent } from './FormBlock'
+import { Block, BlockTitle, BlockContent } from './FormBlock'
 import { useAtom } from 'jotai'
 import { streetAtom } from '@/atoms'
+import ErrorMessage from './ErrorMessage'
 
-type Props = {}
+type Props = {
+  error?: any
+  required?: boolean
+}
 
 const StreetBlock = (props: Props) => {
+  const { error, required = false } = props
   const [street, setStreet] = useAtom(streetAtom)
   return (
     <>
-      <BlockTitle htmlFor={'street'}>街道地址</BlockTitle>
-      <BlockContent>
-        <input id='street' type='text' value={street} onChange={(e) => setStreet(e.target.value)} />
-      </BlockContent>
+      <Block error={error?._errors[0]} required={required}>
+        <BlockTitle htmlFor={'street'}>街道地址</BlockTitle>
+        <BlockContent>
+          <input
+            id='street'
+            type='text'
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
+          />
+        </BlockContent>
+      </Block>
+      {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
     </>
   )
 }
