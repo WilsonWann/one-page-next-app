@@ -2,19 +2,11 @@ import React from 'react'
 import styled from '@emotion/styled'
 import Backdrop from './Backdrop'
 import Item from './Item'
-import {
-  productModalOpenAtom,
-  addToCartAtom,
-  takeOnHandAtom,
-  productModalErrorAtom,
-  cartErrorModalAtom
-} from '@/atoms'
+import { productModalOpenAtom, addToCartAtom, takeOnHandAtom, productModalErrorAtom } from '@/atoms'
 import { useAtom } from 'jotai'
 import Counter from './Counter'
 import CloseButton from './CloseButton'
 import AddToCartButton from './AddToCartButton'
-import CartErrorModal from './CartErrorModal'
-import usePreventScroll from '../hook/usePreventScroll'
 import numberFormat from '@/helper/numberFormat'
 
 type ItemSelectorProps = {
@@ -59,9 +51,6 @@ const ProductModal = (props: Props) => {
   const [, addToCart] = useAtom(addToCartAtom)
   const [productModalError] = useAtom(productModalErrorAtom)
 
-  const [cartModalError] = useAtom(cartErrorModalAtom)
-
-  usePreventScroll({ active: !!cartModalError.error?.errorMessage })
   return (
     <>
       <Backdrop active={active} onClick={() => setModalOpen(false)} />
@@ -96,7 +85,6 @@ const ProductModal = (props: Props) => {
           </>
         )}
       </ItemSelector>
-      {cartModalError.error && <CartErrorModal errorMessage={cartModalError.error.errorMessage} />}
     </>
   )
 }

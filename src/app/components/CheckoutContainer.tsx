@@ -4,7 +4,6 @@ import { useAtom } from 'jotai'
 import {
   mainLogisticsAtom,
   getRecipientAtom,
-  getGoodsDeliverAtom,
   getCityAtom,
   districtAtom,
   setValidateAddressAtom,
@@ -25,8 +24,10 @@ import CheckoutLoginBlock from './CheckoutLoginBlock'
 import { recipientSchema } from '@/zodSchema'
 import { z, ZodFormattedError } from 'zod'
 import CartTotalBlock from './CartTotalBlock'
+import { useRouter } from 'next/navigation'
 
 const CheckoutForm = styled.form`
+  border-top: 1px solid rgba(87, 90, 93, 1);
   position: relative;
   width: 100vw;
   padding: 0 1rem;
@@ -41,6 +42,7 @@ const CheckoutForm = styled.form`
 const CheckoutTitle = styled.h2`
   text-align: center;
   font-size: x-large;
+  padding: 2rem 0 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 `
 
@@ -60,13 +62,12 @@ const CheckoutSubmitButton = styled.button<CheckoutSubmitButtonProps>`
     outline: none;
   }
 `
-type Props = {}
 
-const CheckoutContainer = (props: Props) => {
+const CheckoutContainer = () => {
+  const router = useRouter()
   const [mainLogistics] = useAtom(mainLogisticsAtom)
   const [cartItemQuantity] = useAtom(getCartItemQuantityAtom)
   const [recipient] = useAtom(getRecipientAtom)
-  const [goodsDeliver] = useAtom(getGoodsDeliverAtom)
   const [validateCity] = useAtom(getCityAtom)
   const [validateDistrict] = useAtom(districtAtom)
   const [, setValidateAddress] = useAtom(setValidateAddressAtom)
@@ -75,7 +76,6 @@ const CheckoutContainer = (props: Props) => {
   const [error, setError] = useState<
     ZodFormattedError<z.infer<typeof recipientSchema>> | undefined
   >(undefined)
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (cartItemQuantity === 0) {
@@ -101,9 +101,9 @@ const CheckoutContainer = (props: Props) => {
       const city = validateCity as string
       const district = validateDistrict as string
       setValidateAddress(city, district)
-      console.log('🚀 ~ CheckoutBlock ~ goodsDeliver:', goodsDeliver)
+      router.push('/cart')
     }
-  }, [goodsDeliver, recipient, setValidateAddress, startParsing, validateCity, validateDistrict])
+  }, [recipient, router, setValidateAddress, startParsing, validateCity, validateDistrict])
 
   return (
     <CheckoutForm onSubmit={handleSubmit}>
@@ -125,7 +125,7 @@ const CheckoutContainer = (props: Props) => {
       <EmailBlock required error={error?.email} />
       <NoteBlock />
 
-      <CheckoutSubmitButton disabled={startParsing} type='submit'>
+      <CheckoutSubmitButton type='submit' disabled={startParsing}>
         送出
       </CheckoutSubmitButton>
     </CheckoutForm>

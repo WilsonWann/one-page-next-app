@@ -24,15 +24,17 @@ type Props = {
   color?: string
   bold?: boolean
   itemNumber: number
+  onClick?: () => void
 }
 
 const CartIcon = (props: Props) => {
-  const { size = 22, color = 'black', bold = false, itemNumber } = props
+  const { size = 22, color = 'black', bold = false, itemNumber, onClick } = props
   return (
     <CartIconWrapper>
       <IoCartOutline
         size={size}
         color={color}
+        onClick={onClick}
         style={{
           ...(bold && { filter: 'drop-shadow(0.8px 0.8px 0px #fff)' })
         }}

@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import CloseButton from './CloseButton'
+import { useAtom } from 'jotai'
+import { promotionCheckAtom } from '@/atoms'
 
 const Modal = styled.div`
   position: fixed;

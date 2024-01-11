@@ -11,21 +11,16 @@ import ShoppingArea from './components/ShoppingArea'
 import MarketingBlock from './components/MarketingBlock'
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
-import { getCartListAtom, productModalOpenAtom, shoppingListAtom } from '@/atoms'
+import { productModalOpenAtom, shoppingListAtom } from '@/atoms'
 import { ShoppingItem } from '@/types'
 import ProductModal from './components/ProductModal'
-import Item from './components/Item'
-import CartListItem from './components/CartListItem'
-import CartList from './components/CartList'
-import CartSubtotal from './components/CartSubtotal'
-import CartDiscount from './components/CartDiscount'
-import CheckoutContainer from './components/CheckoutContainer'
+import CartArea from './components/CartArea'
+import Promotion from './components/promotion'
 
 export default function Home() {
   const [shoppingList, setShoppingList] = useAtom(shoppingListAtom)
 
   const [modalOpen] = useAtom(productModalOpenAtom)
-  const [cartList] = useAtom(getCartListAtom)
 
   useEffect(() => {
     function getData() {
@@ -40,6 +35,11 @@ export default function Home() {
   return (
     <main className='flex min-h-screen flex-col items-center justify-between'>
       {/* react-lite-youtube video */}
+      <Promotion
+        title={
+          '🎄聖誕佳節滿800元超商免運費！滿1500元宅配免運,加入會員好處多~紅利點數可折抵現金喔!!'
+        }
+      />
       <LiteYoutube
         id={'L2vS_050c-M'}
         title={'What’s new in Material Design for the web (Chrome Dev Summit 2019)'}
@@ -60,20 +60,7 @@ export default function Home() {
       <ShoppingArea data={shoppingList} />
       <ProductModal active={modalOpen} />
 
-      <CartList cartList={cartList} />
-      <CartDiscount />
-      <CartSubtotal />
-
-      {/* need login? */}
-
-      {/* check auth */}
-      {/* if not logged in */}
-      {/* not logged in block*/}
-      {/* if logged in */}
-      {/* logged in block*/}
-
-      {/* discount reminder */}
-      <CheckoutContainer />
+      <CartArea />
 
       <div></div>
       {/* member login */}

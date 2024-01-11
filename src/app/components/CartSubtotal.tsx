@@ -9,6 +9,7 @@ type CartSubtotalWrapperType = {
 }
 const CartSubtotalWrapper = styled.div<CartSubtotalWrapperType>`
   position: relative;
+  background-color: white;
 
   display: flex;
   flex-direction: row;

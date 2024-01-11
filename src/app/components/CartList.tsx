@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { CartItem } from '@/types'
 import CartListItem from './CartListItem'
+import { useAtom } from 'jotai'
+import { getCartListAtom } from '@/atoms'
 
 const CartListTitle = styled.h2`
   font-size: x-large;
@@ -24,12 +25,9 @@ const CartListDiv = styled.div`
   border-bottom: 1px solid rgba(87, 90, 93, 1);
 `
 
-type Props = {
-  cartList: CartItem[]
-}
+const CartList = () => {
+  const [cartList] = useAtom(getCartListAtom)
 
-const CartList = (props: Props) => {
-  const { cartList } = props
   if (cartList.length === 0) {
     return (
       <CartListWrapper>

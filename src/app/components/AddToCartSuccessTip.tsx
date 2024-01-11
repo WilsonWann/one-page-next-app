@@ -6,7 +6,7 @@ type WrapperType = {
 }
 const Wrapper = styled.div<WrapperType>`
   position: absolute;
-  top: 50%;
+  top: -1000rem;
   transform: translateY(-50%);
   width: 8rem;
   height: 2rem;
@@ -27,8 +27,9 @@ const Wrapper = styled.div<WrapperType>`
   ${(props) =>
     props.active &&
     `
+    top: 50%;
     right: 4rem;
-    opacity: 1;      
+    opacity: 1;
       `}
 
   &::after {

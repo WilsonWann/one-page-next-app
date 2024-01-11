@@ -7,6 +7,7 @@ import { getCartItemQuantityAtom, navbarOpenAtom } from '@/atoms'
 import Logo from './Logo'
 import CartIcon from './CartIcon'
 import UserIcon from './UserIcon'
+import { useRouter } from 'next/navigation'
 
 const HeaderWrapper = styled.div`
   position: fixed;
@@ -32,6 +33,7 @@ const ButtonWrapper = styled.div`
 `
 
 const Header = () => {
+  const router = useRouter()
   const [, toggleNavbar] = useAtom(navbarOpenAtom)
   const [cartItemQuantity] = useAtom(getCartItemQuantityAtom)
   return (
@@ -39,7 +41,7 @@ const Header = () => {
       <Logo />
       <ButtonWrapper>
         <UserIcon type='default' />
-        <CartIcon itemNumber={cartItemQuantity} />
+        <CartIcon itemNumber={cartItemQuantity} onClick={() => router.push('/cart')} />
         <RxHamburgerMenu size={22} onClick={() => toggleNavbar(true)} />
       </ButtonWrapper>
     </HeaderWrapper>
