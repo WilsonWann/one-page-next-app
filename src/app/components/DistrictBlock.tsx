@@ -6,14 +6,14 @@ import ErrorMessage from './ErrorMessage'
 
 type Props = {
   error?: any
+  required?: boolean
 }
 
 const DistrictBlock = (props: Props) => {
-  const { error } = props
+  const { error, required } = props
   const [selectedCity] = useAtom(getCityAtom)
   const [districtData, setDistrictData] = useAtom(districtDataAtom)
   const [selectedDistrict, setDistrict] = useAtom(districtAtom)
-  console.log('🚀 ~ HomeDeliveryBlocks ~ selectedDistrict:', selectedDistrict)
 
   useEffect(() => {
     function getDistrictData(city: string | -1) {
@@ -28,7 +28,7 @@ const DistrictBlock = (props: Props) => {
 
   return (
     <BlockCol>
-      <Block error={error?._errors[0]}>
+      <Block required={required} error={error?._errors[0]}>
         <BlockTitle htmlFor={'district'}>區域</BlockTitle>
         <BlockContent>
           <select

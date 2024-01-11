@@ -41,32 +41,13 @@ const Block = styled.div<BlockType>`
     gap: ${(props) => props.gap};
     align-items: flex-start;
     padding: unset;
-
-    &::after {
-      display: none;
-    }
   }
 
   ${BlockCol} {
     position: relative;
     display: block;
-    /* padding: 0.5rem 1rem; */
-    /* border: 1px solid rgba(0, 0, 0, 0.125); */
-    /* background-color: white; */
     width: 100%;
     height: 100%;
-
-    &::after {
-      content: '*';
-      display: ${(props) => (props.required ? 'block' : 'none')};
-      position: absolute;
-      color: red;
-      top: 0.5rem;
-      right: 0.5rem;
-      height: 0.5rem;
-      width: 0.5rem;
-      line-height: 0.5rem;
-    }
   }
 
   ${BlockTitle} {

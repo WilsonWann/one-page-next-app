@@ -88,7 +88,33 @@ const resetCartErrorModalAtom = atom(
   }
 )
 
+const addToCartSuccessAtom = atom<boolean>(false)
+export const getAddToCartSuccessAtom = atom(get => get(addToCartSuccessAtom))
+const activeAddToCartSuccessAtom = atom(
+  null,
+  (_et, set) => {
+    set(addToCartSuccessAtom, true)
+    setTimeout(() => {
+      set(addToCartSuccessAtom, false)
+    }, 2000)
+  }
+)
+
 export const cartErrorModalAtom = atom<CartErrorProps>({})
+export const setCartErrorModalAtom = atom(
+  null,
+  (get, set, { errorType, errorMessage }: ErrorProps) => {
+    set(cartErrorModalAtom, {
+      error: {
+        errorType: errorType,
+        errorMessage: errorMessage
+      }
+    })
+    setTimeout(() => {
+      set(resetCartErrorModalAtom)
+    }, 2000)
+  }
+)
 export const getCartItemQuantityAtom = atom(get => get(getCartListAtom).reduce((acc, curr) => acc + curr.quantity, 0))
 export const getCartListSubtotalAtom = atom(get => get(getCartListAtom).reduce((acc, curr) => acc + curr.subtotal, 0))
 
@@ -99,15 +125,10 @@ export const addToCartAtom = atom(
   (get, set) => {
     const total = countCartAndOnHand(get(getCartListAtom), get(takeOnHandAtom))
     if (total > get(cartMaxLimitAtom)) {
-      set(cartErrorModalAtom, {
-        error: {
-          errorType: 'upperBound',
-          errorMessage: `一般商品最多只能購買${get(cartMaxLimitAtom)}件`
-        }
+      set(setCartErrorModalAtom, {
+        errorType: 'upperBound',
+        errorMessage: `一般商品最多只能購買${get(cartMaxLimitAtom)}件`
       })
-      setTimeout(() => {
-        set(resetCartErrorModalAtom)
-      }, 2000)
       return
     }
 
@@ -117,6 +138,7 @@ export const addToCartAtom = atom(
     set(resetTakeOnHandItemIdAtom)
     set(productModalOpenAtom, false)
     set(resetProductModalErrorAtom)
+    set(activeAddToCartSuccessAtom)
   }
 )
 
@@ -134,19 +156,13 @@ export const updateCartAtom = atom(
     set(cartListAtom, updateCart(get(getCartListAtom), id, type))
     const total = countCartAndOnHand(get(getCartListAtom), undefined)
     if (total > get(cartMaxLimitAtom)) {
-      set(cartErrorModalAtom, {
-        error: {
-          errorType: 'upperBound',
-          errorMessage: `一般商品最多只能購買${get(cartMaxLimitAtom)}件`
-        }
+      set(cartListAtom, updateCart(get(getCartListAtom), id, type === 'INC' ? 'DEC' : 'INC'))
+      set(setCartErrorModalAtom, {
+        errorType: 'upperBound',
+        errorMessage: `一般商品最多只能購買${get(cartMaxLimitAtom)}件`
       })
-      setTimeout(() => {
-        set(cartListAtom, updateCart(get(getCartListAtom), id, type === 'INC' ? 'DEC' : 'INC'))
-        set(resetCartErrorModalAtom)
-      }, 2000)
       return
     }
-
     set(resetCartErrorModalAtom)
 
   }

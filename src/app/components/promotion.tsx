@@ -20,7 +20,7 @@ const Modal = styled.div`
   align-items: center;
   font-size: small;
   display: flex;
-  transition: top 0.5s ease-out;
+  transition: top 0.75s ease-out;
 `
 
 const ModalTitle = styled.h3`
@@ -35,7 +35,7 @@ const ModalState = styled.input`
   }
 
   &:not(checked) + #promotion-modal {
-    top: -1rem;
+    top: -4rem;
   }
 `
 

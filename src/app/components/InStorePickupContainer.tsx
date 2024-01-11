@@ -2,7 +2,7 @@ import React from 'react'
 import { Block, BlockTitle, BlockContent } from './FormBlock'
 type Props = {}
 
-const InStorePickupBlocks = (props: Props) => {
+const InStorePickupContainer = (props: Props) => {
   return (
     <>
       <Block>
@@ -21,4 +21,4 @@ const InStorePickupBlocks = (props: Props) => {
   )
 }
 
-export default InStorePickupBlocks
+export default InStorePickupContainer

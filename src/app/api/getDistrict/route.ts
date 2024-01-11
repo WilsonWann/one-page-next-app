@@ -5,7 +5,6 @@ export async function GET(request: NextRequest) {
 
   const url = new URL(request.url)
   const city = url.searchParams.get('city')
-  console.log("🚀 ~ GET ~ city:", city)
   if (!city) throw new Error('city not found')
   if (city === '-1') return Response.json(null)
 

@@ -21,11 +21,7 @@ const CartWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  border-bottom: 1px solid rgba(87, 90, 93, 1);
-
-  &:first-of-type {
-    border-top: 1px solid rgba(87, 90, 93, 1);
-  }
+  border-top: 1px solid rgba(87, 90, 93, 1);
 `
 const CardImageBlock = styled(ImageBlock)``
 

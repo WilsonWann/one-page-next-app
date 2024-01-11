@@ -44,7 +44,7 @@ const NavbarWrapper = styled.nav<NavbarWrapperProps>`
   top: 0;
   left: ${(props) => (props.active ? '0' : '-76vw')};
   background-color: white;
-  height: 100vh;
+  height: 100dvh;
   display: block;
   width: 76vw;
   z-index: calc(99999 + 2);

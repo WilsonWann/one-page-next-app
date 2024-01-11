@@ -11,7 +11,7 @@ type BackDropProps = {
 const BackdropDiv = styled.div<BackDropProps>`
   position: fixed;
   top: 0;
-  height: 100vh;
+  height: 100dvh;
   left: ${(props) => (props.active ? '0' : '-100vw')};
   width: 100vw;
   background-color: ${(props) => props.backgroundColor};
@@ -30,7 +30,7 @@ const Backdrop = (props: Props) => {
     active,
     onClick = () => {},
     backgroundColor = 'rgba(0, 0, 0, 0.8)',
-    zIndex = 10000
+    zIndex = 100000
   } = props
   return (
     <BackdropDiv

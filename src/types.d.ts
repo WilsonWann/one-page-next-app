@@ -28,9 +28,14 @@ type LowerErrorProps = {
   errorMessage: string
 }
 
+type CartEmptyProps = {
+  errorType: 'cartEmpty',
+  errorMessage: string
+}
+
 type ProductErrorProps = { error?: ErrorProps }
 
-type ErrorProps = UpperErrorProps | LowerErrorProps
+type ErrorProps = UpperErrorProps | LowerErrorProps | CartEmptyProps
 
 type TakeOnHandItem = (ShoppingItem & QuantityProps)
 

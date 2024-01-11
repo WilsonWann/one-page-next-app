@@ -10,14 +10,13 @@ type Props = {
   addressError?: any
 }
 
-const HomeDeliveryBlocks = (props: Props) => {
+const HomeDeliveryContainer = (props: Props) => {
   const { addressError } = props
-  console.log('🚀 ~ HomeDeliveryBlocks ~ addressError:', addressError)
   return (
     <>
-      <Block required direction={'row'} gap={'1rem'}>
-        <CityBlock error={addressError?.city} />
-        <DistrictBlock error={addressError?.district} />
+      <Block direction={'row'} gap={'1rem'}>
+        <CityBlock required error={addressError?.city} />
+        <DistrictBlock required error={addressError?.district} />
       </Block>
       <StreetBlock required error={addressError?.street} />
       <TimeToReceiveBlock />
@@ -26,4 +25,4 @@ const HomeDeliveryBlocks = (props: Props) => {
   )
 }
 
-export default HomeDeliveryBlocks
+export default HomeDeliveryContainer

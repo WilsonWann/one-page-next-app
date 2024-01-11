@@ -6,10 +6,11 @@ import ErrorMessage from './ErrorMessage'
 
 type Props = {
   error?: any
+  required?: boolean
 }
 
 const CityBlock = (props: Props) => {
-  const { error } = props
+  const { error, required } = props
   const [cityData, setCityData] = useAtom(cityDataAtom)
   const [, setCity] = useAtom(setCityAtom)
 
@@ -26,7 +27,7 @@ const CityBlock = (props: Props) => {
   return (
     <>
       <BlockCol>
-        <Block error={error?._errors[0]}>
+        <Block required={required} error={error?._errors[0]}>
           <BlockTitle htmlFor={'country'}>縣市</BlockTitle>
           <BlockContent>
             <select

@@ -34,6 +34,7 @@ type Props = {
 
 const CartErrorModal = (props: Props) => {
   const { errorMessage } = props
+  usePreventScroll({ active: !!errorMessage })
   return (
     <>
       <Backdrop active={!!errorMessage} backgroundColor={'transparent'} zIndex={99999 + 3 - 1} />

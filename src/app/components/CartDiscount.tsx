@@ -53,9 +53,9 @@ const CartDiscount = (props: Props) => {
       </div>
       <Badge label='滿額免運' />
       <div>
-        🎆～滿{inStorePickupCoupon.threshold}
-        元超商免運費!!超商限重最多9罐!!~(10罐以上請選擇宅配運送) 再買{' '}
-        {inStorePickupCoupon.threshold - subtotal}
+        🎆～滿<b>{inStorePickupCoupon.threshold}</b>
+        元超商免運費!!超商限重最多9罐!!~(10罐以上請選擇宅配運送) 再買
+        <b>{inStorePickupCoupon.threshold - subtotal}</b>
         即可享有 免運優惠
       </div>
     </CartDiscountWrapper>

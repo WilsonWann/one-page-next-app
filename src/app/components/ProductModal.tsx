@@ -26,7 +26,7 @@ const ItemSelector = styled.div<ItemSelectorProps>`
   top: ${(props) => (props.active ? '0' : '100vh')};
   left: 0;
   background-color: white;
-  height: 100vh;
+  height: 100dvh;
   width: 100vw;
   /* padding: ${(props) => props.padding ?? '0'}; */
   display: block;
@@ -58,10 +58,7 @@ const ProductModal = (props: Props) => {
   const [takeOnHandItem] = useAtom(takeOnHandAtom)
   const [, addToCart] = useAtom(addToCartAtom)
   const [productModalError] = useAtom(productModalErrorAtom)
-  console.log(
-    '🚀 ~ file: ProductModal.tsx:61 ~ ProductModal ~ productModalError:',
-    productModalError
-  )
+
   const [cartModalError] = useAtom(cartErrorModalAtom)
 
   usePreventScroll({ active: !!cartModalError.error?.errorMessage })
