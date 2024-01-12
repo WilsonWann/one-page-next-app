@@ -1,10 +1,13 @@
 import styled from '@emotion/styled'
 
-const BlockTitle = styled.label`
+type BlockTitle = {
+  align?: 'left' | 'right' | 'center' | 'justify' | 'inherit' | 'initial' | 'unset'
+}
+const BlockTitle = styled.label<BlockTitle>`
   display: block;
   padding: unset;
   white-space: normal;
-
+  text-align: ${(props) => props.align ?? 'left'};
   & > span {
     color: lightgray;
     font-size: small;
@@ -15,11 +18,20 @@ const BlockTitle = styled.label`
 
 const BlockCol = styled.div``
 
-const BlockContent = styled.div`
-  display: flex;
-  align-items: baseline;
-`
+const BlockContent = styled.div``
 type BlockType = {
+  align?:
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'space-between'
+    | 'space-around'
+    | 'space-evenly'
+    | 'stretch'
+    | 'baseline'
+    | 'initial'
+    | 'inherit'
+    | 'unset'
   required?: boolean
   direction?: 'row' | 'column'
   gap?: string
@@ -69,9 +81,11 @@ const Block = styled.div<BlockType>`
 
   ${BlockContent} {
     display: flex;
-    align-items: baseline;
+    justify-content: ${(props) => props.align ?? 'flex-start'};
+    align-items: flex-start;
     flex-direction: ${(props) => props.direction};
     gap: ${(props) => props.gap};
+    flex-wrap: wrap;
 
     & > input[type='text'],
     & > input[type='email'],

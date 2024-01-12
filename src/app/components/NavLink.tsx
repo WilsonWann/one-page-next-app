@@ -1,50 +1,89 @@
 'use client'
-import React from 'react'
+import React, { ComponentPropsWithoutRef, ElementType, useCallback } from 'react'
 import Link from 'next/link'
+import styled from '@emotion/styled'
 import { usePathname } from 'next/navigation'
 import { navbarOpenAtom } from '@/atoms'
 import { useAtom } from 'jotai'
 
-type Props = {
-  href: string
-  exact?: boolean
+const DEFAULT_TYPE = Link
+
+type Props<T extends ElementType> = {
+  As?: T
   children?: React.ReactNode
   externalLink?: boolean
   onClick?: () => void
-}
+} & ComponentPropsWithoutRef<T>
 
-const NavLink = (props: Props) => {
+function NavLink<T extends ElementType = typeof DEFAULT_TYPE>({
+  As,
+  href = '/',
+  exact = true,
+  children,
+  externalLink = false,
+  onClick,
+  ...props
+}: Props<T>) {
+  const Component = As ?? DEFAULT_TYPE
+
   const [, toggleNavbar] = useAtom(navbarOpenAtom)
-  const {
-    href,
-    children = '',
-    exact = true,
-    externalLink = false,
-    onClick = () => toggleNavbar(false),
-    ...rest
-  } = props
-  //! className props need props check
-  let className = rest.className
+
+  const onClickHandler = useCallback(() => {
+    if (onClick) {
+      onClick()
+    }
+    toggleNavbar(false)
+  }, [onClick, toggleNavbar])
+
   const pathname = usePathname()
   const isActive = exact ? pathname === href : pathname.startsWith(href)
 
   if (externalLink) {
     return (
-      <a href={href} target='_blank' rel='noopener noreferrer'>
+      <Component href={href} target='_blank' rel='noopener noreferrer'>
         {children}
-      </a>
+      </Component>
     )
   }
 
-  if (isActive) {
-    className += ' active'
-  }
-
   return (
-    <Link href={href} {...rest} className={className} onClick={onClick}>
+    <Component href={href} onClick={onClickHandler} {...props}>
       {children}
-    </Link>
+    </Component>
   )
 }
+// const NavLink = (props: Props) => {
+//   const [, toggleNavbar] = useAtom(navbarOpenAtom)
+//   const {
+//     href,
+//     children = '',
+//     exact = true,
+//     externalLink = false,
+//     onClick = () => toggleNavbar(false),
+//     ...rest
+//   } = props
+//   //! className props need props check
+//   let className = rest.className
+//   const pathname = usePathname()
+//   const isActive = exact ? pathname === href : pathname.startsWith(href)
+
+//   if (externalLink) {
+//     return (
+//       <a href={href} target='_blank' rel='noopener noreferrer'>
+//         {children}
+//       </a>
+//     )
+//   }
+
+//   if (isActive) {
+//     className += ' active'
+//   }
+
+//   return (
+//     <Link href={href} {...rest} className={className} onClick={onClick}>
+//       {children}
+//     </Link>
+//   )
+// }
 
 export default NavLink

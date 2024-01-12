@@ -20,11 +20,11 @@ import CellphoneBlock from './CellphoneBlock'
 import EmailBlock from './EmailBlock'
 import NoteBlock from './NoteBlock'
 import ScamReminderBlock from './ScamReminderBlock'
-import CheckoutLoginBlock from './CheckoutLoginBlock'
 import { recipientSchema } from '@/zodSchema'
 import { z, ZodFormattedError } from 'zod'
 import CartTotalBlock from './CartTotalBlock'
 import { useRouter } from 'next/navigation'
+import CheckAuthBlock from './CheckAuthBlock'
 
 const CheckoutForm = styled.form`
   border-top: 1px solid rgba(87, 90, 93, 1);
@@ -108,7 +108,7 @@ const CheckoutContainer = () => {
   return (
     <CheckoutForm onSubmit={handleSubmit}>
       <CheckoutTitle>結帳</CheckoutTitle>
-      <CheckoutLoginBlock />
+      <CheckAuthBlock />
       <ScamReminderBlock />
       <LogisticsBlock />
       <PaymentBlock />

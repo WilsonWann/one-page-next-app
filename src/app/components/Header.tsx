@@ -41,7 +41,7 @@ const Header = () => {
     <HeaderWrapper>
       <Logo />
       <ButtonWrapper>
-        <UserIcon type='default' />
+        <UserIcon type='default' onClick={() => router.push('/account')} />
         <CartIcon itemNumber={cartItemQuantity} onClick={() => router.push('/cart')} />
         <RxHamburgerMenu size={22} onClick={() => toggleNavbar(true)} />
       </ButtonWrapper>

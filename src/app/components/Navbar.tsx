@@ -1,5 +1,6 @@
 'use client'
-import React, { useEffect } from 'react'
+import React from 'react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import NavLink from './NavLink'
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/react'
@@ -57,8 +58,15 @@ const NavbarWrapper = styled.nav<NavbarWrapperProps>`
     left: 0;
   } */
 
+  & b {
+    font-size: larger;
+    font-weight: bolder;
+  }
+
   & p,
   & h2,
+  & b,
+  & button,
   & a:not(:has(svg)) {
     border-bottom: 1px solid #e6e6e6;
   }
@@ -90,6 +98,7 @@ const NavItem = styled(NavLink)`
   width: 100%;
   line-height: 3rem;
   padding: 0 1rem;
+  text-align: left;
 `
 const NavAnimatedItem = styled(NavItem)({
   animation: `${wordColorAnimation} 1s linear infinite`,
@@ -121,6 +130,7 @@ const CloseButtonWrapper = styled.div`
 `
 
 const Navbar = () => {
+  const { data: sessionData } = useSession()
   const pathname = usePathname()
   const [navbarOpen, toggleNavbar] = useAtom(navbarOpenAtom)
 
@@ -144,8 +154,20 @@ const Navbar = () => {
         </NavMenu>
         <NavFooter>
           <NavFooterCaption>會員</NavFooterCaption>
-          <NavItem href={'/login'}>登入</NavItem>
-          <NavItem href={'/register'}>註冊</NavItem>
+          {sessionData ? (
+            <>
+              <NavItem As='b'> 尊貴的 {sessionData?.user?.name} 歡迎光臨</NavItem>
+              <NavItem href={'/account'}>會員中心</NavItem>
+              <NavItem As='button' onClick={signOut}>
+                登出
+              </NavItem>
+            </>
+          ) : (
+            <>
+              <NavItem href={'/login'}>登入</NavItem>
+              <NavItem href={'/register'}>註冊</NavItem>
+            </>
+          )}
         </NavFooter>
       </NavbarWrapper>
     </>
