@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 import { getServerSession } from 'next-auth'
 import SessionProvider from './components/SessionProvider'
+import JotaiProvider from './components/JotaiProvider'
 
 export const metadata: Metadata = {
   title: '陌聲一頁式廣告',
@@ -18,13 +19,15 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang='en'>
       <body className={`${inter.className} pt-12 pb-0`}>
-        <SessionProvider session={session}>
-          <Header />
-          <Navbar />
-          {props.children}
-          <FixedButtons />
-          <Footer />
-        </SessionProvider>
+        <JotaiProvider>
+          <SessionProvider session={session}>
+            <Header />
+            <Navbar />
+            {props.children}
+            <FixedButtons />
+            <Footer />
+          </SessionProvider>
+        </JotaiProvider>
       </body>
     </html>
   )
