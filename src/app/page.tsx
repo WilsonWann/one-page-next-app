@@ -15,7 +15,7 @@ import { productModalOpenAtom, shoppingListAtom } from '@/atoms'
 import { ShoppingItem } from '@/types'
 import ProductModal from './components/ProductModal'
 import CartArea from './components/CartArea'
-import Promotion from './components/promotion'
+import Promotion from './components/Promotion'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 export default function Home() {
