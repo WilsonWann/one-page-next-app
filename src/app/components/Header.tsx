@@ -36,6 +36,7 @@ const Header = () => {
   const router = useRouter()
   const [, toggleNavbar] = useAtom(navbarOpenAtom)
   const [cartItemQuantity] = useAtom(getCartItemQuantityAtom)
+
   return (
     <HeaderWrapper>
       <Logo />

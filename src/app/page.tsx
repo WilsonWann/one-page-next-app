@@ -16,12 +16,14 @@ import { ShoppingItem } from '@/types'
 import ProductModal from './components/ProductModal'
 import CartArea from './components/CartArea'
 import Promotion from './components/promotion'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 export default function Home() {
   const [shoppingList, setShoppingList] = useAtom(shoppingListAtom)
 
   const [modalOpen] = useAtom(productModalOpenAtom)
 
+  const { data: sessionData } = useSession()
   useEffect(() => {
     function getData() {
       fetch('/api/getServerData')
