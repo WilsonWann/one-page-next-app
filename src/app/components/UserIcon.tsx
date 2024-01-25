@@ -22,7 +22,7 @@ const UserIcon = (props: Props) => {
   if (type === 'default') {
     return (
       <UserIconWrapper>
-        <LuUser2 size={size} onClick={onClick} />
+        <LuUser2 color='black' size={size} onClick={onClick} />
         {name && <span>{name}</span>}
       </UserIconWrapper>
     )
@@ -31,7 +31,7 @@ const UserIcon = (props: Props) => {
   if (type === 'add') {
     return (
       <UserIconWrapper>
-        <LuUserPlus2 size={size} onClick={onClick} />
+        <LuUserPlus2 color='black' size={size} onClick={onClick} />
         {name && <span>{name}</span>}
       </UserIconWrapper>
     )

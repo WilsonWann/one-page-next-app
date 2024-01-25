@@ -26,7 +26,7 @@ const CloseButton = (props: Props) => {
 
   return (
     <CloseLabel htmlFor={htmlFor} onClick={onClick}>
-      <IoClose size={20} />
+      <IoClose color='black' size={20} />
     </CloseLabel>
   )
 }

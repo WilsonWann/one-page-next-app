@@ -3,9 +3,10 @@ import { Logistics, InStorePickup, Payment, LogisticsMode, Gender, TimeToReceive
 
 type ShoppingItem = {
   id: number
-  image: StaticImageData;
+  image: File;
+  src: string;
   alt: string;
-  title: string;
+  name: string;
   subtitle: string;
   content: string;
   price: number;

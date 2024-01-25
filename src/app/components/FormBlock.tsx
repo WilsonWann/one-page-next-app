@@ -65,6 +65,7 @@ const Block = styled.div<BlockType>`
   ${BlockTitle} {
     display: block;
     font-size: small;
+    color: black;
   }
 
   &:has(input[type='checkbox']) {
@@ -80,6 +81,8 @@ const Block = styled.div<BlockType>`
   }
 
   ${BlockContent} {
+    color: black;
+
     display: flex;
     justify-content: ${(props) => props.align ?? 'flex-start'};
     align-items: flex-start;

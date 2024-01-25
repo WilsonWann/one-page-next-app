@@ -8,6 +8,7 @@ import Counter from './Counter'
 import CloseButton from './CloseButton'
 import AddToCartButton from './AddToCartButton'
 import numberFormat from '@/helper/numberFormat'
+import usePreventScroll from '../hook/usePreventScroll'
 
 type ItemSelectorProps = {
   active: boolean
@@ -45,6 +46,7 @@ type Props = {
 
 const ProductModal = (props: Props) => {
   const { active } = props
+  usePreventScroll({ active })
 
   const [, setModalOpen] = useAtom(productModalOpenAtom)
   const [takeOnHandItem] = useAtom(takeOnHandAtom)

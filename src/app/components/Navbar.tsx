@@ -99,6 +99,7 @@ const NavItem = styled(NavLink)`
   line-height: 3rem;
   padding: 0 1rem;
   text-align: left;
+  color: black;
 `
 const NavAnimatedItem = styled(NavItem)({
   animation: `${wordColorAnimation} 1s linear infinite`,
@@ -124,6 +125,7 @@ const NavFooterCaption = styled.h2`
   height: 4rem;
   line-height: 4rem;
   font-size: larger;
+  color: black;
 `
 const CloseButtonWrapper = styled.div`
   padding-left: 1.5rem;

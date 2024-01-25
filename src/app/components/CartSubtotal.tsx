@@ -18,6 +18,10 @@ const CartSubtotalWrapper = styled.div<CartSubtotalWrapperType>`
   width: -webkit-fill-available;
   width: -moz-available;
   padding: ${(props) => props.padding};
+
+  & > * {
+    color: black;
+  }
 `
 
 const Subtotal = styled.div`

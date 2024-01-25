@@ -18,6 +18,7 @@ const CounterWrapper = styled.div`
     height: 2rem;
     padding: 0;
     margin: 0;
+    color: black;
   }
 `
 

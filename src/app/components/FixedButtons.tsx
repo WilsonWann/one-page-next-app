@@ -79,7 +79,7 @@ const FixedButtons = () => {
       )}
 
       <CircleButton backgroundColor={'white'} onClick={() => window.scrollTo(0, 0)}>
-        <HiArrowNarrowUp size={24} />
+        <HiArrowNarrowUp color='black' size={24} />
       </CircleButton>
 
       <AddToCartSuccessTip active={addToCartSuccess} />

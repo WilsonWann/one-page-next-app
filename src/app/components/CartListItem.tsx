@@ -1,13 +1,13 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import { CartItem as CartListItem } from '@/types'
-import TrashIcon from './TrashIcon'
-import ImageBlock from './ImageBlock'
-import Counter from './Counter'
-import { useAtom } from 'jotai'
-import { removeCartAtom } from '@/atoms'
-import numberFormat from '@/helper/numberFormat'
-import ErrorMessage from './ErrorMessage'
+import React from 'react';
+import styled from '@emotion/styled';
+import { CartItem as CartListItem } from '@/types';
+import TrashIcon from './TrashIcon';
+import ImageBlock from './ImageBlock';
+import Counter from './Counter';
+import { useAtom } from 'jotai';
+import { removeCartAtom } from '@/atoms';
+import numberFormat from '@/helper/numberFormat';
+import ErrorMessage from './ErrorMessage';
 
 const CartWrapper = styled.div`
   position: relative;
@@ -22,8 +22,8 @@ const CartWrapper = styled.div`
   align-items: center;
 
   border-top: 1px solid rgba(87, 90, 93, 1);
-`
-const CardImageBlock = styled(ImageBlock)``
+`;
+const CardImageBlock = styled(ImageBlock)``;
 
 const RemoveButtonWrapper = styled.div`
   position: relative;
@@ -31,13 +31,13 @@ const RemoveButtonWrapper = styled.div`
   width: 2rem;
   border-radius: 50%;
   background-color: lightgray;
-`
+`;
 const CartTitle = styled.h3`
   display: flex;
   flex-direction: column;
   align-items: inherit;
   gap: 0.5rem;
-`
+`;
 
 const PriceWrapper = styled.div`
   display: flex;
@@ -46,14 +46,14 @@ const PriceWrapper = styled.div`
   flex-wrap: wrap;
   column-gap: 1rem;
   row-gap: 0.5rem;
-`
+`;
 
 const Price = styled.div`
   color: grey;
   text-decoration: line-through;
   text-decoration-color: grey;
   text-decoration-thickness: 1px;
-`
+`;
 
 const SpecialPrice = styled.div`
   color: #4d4d4d;
@@ -61,22 +61,22 @@ const SpecialPrice = styled.div`
   & b {
     color: red;
   }
-`
+`;
 
 type Props = {
-  item: CartListItem
-}
+  item: CartListItem;
+};
 
 const CartListItem = (props: Props) => {
-  const { item } = props
-  const [, removeCart] = useAtom(removeCartAtom)
+  const { item } = props;
+  const [, removeCart] = useAtom(removeCartAtom);
 
   return (
     <CartWrapper>
       <RemoveButtonWrapper>
         <TrashIcon onClick={() => removeCart(item.id)} />
       </RemoveButtonWrapper>
-      <CardImageBlock image={item.image} alt={item.alt} customType={'width'} customWidth={`3rem`} />
+      <CardImageBlock src={item.image} alt={item.alt} customType={'width'} customWidth={`3rem`} />
       <div>
         <CartTitle>{item.title}</CartTitle>
         <PriceWrapper>
@@ -90,7 +90,7 @@ const CartListItem = (props: Props) => {
       </div>
       <div>{numberFormat(item.subtotal)}</div>
     </CartWrapper>
-  )
-}
+  );
+};
 
-export default CartListItem
+export default CartListItem;
