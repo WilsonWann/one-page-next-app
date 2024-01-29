@@ -1,53 +1,14 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import AddToCartButton from './AddToCartButton'
-
-import wilson from '../../assets/wilson.jpg'
-import gubami from '../../assets/gubami.jpg'
-import lalaport from '../../assets/lalaport.jpg'
-import sansanyakiniku from '../../assets/sansanyakiniku.png'
-import pokemon from '../../assets/pokemon.jpg'
-import mcdonald from '../../assets/mcdonald.png'
-import scheduled from '../../assets/scheduled.jpg'
-import ImageBlock from './ImageBlock'
 
 import { IoSquareSharp } from 'react-icons/io5'
-import { TfiLayoutGrid2Alt, TfiLayoutGrid3Alt, TfiLayoutGrid4Alt } from 'react-icons/tfi'
+import { TfiLayoutGrid2Alt, TfiLayoutGrid3Alt } from 'react-icons/tfi'
 import { useAtom } from 'jotai'
-import { shoppingAreaDisplayColumnAtom } from '@/atoms/routingAtoms'
+import { shoppingAreaDisplayColumnAtom } from '@/atoms'
 import HorizontalLine from './HorizontalLine'
 import DisplayTitle from './DisplayTitle'
-
-const arr = [
-  {
-    image: wilson,
-    alt: 'Wilson'
-  },
-  {
-    image: gubami,
-    alt: '牛肉麵'
-  },
-  {
-    image: lalaport,
-    alt: '拉拉寶都'
-  },
-  {
-    image: sansanyakiniku,
-    alt: '三三燒肉'
-  },
-  {
-    image: scheduled,
-    alt: '時刻表'
-  },
-  {
-    image: pokemon,
-    alt: '皮卡丘'
-  },
-  {
-    image: mcdonald,
-    alt: '麥當勞'
-  }
-]
+import CardItem from './CardItem'
+import { ShoppingItem } from '@/types'
 
 const DisplayControlPanel = styled.div`
   display: flex;
@@ -73,28 +34,16 @@ const DisplayArea = styled.div<DisplayAreaProps>`
   grid-template-rows: 1fr;
 
   gap: ${(props) => props.gap ?? '0'};
+  row-gap: 3rem;
   margin-bottom: 2rem;
 `
 
-type ItemProps = {
-  order: number
+type Props = {
+  data: ShoppingItem[]
 }
 
-const Item = styled.div<ItemProps>`
-  position: relative;
-  width: 100%;
-  height: fit-content;
-  background-color: ${(props) => (props.order % 2 == 0 ? 'lightgray' : 'darkgray')};
-`
-
-const CardImageBlock = styled(ImageBlock)`
-  /* width: 100% !important;
-  height: 10rem; */
-`
-
-type Props = {}
-
 const ShoppingArea = (props: Props) => {
+  const { data } = props
   const [columnNumber, setColumn] = useAtom(shoppingAreaDisplayColumnAtom)
   return (
     <>
@@ -106,21 +55,8 @@ const ShoppingArea = (props: Props) => {
         {/* <TfiLayoutGrid4Alt size={12} color={'#999'} onClick={() => setColumn(4)} /> */}
       </DisplayControlPanel>
       <DisplayArea gap={'1rem'} columnItems={columnNumber}>
-        {arr.map((item, index) => (
-          <Item key={index} order={index}>
-            <CardImageBlock
-              image={item.image}
-              alt={item.alt}
-              customType={'height'}
-              customHeight={`${16 / columnNumber}rem`}
-            />
-            <div>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor obcaecati eveniet est
-              fuga. Officiis, reprehenderit ad? Enim consectetur ullam porro libero officiis nobis
-              aliquid autem iusto facere aperiam, eveniet magnam?
-            </div>
-            <AddToCartButton />
-          </Item>
+        {data.map((item, index) => (
+          <CardItem key={index} item={item} />
         ))}
       </DisplayArea>
       <HorizontalLine />

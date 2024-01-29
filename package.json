@@ -13,12 +13,17 @@
     "@emotion/styled": "^11.11.0",
     "jotai": "^2.6.0",
     "next": "14.0.4",
+    "next-auth": "^4.24.5",
     "react": "^18",
+    "react-cookie": "^7.0.1",
     "react-dom": "^18",
+    "react-hook-form": "^7.49.2",
     "react-icons": "^4.12.0",
-    "react-lite-youtube-embed": "^2.4.0"
+    "react-lite-youtube-embed": "^2.4.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@t3-oss/env-nextjs": "^0.7.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

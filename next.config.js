@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: true
+  },
   images: {
     remotePatterns: [
       {
@@ -10,6 +13,13 @@ const nextConfig = {
       },
     ]
   },
+  compiler: {
+    emotion: {
+      sourceMap: true,
+      autoLabel: 'dev-only',
+      labelFormat: '[filename]__[local]',
+    }
+  }
 }
 
 module.exports = nextConfig

@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import CloseButton from './CloseButton'
+import { useAtom } from 'jotai'
+import { promotionCheckAtom } from '@/atoms'
 
 const Modal = styled.div`
   position: fixed;
@@ -20,7 +22,7 @@ const Modal = styled.div`
   align-items: center;
   font-size: small;
   display: flex;
-  transition: top 0.5s ease-out;
+  transition: top 0.75s ease-out;
 `
 
 const ModalTitle = styled.h3`
@@ -35,8 +37,12 @@ const ModalState = styled.input`
   }
 
   &:not(checked) + #promotion-modal {
-    top: -1rem;
+    top: -4rem;
   }
+`
+
+const CloseButtonWrapper = styled.div`
+  margin-left: 'auto';
 `
 type Props = {
   title: string
@@ -49,7 +55,9 @@ const Promotion = (props: Props) => {
       <ModalState type='checkbox' id='modal' defaultChecked={true} />
       <Modal id='promotion-modal'>
         <ModalTitle>{title}</ModalTitle>
-        <CloseButton htmlFor={'modal'} />
+        <CloseButtonWrapper>
+          <CloseButton htmlFor={'modal'} />
+        </CloseButtonWrapper>
       </Modal>
     </>
   )

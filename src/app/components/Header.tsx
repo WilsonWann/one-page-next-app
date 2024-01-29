@@ -3,10 +3,11 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 
 import styled from '@emotion/styled'
 import { useAtom } from 'jotai'
-import { navbarOpenAtom } from '@/atoms/routingAtoms'
+import { getCartItemQuantityAtom, navbarOpenAtom } from '@/atoms'
 import Logo from './Logo'
 import CartIcon from './CartIcon'
 import UserIcon from './UserIcon'
+import { useRouter } from 'next/navigation'
 
 const HeaderWrapper = styled.div`
   position: fixed;
@@ -32,14 +33,17 @@ const ButtonWrapper = styled.div`
 `
 
 const Header = () => {
+  const router = useRouter()
   const [, toggleNavbar] = useAtom(navbarOpenAtom)
+  const [cartItemQuantity] = useAtom(getCartItemQuantityAtom)
+
   return (
     <HeaderWrapper>
       <Logo />
       <ButtonWrapper>
-        <UserIcon />
-        <CartIcon />
-        <RxHamburgerMenu size={22} onClick={() => toggleNavbar(true)} />
+        <UserIcon type='default' onClick={() => router.push('/account')} />
+        <CartIcon itemNumber={cartItemQuantity} onClick={() => router.push('/cart')} />
+        <RxHamburgerMenu color='black' size={22} onClick={() => toggleNavbar(true)} />
       </ButtonWrapper>
     </HeaderWrapper>
   )

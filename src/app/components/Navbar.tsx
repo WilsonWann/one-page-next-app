@@ -1,13 +1,16 @@
 'use client'
-import React, { useEffect } from 'react'
+import React from 'react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import NavLink from './NavLink'
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/react'
-import { navbarOpenAtom } from '@/atoms/routingAtoms'
+import { navbarOpenAtom } from '@/atoms'
 import { useAtom } from 'jotai'
 import Logo from './Logo'
 import CloseButton from './CloseButton'
 import { usePathname } from 'next/navigation'
+import Backdrop from './Backdrop'
+import usePreventScroll from '../hook/usePreventScroll'
 
 const wordColorAnimation = keyframes`
   0%{
@@ -33,25 +36,16 @@ const activeWordColorAnimation = keyframes`
   }
 `
 
-const NavbarBackdrop = styled.div`
-  position: fixed;
-  top: 0;
-  height: 100vh;
-  left: -100vw;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: calc(99999 + 1);
+type NavbarWrapperProps = {
+  active: boolean
+}
 
-  &.active {
-    left: 0;
-  }
-`
-const NavbarWrapper = styled.nav`
+const NavbarWrapper = styled.nav<NavbarWrapperProps>`
   position: fixed;
   top: 0;
-  left: -76vw;
+  left: ${(props) => (props.active ? '0' : '-76vw')};
   background-color: white;
-  height: 100vh;
+  height: 100dvh;
   display: block;
   width: 76vw;
   z-index: calc(99999 + 2);
@@ -60,18 +54,25 @@ const NavbarWrapper = styled.nav`
   display: flex;
   flex-direction: column;
 
-  &.active {
+  /* &.active {
     left: 0;
+  } */
+
+  & b {
+    font-size: larger;
+    font-weight: bolder;
   }
 
   & p,
   & h2,
+  & b,
+  & button,
   & a:not(:has(svg)) {
     border-bottom: 1px solid #e6e6e6;
   }
 `
 
-const NavHeader = styled.p`
+const NavHeader = styled.div`
   position: relative;
   height: 3rem;
   width: 100%;
@@ -97,6 +98,8 @@ const NavItem = styled(NavLink)`
   width: 100%;
   line-height: 3rem;
   padding: 0 1rem;
+  text-align: left;
+  color: black;
 `
 const NavAnimatedItem = styled(NavItem)({
   animation: `${wordColorAnimation} 1s linear infinite`,
@@ -122,23 +125,27 @@ const NavFooterCaption = styled.h2`
   height: 4rem;
   line-height: 4rem;
   font-size: larger;
+  color: black;
+`
+const CloseButtonWrapper = styled.div`
+  padding-left: 1.5rem;
 `
 
 const Navbar = () => {
+  const { data: sessionData } = useSession()
   const pathname = usePathname()
-  console.log('🚀 ~ file: Navbar.tsx:129 ~ Navbar ~ pathname:', pathname)
   const [navbarOpen, toggleNavbar] = useAtom(navbarOpenAtom)
-  useEffect(() => {
-    document.body.style.overflow = navbarOpen ? 'hidden' : 'auto'
-  }, [navbarOpen])
 
+  usePreventScroll({ active: navbarOpen })
   return (
     <>
-      <NavbarBackdrop className={navbarOpen ? 'active' : ''} onClick={() => toggleNavbar(false)} />
-      <NavbarWrapper className={navbarOpen ? 'active' : ''}>
+      <Backdrop active={navbarOpen} onClick={() => toggleNavbar(false)} />
+      <NavbarWrapper active={navbarOpen}>
         <NavHeader>
           <Logo />
-          <CloseButton onClick={() => toggleNavbar(false)} />
+          <CloseButtonWrapper>
+            <CloseButton onClick={() => toggleNavbar(false)} />
+          </CloseButtonWrapper>
         </NavHeader>
         <NavMenu>
           <NavAnimatedItem href={'/wilson'}>威爾森</NavAnimatedItem>
@@ -149,8 +156,20 @@ const Navbar = () => {
         </NavMenu>
         <NavFooter>
           <NavFooterCaption>會員</NavFooterCaption>
-          <NavItem href={'/login'}>登入</NavItem>
-          <NavItem href={'/register'}>註冊</NavItem>
+          {sessionData ? (
+            <>
+              <NavItem As='b'> 尊貴的 {sessionData?.user?.name} 歡迎光臨</NavItem>
+              <NavItem href={'/account'}>會員中心</NavItem>
+              <NavItem As='button' onClick={signOut}>
+                登出
+              </NavItem>
+            </>
+          ) : (
+            <>
+              <NavItem href={'/login'}>登入</NavItem>
+              <NavItem href={'/register'}>註冊</NavItem>
+            </>
+          )}
         </NavFooter>
       </NavbarWrapper>
     </>

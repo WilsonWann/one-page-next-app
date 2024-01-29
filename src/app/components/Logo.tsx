@@ -12,7 +12,7 @@ const Logo = (props: Props) => {
 
   return (
     <NavLink href={'/'}>
-      <IoLogoModelS size={size} />
+      <IoLogoModelS color={'black'} size={size} />
     </NavLink>
   )
 }
