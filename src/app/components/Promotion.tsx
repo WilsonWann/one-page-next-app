@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import CloseButton from './CloseButton'
-import { useAtom } from 'jotai'
-import { promotionCheckAtom } from '@/atoms'
+import React from 'react';
+import styled from '@emotion/styled';
+import CloseButton from './CloseButton';
+import { useAtom } from 'jotai';
+// import { promotionCheckAtom } from '@/atoms'
 
 const Modal = styled.div`
   position: fixed;
@@ -23,11 +23,11 @@ const Modal = styled.div`
   font-size: small;
   display: flex;
   transition: top 0.75s ease-out;
-`
+`;
 
 const ModalTitle = styled.h3`
   color: #4d4d4d;
-`
+`;
 
 const ModalState = styled.input`
   display: none;
@@ -39,16 +39,16 @@ const ModalState = styled.input`
   &:not(checked) + #promotion-modal {
     top: -4rem;
   }
-`
+`;
 
 const CloseButtonWrapper = styled.div`
   margin-left: 'auto';
-`
+`;
 type Props = {
-  title: string
-}
+  title: string;
+};
 const Promotion = (props: Props) => {
-  const { title } = props
+  const { title } = props;
 
   return (
     <>
@@ -60,7 +60,7 @@ const Promotion = (props: Props) => {
         </CloseButtonWrapper>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Promotion
+export default Promotion;
