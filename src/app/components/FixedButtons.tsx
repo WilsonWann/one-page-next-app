@@ -1,11 +1,12 @@
-import React from 'react'
-import type { ComponentPropsWithoutRef, ElementType } from 'react'
-import styled from '@emotion/styled'
-import { SiMessenger } from 'react-icons/si'
-import { HiArrowNarrowUp } from 'react-icons/hi'
-import { useAtom } from 'jotai'
-import { getCartItemQuantityAtom, getAddToCartSuccessAtom } from '@/atoms'
-import AddToCartSuccessTip from './AddToCartSuccessTip'
+import React from 'react';
+import type { ComponentPropsWithoutRef, ElementType } from 'react';
+import styled from '@emotion/styled';
+import { SiMessenger } from 'react-icons/si';
+import { HiArrowNarrowUp } from 'react-icons/hi';
+import { useAtom } from 'jotai';
+import { getCartItemQuantityAtom, getAddToCartSuccessAtom } from '@/atoms';
+import AddToCartSuccessTip from './AddToCartSuccessTip';
+import FbMessengerButton from './FBMessengerButton';
 
 const ButtonWrapper = styled.div`
   position: fixed;
@@ -18,13 +19,13 @@ const ButtonWrapper = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   z-index: 99999;
-`
+`;
 
 type ButtonProps = {
-  backgroundColor?: string
-  color?: string
-  onClick?: () => void
-}
+  backgroundColor?: string;
+  color?: string;
+  onClick?: () => void;
+};
 const ButtonDiv = styled.div<ButtonProps>`
   position: relative;
   height: 3rem;
@@ -47,17 +48,18 @@ const ButtonDiv = styled.div<ButtonProps>`
     width: 100%;
     height: 100%;
   }
-`
+`;
 const FixedButtons = () => {
-  const [cartItemQuantity] = useAtom(getCartItemQuantityAtom)
-  const [addToCartSuccess] = useAtom(getAddToCartSuccessAtom)
+  const [cartItemQuantity] = useAtom(getCartItemQuantityAtom);
+  const [addToCartSuccess] = useAtom(getAddToCartSuccessAtom);
 
   return (
     <ButtonWrapper>
       {/* //! fb chat func not finished */}
-      <CircleButton backgroundColor={'#0084ff'}>
+      <FbMessengerButton />
+      {/* <CircleButton backgroundColor={'#0084ff'}>
         <SiMessenger size={28} color={'white'} />
-      </CircleButton>
+      </CircleButton> */}
       {cartItemQuantity === 0 ? (
         <CircleButton
           As='a'
@@ -78,23 +80,26 @@ const FixedButtons = () => {
         </CircleButton>
       )}
 
-      <CircleButton backgroundColor={'white'} onClick={() => window.scrollTo(0, 0)}>
+      <CircleButton
+        backgroundColor={'white'}
+        onClick={() => window.scrollTo(0, 0)}
+      >
         <HiArrowNarrowUp color='black' size={24} />
       </CircleButton>
 
       <AddToCartSuccessTip active={addToCartSuccess} />
     </ButtonWrapper>
-  )
-}
+  );
+};
 
-const DEFAULT_TYPE = 'div'
+const DEFAULT_TYPE = 'div';
 type CircleButtonProps<T extends ElementType> = {
-  As?: T
-  backgroundColor?: string
-  color?: string
-  onClick?: () => void
-  children: React.ReactNode
-} & ComponentPropsWithoutRef<T>
+  As?: T;
+  backgroundColor?: string;
+  color?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+} & ComponentPropsWithoutRef<T>;
 
 function CircleButton<T extends ElementType = typeof DEFAULT_TYPE>({
   As,
@@ -104,12 +109,16 @@ function CircleButton<T extends ElementType = typeof DEFAULT_TYPE>({
   children,
   ...props
 }: CircleButtonProps<T>) {
-  const Component = As ?? DEFAULT_TYPE
+  const Component = As ?? DEFAULT_TYPE;
   return (
-    <ButtonDiv backgroundColor={backgroundColor} color={color} onClick={onClick}>
+    <ButtonDiv
+      backgroundColor={backgroundColor}
+      color={color}
+      onClick={onClick}
+    >
       <Component {...props}>{children}</Component>
     </ButtonDiv>
-  )
+  );
 }
 
-export default FixedButtons
+export default FixedButtons;

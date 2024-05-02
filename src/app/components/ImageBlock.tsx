@@ -98,25 +98,25 @@ const ImageBlock = (props: Props) => {
     );
   }
 
-  if (customType === 'default') {
-    return (
-      <ImageDiv customType={customType}>
-        <Image src={props.src} alt={alt} style={{ objectFit: 'cover' }} />
-      </ImageDiv>
-    );
-  }
+  // if (customType === 'default') {
+  //   return (
+  //     <ImageDiv customType={customType}>
+  //       <Image src={props.src} alt={alt} style={{ objectFit: 'cover' }} />
+  //     </ImageDiv>
+  //   );
+  // }
 
-  if (customType === 'height') {
-    return (
-      <ImageDiv customType={customType} customHeight={props.customHeight}>
-        <Image
-          src={props.src}
-          alt={alt}
-          style={{ height: '100%', objectFit: 'cover' }}
-        />
-      </ImageDiv>
-    );
-  }
+  // if (customType === 'height') {
+  //   return (
+  //     <ImageDiv customType={customType} customHeight={props.customHeight}>
+  //       <Image
+  //         src={props.src}
+  //         alt={alt}
+  //         style={{ height: '100%', objectFit: 'cover' }}
+  //       />
+  //     </ImageDiv>
+  //   );
+  // }
 
   if (customType === 'width') {
     return (

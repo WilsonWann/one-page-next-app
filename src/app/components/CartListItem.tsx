@@ -23,7 +23,6 @@ const CartWrapper = styled.div`
 
   border-top: 1px solid rgba(87, 90, 93, 1);
 `;
-const CardImageBlock = styled(ImageBlock)``;
 
 const RemoveButtonWrapper = styled.div`
   position: relative;
@@ -76,7 +75,12 @@ const CartListItem = (props: Props) => {
       <RemoveButtonWrapper>
         <TrashIcon onClick={() => removeCart(item.id)} />
       </RemoveButtonWrapper>
-      <CardImageBlock src={item.image} alt={item.alt} customType={'width'} customWidth={`3rem`} />
+      <ImageBlock
+        image={item.image}
+        alt={item.alt}
+        customType={'width'}
+        customWidth={`3rem`}
+      />
       <div>
         <CartTitle>{item.title}</CartTitle>
         <PriceWrapper>
