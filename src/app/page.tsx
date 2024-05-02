@@ -41,7 +41,7 @@ export default function Home() {
       />
       <VideoArea />
       {/* images */}
-      <ImageArea />
+      <ImageArea data={shoppingList} />
       {/* marketing paragraph */}
       <MarketingBlock
         title={'優惠折扣'}
@@ -51,7 +51,7 @@ export default function Home() {
         }
       />
 
-      <ShoppingArea data={[]} />
+      <ShoppingArea data={shoppingList} />
       {/* <ShoppingArea data={shoppingList} /> */}
       <ProductModal active={modalOpen} />
 

@@ -1,11 +1,11 @@
 import { ShoppingItem } from "@/types";
-// import { shoppingList } from "./data";
+import { shoppingList } from "./data";
 
 export async function GET(request: Request): Promise<Response> {
 
-  const shoppingList = await fetch('http://localhost:4200/api/product')
-    .then((res) => res.json())
-  console.log("🚀 ~ GET ~ shoppingList:", shoppingList)
+  // const shoppingList = await fetch('http://localhost:4200/api/product')
+  //   .then((res) => res.json())
+  // console.log("🚀 ~ GET ~ shoppingList:", shoppingList)
 
   // const data = await Promise.all(
   //   shoppingList.map(async (item: ShoppingItem): Promise<ShoppingItem> => {

@@ -23,7 +23,11 @@ type ImageStaticProps = {
   height: number;
 };
 
-type ImageProps = ImageStaticProps | ImageDefaultProps | CustomWidthProps | CustomHeightProps;
+type ImageProps =
+  | ImageStaticProps
+  | ImageDefaultProps
+  | CustomWidthProps
+  | CustomHeightProps;
 
 const ImageDiv = styled.div<ImageProps>`
   position: relative;
@@ -31,8 +35,9 @@ const ImageDiv = styled.div<ImageProps>`
   ${(props) =>
     props.customType === 'static' &&
     `
-      width: 100vw;
-      height: calc((${props.height / props.width}) * 100vw);
+      width: min(100%, ${props.width}px);
+      // height: calc((${props.height / props.width}) * 100vw);
+      height: fit-content;
     `}
 
   ${(props) =>
@@ -54,28 +59,41 @@ const ImageDiv = styled.div<ImageProps>`
     props.customType === 'width' &&
     `
       width: ${props.customWidth};
-      height: calc((${props.customWidth} * ( 9 / 16 )));  
+      // height: calc((${props.customWidth} * ( 9 / 16 )));  
       overflow: hidden;      
     `}
 `;
 
-type Props =
-  | ({
-      alt?: string;
-    } & ((ImageDefaultProps | CustomWidthProps | CustomHeightProps) & { src: string }))
-  | {
-      customType: 'static';
+type Props = { alt?: string } & (
+  | ((ImageDefaultProps | CustomHeightProps) & {
+      src: string;
+    })
+  | ((ImageStaticProps | CustomWidthProps) & {
       image: StaticImageData;
-    };
+    })
+);
 
 const ImageBlock = (props: Props) => {
-  const { src, alt = '', customType } = props;
+  const { alt = '', customType } = props;
 
   // src is StaticImageData
   if (customType === 'static') {
     return (
-      <ImageDiv customType={'static'} width={props.width} height={props.height}>
-        <Image src={props.image} alt={alt} blurDataURL={props.image.blurDataURL} fill />
+      <ImageDiv
+        customType={'static'}
+        width={props.image.width}
+        height={props.image.height}
+      >
+        <Image
+          src={props.image}
+          alt={alt}
+          blurDataURL={props.image.blurDataURL}
+          // fill
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
+        />
       </ImageDiv>
     );
   }
@@ -83,7 +101,7 @@ const ImageBlock = (props: Props) => {
   if (customType === 'default') {
     return (
       <ImageDiv customType={customType}>
-        <Image src={src} alt={alt} style={{ objectFit: 'cover' }} />
+        <Image src={props.src} alt={alt} style={{ objectFit: 'cover' }} />
       </ImageDiv>
     );
   }
@@ -91,7 +109,11 @@ const ImageBlock = (props: Props) => {
   if (customType === 'height') {
     return (
       <ImageDiv customType={customType} customHeight={props.customHeight}>
-        <Image src={src} alt={alt} style={{ height: '100%', objectFit: 'cover' }} />
+        <Image
+          src={props.src}
+          alt={alt}
+          style={{ height: '100%', objectFit: 'cover' }}
+        />
       </ImageDiv>
     );
   }
@@ -99,7 +121,11 @@ const ImageBlock = (props: Props) => {
   if (customType === 'width') {
     return (
       <ImageDiv customType={customType} customWidth={props.customWidth}>
-        <Image src={src} alt={alt} style={{ width: '100%', objectFit: 'cover' }} />
+        <Image
+          src={props.image}
+          alt={alt}
+          style={{ width: '100%', objectFit: 'cover' }}
+        />
       </ImageDiv>
     );
   }

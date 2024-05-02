@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from '@emotion/styled'
+import React from 'react';
+import styled from '@emotion/styled';
 
-import { IoSquareSharp } from 'react-icons/io5'
-import { TfiLayoutGrid2Alt, TfiLayoutGrid3Alt } from 'react-icons/tfi'
-import { useAtom } from 'jotai'
-import { shoppingAreaDisplayColumnAtom } from '@/atoms'
-import HorizontalLine from './HorizontalLine'
-import DisplayTitle from './DisplayTitle'
-import CardItem from './CardItem'
-import { ShoppingItem } from '@/types'
+import { IoSquareSharp } from 'react-icons/io5';
+import { TfiLayoutGrid2Alt, TfiLayoutGrid3Alt } from 'react-icons/tfi';
+import { useAtom } from 'jotai';
+import { shoppingAreaDisplayColumnAtom } from '@/atoms';
+import HorizontalLine from './HorizontalLine';
+import DisplayTitle from './DisplayTitle';
+import CardItem from './CardItem';
+import { ShoppingItem } from '@/types';
 
 const DisplayControlPanel = styled.div`
   display: flex;
@@ -16,12 +16,12 @@ const DisplayControlPanel = styled.div`
   justify-content: center;
   gap: 2rem;
   margin: 1rem auto 2rem;
-`
+`;
 
 type DisplayAreaProps = {
-  gap?: string
-  columnItems: number
-}
+  gap?: string;
+  columnItems: number;
+};
 
 const DisplayArea = styled.div<DisplayAreaProps>`
   position: relative;
@@ -36,32 +36,40 @@ const DisplayArea = styled.div<DisplayAreaProps>`
   gap: ${(props) => props.gap ?? '0'};
   row-gap: 3rem;
   margin-bottom: 2rem;
-`
+`;
 
 type Props = {
-  data: ShoppingItem[]
-}
+  data: ShoppingItem[];
+};
 
 const ShoppingArea = (props: Props) => {
-  const { data } = props
-  const [columnNumber, setColumn] = useAtom(shoppingAreaDisplayColumnAtom)
+  const { data: shoppingItemList } = props;
+  const [columnNumber, setColumn] = useAtom(shoppingAreaDisplayColumnAtom);
   return (
     <>
       <DisplayTitle title={'精選單品'} />
       <DisplayControlPanel>
         <IoSquareSharp size={12} color={'#999'} onClick={() => setColumn(1)} />
-        <TfiLayoutGrid2Alt size={12} color={'#999'} onClick={() => setColumn(2)} />
-        <TfiLayoutGrid3Alt size={12} color={'#999'} onClick={() => setColumn(3)} />
+        <TfiLayoutGrid2Alt
+          size={12}
+          color={'#999'}
+          onClick={() => setColumn(2)}
+        />
+        <TfiLayoutGrid3Alt
+          size={12}
+          color={'#999'}
+          onClick={() => setColumn(3)}
+        />
         {/* <TfiLayoutGrid4Alt size={12} color={'#999'} onClick={() => setColumn(4)} /> */}
       </DisplayControlPanel>
       <DisplayArea gap={'1rem'} columnItems={columnNumber}>
-        {data.map((item, index) => (
+        {shoppingItemList.map((item, index) => (
           <CardItem key={index} item={item} />
         ))}
       </DisplayArea>
       <HorizontalLine />
     </>
-  )
-}
+  );
+};
 
-export default ShoppingArea
+export default ShoppingArea;

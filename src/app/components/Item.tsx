@@ -3,7 +3,10 @@ import styled from '@emotion/styled';
 import ImageBlock from './ImageBlock';
 import { ShoppingItem } from '@/types';
 import { useAtom } from 'jotai';
-import { shoppingAreaDisplayColumnAtom, setTakeOnHandItemIdAtom } from '@/atoms';
+import {
+  shoppingAreaDisplayColumnAtom,
+  setTakeOnHandItemIdAtom,
+} from '@/atoms';
 import AddToCartButton from './AddToCartButton';
 import numberFormat from '@/helper/numberFormat';
 
@@ -21,9 +24,10 @@ const ItemWrapper = styled.div<ItemWrapperProps>`
   flex-direction: column;
   justify-content: stretch;
 
-  align-items: ${(props) => (props.align === 'center' ? 'center' : `flex-${props.align}`)};
+  align-items: ${(props) =>
+    props.align === 'center' ? 'center' : `flex-${props.align}`};
   text-align: ${(props) => props.align};
-  gap: 0.5rem;
+  /* gap: 0.5rem; */
 
   & > *:last-child {
     margin-top: auto;
@@ -39,7 +43,7 @@ const ItemContentWrapper = styled.div<ItemContentProps>`
     props.padding &&
     `
 padding: ${props.padding};
-border-top: 1px solid rgba(0, 0, 0, 0.2);
+// border-top: 1px solid rgba(0, 0, 0, 0.2);
 width: 100%;
 `}
 `;
@@ -107,7 +111,7 @@ const Item = (props: Props) => {
     align = 'center',
     children = null,
     subtotal = null,
-    addToCartButton = <AddToCartButton onClick={() => setItemId(item.id)} />
+    addToCartButton = <AddToCartButton onClick={() => setItemId(item.id)} />,
   } = props;
 
   const isInProductModal = props.padding ? true : false;
@@ -116,28 +120,34 @@ const Item = (props: Props) => {
     <ItemWrapper align={align}>
       {isInProductModal ? (
         <CardImageBlock
-          src={item.src}
+          image={item.image}
+          customType={'static'}
+          // src={item.src}
           alt={item.alt}
-          customType={'height'}
-          customHeight={`${16}rem`}
+          // customType={'height'}
+          // customHeight={`${16}rem`}
         />
       ) : (
         <CardImageBlock
-          src={item.src}
+          image={item.image}
+          customType={'static'}
+          // src={item.src}
           alt={item.alt}
-          customType={'height'}
-          customHeight={`${16 / columnNumber}rem`}
+          // customType={'height'}
+          // customHeight={`${16 / columnNumber}rem`}
         />
       )}
 
       <ItemContentWrapper padding={props.padding}>
         <ItemTitle>
-          {item.name}
+          {item.title}
           <small>{item.subtitle}</small>
         </ItemTitle>
         <PriceWrapper>
           <Price>原價：{numberFormat(item.price)}</Price>
-          <SpecialPrice>現在特價只要{numberFormat(item.specialPrice)}元</SpecialPrice>
+          <SpecialPrice>
+            現在特價只要{numberFormat(item.specialPrice)}元
+          </SpecialPrice>
         </PriceWrapper>
         {children}
         <Content>{item.content}</Content>
