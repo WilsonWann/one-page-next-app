@@ -1,9 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-const IconWrapper = styled.div`
+type IconWrapperProps = {
+  width?: number | string;
+  size?: number;
+};
+
+const IconWrapper = styled.div<IconWrapperProps>`
   position: relative;
-  width: 9rem;
+  width: ${({ width }) => width ?? '9rem'};
   height: 2rem;
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -24,16 +29,18 @@ type Props = {
   children: React.ReactNode;
   onClick?: () => void;
   iconText: string;
+  width?: number | string;
+  size?: number;
 };
 
-const FacebookIcon = (props: Props) => {
+const TemplateIconWrapper = (props: Props) => {
   const { children, onClick = () => {}, iconText } = props;
   return (
-    <IconWrapper onClick={onClick}>
+    <IconWrapper onClick={onClick} width={props.width} size={props.size}>
       {children}
       <IconSpan>{iconText}</IconSpan>
     </IconWrapper>
   );
 };
 
-export default FacebookIcon;
+export default TemplateIconWrapper;

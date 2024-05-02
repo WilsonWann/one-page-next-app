@@ -44,7 +44,7 @@ export const getTimeToReceiveAtom = atom(
   }
 )
 
-export const nameAtom = atom<string>('')
+export const receiptNameAtom = atom<string>('')
 
 export const cellphoneAtom = atom<string>('')
 
@@ -109,19 +109,19 @@ export const genderAtom = atom<GenderType>(
     return genders
       .filter(gender => gender.type === genderType)[0].type
   })
-export const emailAtom = atom<string>('')
+export const receiptEmailAtom = atom<string>('')
 export const noteAtom = atom<string>('')
 
 const recipientAtom = atom<RecipientType>({} as RecipientType)
 export const getRecipientAtom = atom(
   get => {
     return {
-      name: get(nameAtom),
+      name: get(receiptNameAtom),
       cellphone: get(cellphoneAtom),
       address: get(addressAtom),
       timeToReceive: get(timeToReceiveAtom),
       gender: get(genderAtom),
-      email: get(emailAtom),
+      email: get(receiptEmailAtom),
       note: get(noteAtom)
     }
   }
@@ -162,12 +162,12 @@ export const setValidateAddressAtom = atom(
 export const getValidateRecipientAtom = atom(
   get => {
     return {
-      name: get(nameAtom),
+      name: get(receiptNameAtom),
       cellphone: get(cellphoneAtom),
       address: get(getValidateAddressAtom),
       timeToReceive: get(timeToReceiveAtom),
       gender: get(genderAtom),
-      email: get(emailAtom),
+      email: get(receiptEmailAtom),
       note: get(noteAtom)
     }
   }

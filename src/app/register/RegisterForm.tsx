@@ -1,30 +1,49 @@
-import styled from '@emotion/styled'
-import { useForm } from 'react-hook-form'
-import SubmitButton from '../components/SubmitButton'
-import FormInput from '../components/FormInput'
+import styled from '@emotion/styled';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import SubmitButton from '../components/SubmitButton';
+import FormInput from '../components/FormInput';
+import { useEffect } from 'react';
+
+interface IRegisterForm {
+  name: string;
+  email: string;
+  password: string;
+}
+
+const RegisterFormWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+`;
 
 const ErrorMessage = styled.div`
   margin-bottom: 0.5rem;
   color: red;
   font-size: medium;
-`
+`;
 
-type Props = {}
+type Props = {};
 
 const RegisterForm = (props: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
-  } = useForm()
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit: SubmitHandler<IRegisterForm> = (data) => {
+    console.log(data);
+  };
 
   return (
-    <form style={{ width: '100%' }} onSubmit={handleSubmit((data) => console.log(data))}>
+    <RegisterFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <FormInput
         label='姓名'
         required={true}
-        inputProps={register('firstName', { required: true })}
-        error={errors.firstName?.toString()}
+        inputProps={register('name', { required: true })}
+        error={errors.name?.toString()}
       />
       {errors.firstName && <ErrorMessage>必須填寫</ErrorMessage>}
       <FormInput
@@ -43,8 +62,8 @@ const RegisterForm = (props: Props) => {
       />
       {errors.password && <ErrorMessage>必須填寫</ErrorMessage>}
       <SubmitButton text={'立即註冊'} />
-    </form>
-  )
-}
+    </RegisterFormWrapper>
+  );
+};
 
-export default RegisterForm
+export default RegisterForm;

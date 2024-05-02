@@ -92,7 +92,7 @@ const addToCartSuccessAtom = atom<boolean>(false)
 export const getAddToCartSuccessAtom = atom(get => get(addToCartSuccessAtom))
 const activeAddToCartSuccessAtom = atom(
   null,
-  (_et, set) => {
+  (_get, set) => {
     set(addToCartSuccessAtom, true)
     setTimeout(() => {
       set(addToCartSuccessAtom, false)

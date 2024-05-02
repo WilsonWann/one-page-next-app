@@ -1,25 +1,42 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
 type BlockTitle = {
-  align?: 'left' | 'right' | 'center' | 'justify' | 'inherit' | 'initial' | 'unset'
-}
+  align?:
+    | 'left'
+    | 'right'
+    | 'center'
+    | 'justify'
+    | 'inherit'
+    | 'initial'
+    | 'unset';
+};
 const BlockTitle = styled.label<BlockTitle>`
   display: block;
   padding: unset;
   white-space: normal;
-  text-align: ${(props) => props.align ?? 'left'};
+  text-align: ${({ align }) => align ?? 'left'};
   & > span {
     color: lightgray;
-    font-size: small;
     margin-left: 0.5rem;
+    font-size: small;
     display: inline-block;
   }
-`
+`;
 
-const BlockCol = styled.div``
+const BlockCol = styled.div``;
 
-const BlockContent = styled.div``
-type BlockType = {
+const BlockContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+
+  & > input {
+    flex: 1;
+  }
+`;
+type BlockProps = {
   align?:
     | 'flex-start'
     | 'flex-end'
@@ -31,18 +48,21 @@ type BlockType = {
     | 'baseline'
     | 'initial'
     | 'inherit'
-    | 'unset'
-  required?: boolean
-  direction?: 'row' | 'column'
-  gap?: string
-  error?: boolean
-}
+    | 'unset';
+  required?: boolean;
+  direction?: 'row' | 'column';
+  gap?: string;
+  error?: boolean;
+  suppressBorder?: boolean;
+};
 
-const Block = styled.div<BlockType>`
+const Block = styled.div<BlockProps>`
   position: relative;
   padding: 0.5rem 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  background-color: ${(props) => (props.error ? 'rgba(249,72,22,0.1)' : 'white')};
+  border: ${(props) =>
+    props.suppressBorder ? 'none' : '1px solid rgba(0, 0, 0, 0.125)'};
+  background-color: ${(props) =>
+    props.error ? 'rgba(249,72,22,0.1)' : 'white'};
   transition: background-color 0.2s linear;
   /* rgba(249,72,22,0.1) */
   &:has(${BlockCol}) {
@@ -64,7 +84,7 @@ const Block = styled.div<BlockType>`
 
   ${BlockTitle} {
     display: block;
-    font-size: small;
+    /* font-size: small; */
     color: black;
   }
 
@@ -118,11 +138,11 @@ const Block = styled.div<BlockType>`
     width: 0.5rem;
     line-height: 0.5rem;
   }
-`
+`;
 
 const RadioButton = styled.input`
   margin-right: 0.5rem;
-`
+`;
 const Label = styled.label`
   display: inline-block;
   vertical-align: middle;
@@ -135,6 +155,6 @@ const Label = styled.label`
     line-height: 0.8rem;
     height: 0.8rem;
   }
-`
+`;
 
-export { Block, BlockTitle, BlockContent, BlockCol, RadioButton, Label }
+export { Block, BlockTitle, BlockContent, BlockCol, RadioButton, Label };

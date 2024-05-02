@@ -1,17 +1,17 @@
-import React from 'react'
-import { Block, BlockTitle, BlockContent } from './FormBlock'
-import { useAtom } from 'jotai'
-import { nameAtom } from '@/atoms'
-import ErrorMessage from './ErrorMessage'
+import React from 'react';
+import { Block, BlockTitle, BlockContent } from './FormBlock';
+import { useAtom } from 'jotai';
+import { receiptNameAtom } from '@/atoms';
+import ErrorMessage from './ErrorMessage';
 
 type Props = {
-  error?: any
-  required?: boolean
-}
+  error?: any;
+  required?: boolean;
+};
 
-const NameBlock = (props: Props) => {
-  const { error, required = false } = props
-  const [name, setName] = useAtom(nameAtom)
+const ReceiptNameBlock = (props: Props) => {
+  const { error, required = false } = props;
+  const [name, setName] = useAtom(receiptNameAtom);
   return (
     <>
       <Block error={error?._errors[0]} required={required}>
@@ -29,7 +29,7 @@ const NameBlock = (props: Props) => {
       </Block>
       {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
     </>
-  )
-}
+  );
+};
 
-export default NameBlock
+export default ReceiptNameBlock;

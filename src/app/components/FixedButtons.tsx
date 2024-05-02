@@ -55,11 +55,16 @@ const FixedButtons = () => {
 
   return (
     <ButtonWrapper>
-      {/* //! fb chat func not finished */}
-      <FbMessengerButton />
-      {/* <CircleButton backgroundColor={'#0084ff'}>
-        <SiMessenger size={28} color={'white'} />
-      </CircleButton> */}
+      <CircleButton
+        As='a'
+        backgroundColor={'#1877f2'}
+        color='white'
+        href='http://m.me/musense.marketing'
+        target='_blank'
+        rel='noreferrer noopener'
+      >
+        <FbMessengerButton size={24} />
+      </CircleButton>
       {cartItemQuantity === 0 ? (
         <CircleButton
           As='a'
