@@ -1,16 +1,16 @@
-'use client'
-import React from 'react'
-import { signIn, signOut, useSession } from 'next-auth/react'
-import NavLink from './NavLink'
-import styled from '@emotion/styled'
-import { keyframes } from '@emotion/react'
-import { navbarOpenAtom } from '@/atoms'
-import { useAtom } from 'jotai'
-import Logo from './Logo'
-import CloseButton from './CloseButton'
-import { usePathname } from 'next/navigation'
-import Backdrop from './Backdrop'
-import usePreventScroll from '../hook/usePreventScroll'
+'use client';
+import React from 'react';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import NavLink from './NavLink';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
+import { navbarOpenAtom } from '@/atoms';
+import { useAtom } from 'jotai';
+import Logo from './Logo';
+import CloseButton from './CloseButton';
+import { usePathname } from 'next/navigation';
+import Backdrop from './Backdrop';
+import usePreventScroll from '../hook/usePreventScroll';
 
 const wordColorAnimation = keyframes`
   0%{
@@ -22,7 +22,7 @@ const wordColorAnimation = keyframes`
   100%{
     color: #4d4d4d;
   }
-`
+`;
 
 const activeWordColorAnimation = keyframes`
  0%{
@@ -34,11 +34,11 @@ const activeWordColorAnimation = keyframes`
   100%{
     color: #4d4d4d;
   }
-`
+`;
 
 type NavbarWrapperProps = {
-  active: boolean
-}
+  active: boolean;
+};
 
 const NavbarWrapper = styled.nav<NavbarWrapperProps>`
   position: fixed;
@@ -70,7 +70,7 @@ const NavbarWrapper = styled.nav<NavbarWrapperProps>`
   & a:not(:has(svg)) {
     border-bottom: 1px solid #e6e6e6;
   }
-`
+`;
 
 const NavHeader = styled.div`
   position: relative;
@@ -81,7 +81,7 @@ const NavHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
-`
+`;
 const NavMenu = styled.div`
   position: relative;
   height: fit-content;
@@ -90,7 +90,7 @@ const NavMenu = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-`
+`;
 
 const NavItem = styled(NavLink)`
   position: relative;
@@ -100,14 +100,14 @@ const NavItem = styled(NavLink)`
   padding: 0 1rem;
   text-align: left;
   color: black;
-`
+`;
 const NavAnimatedItem = styled(NavItem)({
   animation: `${wordColorAnimation} 1s linear infinite`,
 
   '&.active': {
-    animation: `${activeWordColorAnimation} 1s linear infinite`
-  }
-})
+    animation: `${activeWordColorAnimation} 1s linear infinite`,
+  },
+});
 
 const NavFooter = styled.div`
   position: relative;
@@ -117,7 +117,7 @@ const NavFooter = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-`
+`;
 
 const NavFooterCaption = styled.h2`
   width: 100%;
@@ -126,17 +126,17 @@ const NavFooterCaption = styled.h2`
   line-height: 4rem;
   font-size: larger;
   color: black;
-`
+`;
 const CloseButtonWrapper = styled.div`
   padding-left: 1.5rem;
-`
+`;
 
 const Navbar = () => {
-  const { data: sessionData } = useSession()
-  const pathname = usePathname()
-  const [navbarOpen, toggleNavbar] = useAtom(navbarOpenAtom)
+  const { data: sessionData } = useSession();
+  const pathname = usePathname();
+  const [navbarOpen, toggleNavbar] = useAtom(navbarOpenAtom);
 
-  usePreventScroll({ active: navbarOpen })
+  usePreventScroll({ active: navbarOpen });
   return (
     <>
       <Backdrop active={navbarOpen} onClick={() => toggleNavbar(false)} />
@@ -148,7 +148,7 @@ const Navbar = () => {
           </CloseButtonWrapper>
         </NavHeader>
         <NavMenu>
-          <NavAnimatedItem href={'/wilson'}>威爾森</NavAnimatedItem>
+          <NavAnimatedItem href={'/'}>威爾森</NavAnimatedItem>
           <NavAnimatedItem href={'/'}>牛肉麵</NavAnimatedItem>
           <NavAnimatedItem href={'/'}>拉拉寶都</NavAnimatedItem>
           <NavAnimatedItem href={'/'}>三三燒肉</NavAnimatedItem>
@@ -158,7 +158,10 @@ const Navbar = () => {
           <NavFooterCaption>會員</NavFooterCaption>
           {sessionData ? (
             <>
-              <NavItem As='b'> 尊貴的 {sessionData?.user?.name} 歡迎光臨</NavItem>
+              <NavItem As='b'>
+                {' '}
+                尊貴的 {sessionData?.user?.name} 歡迎光臨
+              </NavItem>
               <NavItem href={'/account'}>會員中心</NavItem>
               <NavItem As='button' onClick={signOut}>
                 登出
@@ -173,7 +176,7 @@ const Navbar = () => {
         </NavFooter>
       </NavbarWrapper>
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
