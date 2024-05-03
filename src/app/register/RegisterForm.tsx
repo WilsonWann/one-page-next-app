@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import SubmitButton from '../components/SubmitButton';
 import FormInput from '../components/FormInput';
-import { useEffect } from 'react';
 
 interface IRegisterForm {
   name: string;
@@ -24,14 +23,13 @@ const ErrorMessage = styled.div`
   font-size: medium;
 `;
 
-type Props = {};
-
-const RegisterForm = (props: Props) => {
+//! TODO: next-auth email login and register
+const RegisterForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<IRegisterForm>();
 
   const onSubmit: SubmitHandler<IRegisterForm> = (data) => {
     console.log(data);
@@ -45,7 +43,7 @@ const RegisterForm = (props: Props) => {
         inputProps={register('name', { required: true })}
         error={errors.name?.toString()}
       />
-      {errors.firstName && <ErrorMessage>必須填寫</ErrorMessage>}
+      {errors.name && <ErrorMessage>必須填寫</ErrorMessage>}
       <FormInput
         label={'Email'}
         required={true}

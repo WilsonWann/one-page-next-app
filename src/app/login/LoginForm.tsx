@@ -45,13 +45,13 @@ const LoginSubmitButton = styled.button<LoginSubmitButtonProps>`
     outline: none;
   }
 `;
-
+//! TODO: next-auth email login and register
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<ILoginForm>();
 
   const onSubmit: SubmitHandler<ILoginForm> = (data) => {
     console.log(data);
@@ -63,15 +63,15 @@ const LoginForm = () => {
         label='Email'
         required={true}
         inputProps={register('email', { required: true })}
-        error={errors.name?.toString()}
+        error={errors.email?.toString()}
       />
-      {errors.firstName && <ErrorMessage>必須填寫</ErrorMessage>}
+      {errors.email && <ErrorMessage>必須填寫</ErrorMessage>}
       <FormInput
         label={'密碼'}
         type='password'
         required={true}
         inputProps={register('password', { required: true })}
-        error={errors.email?.toString()}
+        error={errors.password?.toString()}
       />
       {errors.email && <ErrorMessage>必須填寫</ErrorMessage>}
       <ForgetPasswordLink href={'/'}>忘記密碼？</ForgetPasswordLink>
