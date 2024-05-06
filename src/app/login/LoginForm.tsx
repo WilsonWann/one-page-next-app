@@ -1,20 +1,13 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import Link from 'next/link';
-
+import { SubmitHandler, useForm } from 'react-hook-form';
 import SubmitButton from '../components/SubmitButton';
 import FormInput from '../components/FormInput';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import ErrorMessage from '../components/ErrorMessage';
+import Link from 'next/link';
 
 interface ILoginForm {
   email: string;
   password: string;
 }
-
-type LoginSubmitButtonProps = {
-  disabled: boolean;
-};
 
 const LoginFormWrapper = styled.form`
   display: flex;
@@ -32,20 +25,6 @@ const ForgetPasswordLink = styled(Link)`
   margin-left: auto;
 `;
 
-const LoginSubmitButton = styled.button<LoginSubmitButtonProps>`
-  width: 100%;
-  height: 2.5rem;
-  color: white;
-  background-color: #ff3366;
-  opacity: ${(props) => (props.disabled ? 0.7 : 1)};
-  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
-  border-radius: 3rem;
-
-  &:focus-visible {
-    outline: none;
-  }
-`;
-//! TODO: next-auth email login and register
 const LoginForm = () => {
   const {
     register,
@@ -62,18 +41,16 @@ const LoginForm = () => {
       <FormInput
         label='Email'
         required={true}
-        inputProps={register('email', { required: true })}
-        error={errors.email?.toString()}
+        inputProps={register('email', { required: 'required' })}
+        error={errors.email?.message}
       />
-      {errors.email && <ErrorMessage>必須填寫</ErrorMessage>}
       <FormInput
         label={'密碼'}
         type='password'
         required={true}
-        inputProps={register('password', { required: true })}
-        error={errors.password?.toString()}
+        inputProps={register('password', { required: 'required' })}
+        error={errors.password?.message}
       />
-      {errors.email && <ErrorMessage>必須填寫</ErrorMessage>}
       <ForgetPasswordLink href={'/'}>忘記密碼？</ForgetPasswordLink>
       <SubmitButton text='登入' />
     </LoginFormWrapper>

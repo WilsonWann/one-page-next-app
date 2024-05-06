@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 
 const HeaderWrapper = styled.div`
   position: fixed;
-  width: 100vw;
+  /* width: 100vw; */
   height: 3rem;
   display: flex;
   flex-direction: row;
@@ -19,6 +19,7 @@ const HeaderWrapper = styled.div`
   align-items: center;
   background-color: white;
   top: 0;
+  right: 0;
   left: 0;
   z-index: 99999;
   padding: 1rem;

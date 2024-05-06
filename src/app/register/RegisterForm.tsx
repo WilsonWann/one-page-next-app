@@ -17,13 +17,6 @@ const RegisterFormWrapper = styled.form`
   gap: 1rem;
 `;
 
-const ErrorMessage = styled.div`
-  margin-bottom: 0.5rem;
-  color: red;
-  font-size: medium;
-`;
-
-//! TODO: next-auth email login and register
 const RegisterForm = () => {
   const {
     register,
@@ -38,27 +31,24 @@ const RegisterForm = () => {
   return (
     <RegisterFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <FormInput
-        label='姓名'
+        label={'姓名'}
         required={true}
-        inputProps={register('name', { required: true })}
-        error={errors.name?.toString()}
+        inputProps={register('name', { required: 'required' })}
+        error={errors.name?.message}
       />
-      {errors.name && <ErrorMessage>必須填寫</ErrorMessage>}
       <FormInput
         label={'Email'}
         required={true}
-        inputProps={register('email', { required: true })}
-        error={errors.email?.toString()}
+        inputProps={register('email', { required: 'required' })}
+        error={errors.email?.message}
       />
-      {errors.email && <ErrorMessage>必須填寫</ErrorMessage>}
       <FormInput
         label='密碼'
         type='password'
         required={true}
-        inputProps={register('password', { required: true })}
-        error={errors.password?.toString()}
+        inputProps={register('password', { required: 'required' })}
+        error={errors.password?.message}
       />
-      {errors.password && <ErrorMessage>必須填寫</ErrorMessage>}
       <SubmitButton text={'立即註冊'} />
     </RegisterFormWrapper>
   );

@@ -8,9 +8,10 @@ const Modal = styled.div`
   position: fixed;
   top: 3rem;
   left: 0;
+  right: 0;
   margin: auto;
   display: none;
-  width: 100vw;
+  /* width: 100vw; */
   height: 4rem;
   background-color: #cce6ff;
   box-sizing: border-box;

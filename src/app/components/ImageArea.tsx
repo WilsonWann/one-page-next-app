@@ -27,7 +27,7 @@ const ImageArea = (props: Props) => {
           key={index}
           image={image}
           customType={'width'}
-          customWidth={'100vw'}
+          customWidth={'100%'}
           // width={item.name.width}
         />
       ))}

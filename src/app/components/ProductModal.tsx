@@ -1,31 +1,36 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import Backdrop from './Backdrop'
-import Item from './Item'
-import { productModalOpenAtom, addToCartAtom, takeOnHandAtom, productModalErrorAtom } from '@/atoms'
-import { useAtom } from 'jotai'
-import Counter from './Counter'
-import CloseButton from './CloseButton'
-import AddToCartButton from './AddToCartButton'
-import numberFormat from '@/helper/numberFormat'
-import usePreventScroll from '../hook/usePreventScroll'
+import React from 'react';
+import styled from '@emotion/styled';
+import Backdrop from './Backdrop';
+import Item from './Item';
+import {
+  productModalOpenAtom,
+  addToCartAtom,
+  takeOnHandAtom,
+  productModalErrorAtom,
+} from '@/atoms';
+import { useAtom } from 'jotai';
+import Counter from './Counter';
+import CloseButton from './CloseButton';
+import AddToCartButton from './AddToCartButton';
+import numberFormat from '@/helper/numberFormat';
+import usePreventScroll from '../hook/usePreventScroll';
 
 type ItemSelectorProps = {
-  active: boolean
-  padding?: string
-}
+  active: boolean;
+  padding?: string;
+};
 const ItemSelector = styled.div<ItemSelectorProps>`
   position: fixed;
   top: ${(props) => (props.active ? '0' : '100vh')};
   left: 0;
   background-color: white;
   height: 100dvh;
-  width: 100vw;
+  width: 100%;
   /* padding: ${(props) => props.padding ?? '0'}; */
   display: block;
   z-index: calc(99999 + 2);
   transition: top 0.25s ease-in-out;
-`
+`;
 
 const CloseButtonWrapper = styled.div`
   position: absolute;
@@ -35,23 +40,23 @@ const CloseButtonWrapper = styled.div`
   width: 2rem;
   border-radius: 50%;
   background-color: white;
-`
+`;
 
 const ErrorMessage = styled.p`
   color: red;
-`
+`;
 type Props = {
-  active: boolean
-}
+  active: boolean;
+};
 
 const ProductModal = (props: Props) => {
-  const { active } = props
-  usePreventScroll({ active })
+  const { active } = props;
+  usePreventScroll({ active });
 
-  const [, setModalOpen] = useAtom(productModalOpenAtom)
-  const [takeOnHandItem] = useAtom(takeOnHandAtom)
-  const [, addToCart] = useAtom(addToCartAtom)
-  const [productModalError] = useAtom(productModalErrorAtom)
+  const [, setModalOpen] = useAtom(productModalOpenAtom);
+  const [takeOnHandItem] = useAtom(takeOnHandAtom);
+  const [, addToCart] = useAtom(addToCartAtom);
+  const [productModalError] = useAtom(productModalErrorAtom);
 
   return (
     <>
@@ -81,14 +86,16 @@ const ProductModal = (props: Props) => {
               </CloseButtonWrapper>
               <Counter count={takeOnHandItem.quantity} />
               {productModalError.error && (
-                <ErrorMessage>{productModalError.error.errorMessage}</ErrorMessage>
+                <ErrorMessage>
+                  {productModalError.error.errorMessage}
+                </ErrorMessage>
               )}
             </Item>
           </>
         )}
       </ItemSelector>
     </>
-  )
-}
+  );
+};
 
-export default ProductModal
+export default ProductModal;

@@ -26,7 +26,7 @@ type DisplayAreaProps = {
 const DisplayArea = styled.div<DisplayAreaProps>`
   position: relative;
   height: fit-content;
-  width: 100vw;
+  width: 100%;
   padding: ${(props) => (props.gap ? `0 ${props.gap}` : '0')};
 
   display: grid;

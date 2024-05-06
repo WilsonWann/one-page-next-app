@@ -29,7 +29,7 @@ import CheckAuthBlock from './CheckAuthBlock';
 const CheckoutForm = styled.form`
   border-top: 1px solid rgba(87, 90, 93, 1);
   position: relative;
-  width: 100vw;
+  width: 100%;
   padding: 0 1rem;
   box-sizing: border-box;
   margin-bottom: 1rem;
@@ -101,7 +101,7 @@ const CheckoutContainer = () => {
       const city = validateCity as string;
       const district = validateDistrict as string;
       setValidateAddress(city, district);
-      router.push('/cart');
+      router.push('/checkout');
     }
   }, [recipient, startParsing]);
 

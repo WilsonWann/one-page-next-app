@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 
@@ -63,10 +63,15 @@ const LabelDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  & > i {
+    color: #999;
+  }
 `;
 
 type Props = {
   label: string;
+  subLabel?: string;
   type?: string;
   icon?: React.ReactNode;
   required?: boolean;
@@ -77,6 +82,7 @@ type Props = {
 const FormInput = (props: Props) => {
   const {
     label,
+    subLabel = undefined,
     type = 'text',
     icon = null,
     required = false,
@@ -84,43 +90,46 @@ const FormInput = (props: Props) => {
     error = undefined,
   } = props;
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
 
-  if (type === 'password') {
-    return (
-      <CompositedInput error={error}>
-        <LabelDiv>
-          <label>{label}</label>
-          {required && <span style={{ color: 'red' }}>*</span>}
-        </LabelDiv>
-        <div>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            autoComplete={'off'}
-            {...inputProps}
-          />
-          {showPassword ? (
-            <MdOutlineVisibilityOff onClick={() => setShowPassword(false)} />
-          ) : (
-            <MdOutlineVisibility onClick={() => setShowPassword(true)} />
-          )}
-        </div>
-      </CompositedInput>
-    );
-  }
-
-  return (
+  const formInput = (children: React.ReactNode) => (
     <CompositedInput error={error}>
       <LabelDiv>
-        <label>{label}</label>
+        <label>
+          {label} {subLabel && <i>{subLabel}</i>}
+        </label>
         {required && <span style={{ color: 'red' }}>*</span>}
       </LabelDiv>
-      <div>
-        <input type={type} autoComplete={'off'} {...inputProps} />
-        {icon}
-      </div>
+      {children}
     </CompositedInput>
   );
+
+  if (type === 'password') {
+    const passwordWrapper = (
+      <div>
+        <input
+          type={showPassword ? 'text' : 'password'}
+          autoComplete={'off'}
+          {...inputProps}
+        />
+        {showPassword ? (
+          <MdOutlineVisibilityOff onClick={() => setShowPassword(false)} />
+        ) : (
+          <MdOutlineVisibility onClick={() => setShowPassword(true)} />
+        )}
+      </div>
+    );
+
+    return formInput(passwordWrapper);
+  }
+
+  const inputWrapper = (
+    <div>
+      <input type={type} autoComplete={'off'} {...inputProps} />
+      {icon}
+    </div>
+  );
+  return formInput(inputWrapper);
 };
 
 export default FormInput;

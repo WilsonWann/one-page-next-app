@@ -118,26 +118,12 @@ const Item = (props: Props) => {
 
   return (
     <ItemWrapper align={align}>
-      {isInProductModal ? (
-        <CardImageBlock
-          image={item.image}
-          customType={'static'}
-          // src={item.src}
-          alt={item.alt}
-          // customType={'height'}
-          // customHeight={`${16}rem`}
-        />
-      ) : (
-        <CardImageBlock
-          image={item.image}
-          customType={'static'}
-          // src={item.src}
-          alt={item.alt}
-          // customType={'height'}
-          // customHeight={`${16 / columnNumber}rem`}
-        />
-      )}
-
+      <CardImageBlock
+        image={item.image}
+        customType={'width'}
+        alt={item.alt}
+        customWidth='100%'
+      />
       <ItemContentWrapper padding={props.padding}>
         <ItemTitle>
           {item.title}

@@ -1,16 +1,16 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import { useAtom } from 'jotai'
+import React from 'react';
+import styled from '@emotion/styled';
+import { useAtom } from 'jotai';
 import {
   getInStorePickupCouponAtom,
   getHomeDeliveryCouponAtom,
-  getCartListSubtotalAtom
-} from '@/atoms'
-import Badge from './Badge'
+  getCartListSubtotalAtom,
+} from '@/atoms';
+import Badge from './Badge';
 
 const CartDiscountWrapper = styled.div`
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: fit-content;
   padding: 1rem;
   border-bottom: 1px solid rgba(87, 90, 93, 1);
@@ -24,26 +24,31 @@ const CartDiscountWrapper = styled.div`
     font-size: large;
     font-weight: bold;
   }
-`
+`;
 
-type Props = {}
+type Props = {};
 
 const CartDiscount = (props: Props) => {
-  const [subtotal] = useAtom(getCartListSubtotalAtom)
-  const [inStorePickupCoupon] = useAtom(getInStorePickupCouponAtom)
+  const [subtotal] = useAtom(getCartListSubtotalAtom);
+  const [inStorePickupCoupon] = useAtom(getInStorePickupCouponAtom);
 
   if (inStorePickupCoupon.active) {
     return (
       <CartDiscountWrapper>
         <div>已使用優惠</div>
-        <Badge label='滿額免運' color='#575a5d' backgroundColor={'rgba(29,187,153,.2)'} />
+        <Badge
+          label='滿額免運'
+          color='#575a5d'
+          backgroundColor={'rgba(29,187,153,.2)'}
+        />
         <div>
           🎆～滿{inStorePickupCoupon.threshold}
-          元超商免運費!!超商限重最多9罐!!~(10罐以上請選擇宅配運送) 滿{inStorePickupCoupon.threshold}
+          元超商免運費!!超商限重最多9罐!!~(10罐以上請選擇宅配運送) 滿
+          {inStorePickupCoupon.threshold}
           元超商免運
         </div>
       </CartDiscountWrapper>
-    )
+    );
   }
 
   return (
@@ -59,7 +64,7 @@ const CartDiscount = (props: Props) => {
         即可享有 免運優惠
       </div>
     </CartDiscountWrapper>
-  )
-}
+  );
+};
 
-export default CartDiscount
+export default CartDiscount;

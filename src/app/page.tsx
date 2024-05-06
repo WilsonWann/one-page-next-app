@@ -39,6 +39,7 @@ export default function Home() {
           '🎄聖誕佳節滿800元超商免運費！滿1500元宅配免運,加入會員好處多~紅利點數可折抵現金喔!!'
         }
       />
+      {/* <div className='xl:max-w-4xl mx-auto'> */}
       <VideoArea />
       {/* images */}
       <ImageArea data={shoppingList} />
@@ -56,13 +57,7 @@ export default function Home() {
       <ProductModal active={modalOpen} />
 
       <CartArea />
-
-      <div></div>
-      {/* member login */}
-      {/* next auth */}
-
-      {/* any question: fb chat button*/}
-      <div></div>
+      {/* </div> */}
     </main>
   );
 }
