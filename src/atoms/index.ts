@@ -3,6 +3,7 @@ export { getLogisticsDetailAtom, getLogisticsAtom, getPaymentTypeAtom, logistics
 export { counterAtom, resetCounterAtom, dispatchAtom } from './counterAtoms'
 export { getInStorePickupCouponAtom, getHomeDeliveryCouponAtom } from './couponAtom'
 export { quantityAtom } from './quantityAtoms'
+export { receiptAtom } from './receiptAtoms'
 export { getGenderTypeAtom, getTimeToReceiveAtom, timeToReceiveTypeAtom, receiptNameAtom, cellphoneAtom, receiptEmailAtom, noteAtom, genderTypeAtom, getRecipientAtom, cityDataAtom, getCityAtom, setCityAtom, districtDataAtom, districtAtom, streetAtom, getDefaultAddressAtom, setDefaultAddressAtom, genderAtom, timeToReceiveAtom, setValidateAddressAtom } from './recipientAtoms'
 export { navbarOpenAtom, shoppingAreaDisplayColumnAtom, productModalOpenAtom } from './routingAtoms'
 export { getTakeOnHandItemIdAtom, resetTakeOnHandItemIdAtom, setTakeOnHandItemIdAtom } from './selectedIdAtoms'

@@ -64,34 +64,53 @@ const LabelDiv = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  & > i {
-    color: #999;
+  user-select: none;
+  i {
+    color: #bbb;
   }
 `;
 
-type Props = {
-  label: string;
-  subLabel?: string;
-  type?: string;
+type FormInputProps = InputProps; //| SelectProps;
+
+type InputProps = {
+  // As?: 'input';
+
   icon?: React.ReactNode;
+  type?: string;
+  subLabel?: string;
+
+  label: string;
   required?: boolean;
   inputProps?: any;
   error?: string;
 };
 
-const FormInput = (props: Props) => {
-  const {
-    label,
-    subLabel = undefined,
-    type = 'text',
-    icon = null,
-    required = false,
-    inputProps = {},
-    error = undefined,
-  } = props;
+// type SelectProps = {
+//   As: 'select';
 
+//   onChangeHandler: (e: ChangeEvent<HTMLSelectElement>) => void;
+//   options: { value: string; label: string }[];
+
+//   label: string;
+//   required?: boolean;
+//   inputProps?: any;
+//   error?: string;
+// };
+
+const FormInput = (formInputProps: FormInputProps) => {
+  // const { As = 'input' } = formInputProps;
   const [showPassword, setShowPassword] = React.useState(false);
 
+  // if (As === 'input') {
+  const {
+    label,
+    inputProps,
+    required = false,
+    type = 'text',
+    subLabel = undefined,
+    icon = null,
+    error,
+  } = formInputProps;
   const formInput = (children: React.ReactNode) => (
     <CompositedInput error={error}>
       <LabelDiv>
@@ -130,6 +149,29 @@ const FormInput = (props: Props) => {
     </div>
   );
   return formInput(inputWrapper);
+  // }
+
+  // if (As === 'select') {
+  //   const {
+  //     label,
+  //     required = false,
+  //     inputProps = {},
+  //     error = undefined,
+  //     onChangeHandler,
+  //     options = [],
+  //   } = formInputProps;
+  //   const formSelect = () => (
+  //     <CompositedInput error={error}>
+  //       <LabelDiv>
+  //         <label>{label}</label>
+  //         {required && <span style={{ color: 'red' }}>*</span>}
+  //       </LabelDiv>
+  //       <Select onChange={onChangeHandler} options={options} {...inputProps} />
+  //     </CompositedInput>
+  //   );
+
+  //   return formSelect();
+  // }
 };
 
 export default FormInput;

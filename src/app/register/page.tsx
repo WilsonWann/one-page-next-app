@@ -54,7 +54,7 @@ const RegisterFormContainer = styled.div`
   align-items: stretch;
   gap: 1rem;
 
-  & > div:first-child {
+  & > div:first-of-type {
     position: relative;
     text-align: center;
     & > span {

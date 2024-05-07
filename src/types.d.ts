@@ -108,3 +108,19 @@ type GoodsDeliverType = {
   subtotal: number
   recipient: RecipientType
 }
+
+type ReceiptProps = {
+  receiptType: string;
+  carrierType?: string;
+  donate?: string;
+  heading?: string;
+  guiNumber?: string;
+  citizenIdentity?: string;
+  phoneBarcode?: string;
+  memberCarrier?: string;
+};
+
+type OptionType = {
+  value: string;
+  label: string;
+};
