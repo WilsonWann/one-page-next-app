@@ -83,8 +83,6 @@ type Props = {
   required?: boolean;
   inputProps?: any;
   error?: string;
-  value?: string;
-  setState?: React.Dispatch<React.SetStateAction<string>>;
   control?: any;
   name?: string;
 };
@@ -101,8 +99,6 @@ const FormInput = (props: Props) => {
     type = 'text',
     subLabel = undefined,
     icon = null,
-    value = '',
-    setState = () => {},
   } = props;
   // console.log('🚀 ~ FormInput ~ error:', error);
 

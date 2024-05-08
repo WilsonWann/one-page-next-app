@@ -101,7 +101,7 @@ const CheckoutContainer = () => {
       const city = validateCity as string;
       const district = validateDistrict as string;
       setValidateAddress(city, district);
-      router.push('/checkout');
+      router.push('/checkout/receipt');
     }
   }, [recipient, startParsing]);
 

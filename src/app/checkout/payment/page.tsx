@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import SubmitButton from '../../components/SubmitButton';
 import DollarIcon from '../../components/DollarIcon';
 import FormInput from '@/app/components/FormInput';
+import { getGoodsDeliverAtom } from '@/atoms';
+import { useAtom } from 'jotai';
 
 const PaymentContainer = styled.form`
   display: flex;
@@ -24,6 +26,8 @@ type PaymentFormProps = {
 };
 
 const Payment = (props: Props) => {
+  const [goodsDeliver] = useAtom(getGoodsDeliverAtom);
+
   const {
     control,
     register,
@@ -31,12 +35,14 @@ const Payment = (props: Props) => {
     formState: { errors },
   } = useForm<PaymentFormProps>({
     defaultValues: {
-      payment: 0,
+      payment: goodsDeliver.subtotal,
       creditCardNumber: '',
       expiryDate: '',
       securityCode: '',
     },
   });
+
+  // console.log('🚀 ~ Payment ~ goodsDeliver.subtotal:', goodsDeliver.subtotal);
 
   const onSubmit = handleSubmit((data) => {
     console.log('🚀 ~ onSubmit ~ data:', data);

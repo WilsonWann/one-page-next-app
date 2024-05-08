@@ -9,7 +9,7 @@ import IndividualCarrierInput from './IndividualCarrierInput';
 import OtherInputWrapper from './OtherInputWrapper';
 import FormSelectInput from '../../components/FormSelectInput';
 import { OptionType, ReceiptProps } from '@/types';
-import { receiptAtom } from '@/atoms';
+import { receiptAtom, receiptEmailAtom } from '@/atoms';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 
@@ -47,6 +47,8 @@ type CheckoutFormProps = {
 };
 const CheckoutPage = (props: Props) => {
   const router = useRouter();
+
+  const [email, setEmail] = useAtom(receiptEmailAtom);
   const {
     control,
     register,
@@ -61,7 +63,7 @@ const CheckoutPage = (props: Props) => {
       guiNumber: '',
       citizenIdentity: '',
       phoneBarcode: '',
-      memberCarrier: '',
+      memberCarrier: email,
     },
   });
 
@@ -77,7 +79,7 @@ const CheckoutPage = (props: Props) => {
   >();
   // carrierTypeOptions[0],
 
-  console.log('🚀 ~ CheckoutPage ~ receipt:', receipt);
+  // console.log('🚀 ~ CheckoutPage ~ receipt:', receipt);
 
   const onSubmit: SubmitHandler<CheckoutFormProps> = (data) => {
     console.log('🚀 ~ onSubmit ~ data:', data);
