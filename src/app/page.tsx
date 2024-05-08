@@ -15,12 +15,12 @@ import VideoArea from './components/VideoArea';
 
 export default function Home() {
   const [shoppingList, setShoppingList] = useAtom(shoppingListAtom);
-  console.log('🚀 ~ Home ~ shoppingList:', shoppingList);
+  // console.log('🚀 ~ Home ~ shoppingList:', shoppingList);
 
   const [modalOpen] = useAtom(productModalOpenAtom);
 
   const { data: sessionData } = useSession();
-  console.log('🚀 ~ Home ~ sessionData:', sessionData);
+  // console.log('🚀 ~ Home ~ sessionData:', sessionData);
   useEffect(() => {
     function getData() {
       fetch('/api/getServerData')

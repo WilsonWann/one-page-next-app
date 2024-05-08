@@ -2,6 +2,7 @@ import { atom } from 'jotai'
 import { cartMaxLimit } from '@/const'
 import { CartErrorProps, CartItem, ErrorProps, TakeOnHandItem } from '@/types'
 import { takeOnHandAtom, productModalOpenAtom, resetCounterAtom, resetTakeOnHandItemIdAtom, resetProductModalErrorAtom } from '.'
+import { storage_CartItemsAtom } from './storageAtoms'
 
 function generateError(quantity: number, maxQuantity: number): ErrorProps | undefined {
   if (quantity < 1) {
@@ -118,7 +119,7 @@ export const setCartErrorModalAtom = atom(
 export const getCartItemQuantityAtom = atom(get => get(getCartListAtom).reduce((acc, curr) => acc + curr.quantity, 0))
 export const getCartListSubtotalAtom = atom(get => get(getCartListAtom).reduce((acc, curr) => acc + curr.subtotal, 0))
 
-export const getCartListAtom = atom(get => get(cartListAtom))
+export const getCartListAtom = atom(get => get(storage_CartItemsAtom) ?? get(cartListAtom))
 
 export const addToCartAtom = atom(
   null,
@@ -134,6 +135,7 @@ export const addToCartAtom = atom(
 
     set(resetCartErrorModalAtom)
     set(cartListAtom, addToCart(get(getCartListAtom), get(takeOnHandAtom)))
+    set(storage_CartItemsAtom, get(cartListAtom))
     set(resetCounterAtom)
     set(resetTakeOnHandItemIdAtom)
     set(productModalOpenAtom, false)
@@ -146,6 +148,7 @@ export const removeCartAtom = atom(
   null,
   (get, set, id: number) => {
     set(cartListAtom, removeCart(get(getCartListAtom), id))
+    set(storage_CartItemsAtom, get(cartListAtom))
   }
 )
 
@@ -154,9 +157,11 @@ export const updateCartAtom = atom(
   (get, set, id: number, type: "INC" | "DEC") => {
 
     set(cartListAtom, updateCart(get(getCartListAtom), id, type))
+    set(storage_CartItemsAtom, get(cartListAtom))
     const total = countCartAndOnHand(get(getCartListAtom), undefined)
     if (total > get(cartMaxLimitAtom)) {
       set(cartListAtom, updateCart(get(getCartListAtom), id, type === 'INC' ? 'DEC' : 'INC'))
+      set(storage_CartItemsAtom, updateCart(get(getCartListAtom), id, type === 'INC' ? 'DEC' : 'INC'))
       set(setCartErrorModalAtom, {
         errorType: 'upperBound',
         errorMessage: `一般商品最多只能購買${get(cartMaxLimitAtom)}件`

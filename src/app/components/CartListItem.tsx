@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { CartItem as CartListItem } from '@/types';
+import { CartItem } from '@/types';
 import TrashIcon from './TrashIcon';
 import ImageBlock from './ImageBlock';
 import Counter from './Counter';
@@ -63,7 +63,7 @@ const SpecialPrice = styled.div`
 `;
 
 type Props = {
-  item: CartListItem;
+  item: CartItem;
 };
 
 const CartListItem = (props: Props) => {

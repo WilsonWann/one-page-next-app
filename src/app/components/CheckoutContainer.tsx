@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
   mainLogisticsAtom,
   getRecipientAtom,
   getCityAtom,
-  districtAtom,
+  getDistrictAtom,
   setValidateAddressAtom,
   setCartErrorModalAtom,
   getCartItemQuantityAtom,
@@ -65,13 +65,13 @@ const CheckoutSubmitButton = styled.button<CheckoutSubmitButtonProps>`
 
 const CheckoutContainer = () => {
   const router = useRouter();
-  const [mainLogistics] = useAtom(mainLogisticsAtom);
-  const [cartItemQuantity] = useAtom(getCartItemQuantityAtom);
-  const [recipient] = useAtom(getRecipientAtom);
-  const [validateCity] = useAtom(getCityAtom);
-  const [validateDistrict] = useAtom(districtAtom);
-  const [, setValidateAddress] = useAtom(setValidateAddressAtom);
-  const [, setCartErrorModal] = useAtom(setCartErrorModalAtom);
+  const mainLogistics = useAtomValue(mainLogisticsAtom);
+  const cartItemQuantity = useAtomValue(getCartItemQuantityAtom);
+  const recipient = useAtomValue(getRecipientAtom);
+  const validateCity = useAtomValue(getCityAtom);
+  const validateDistrict = useAtomValue(getDistrictAtom);
+  const setValidateAddress = useSetAtom(setValidateAddressAtom);
+  const setCartErrorModal = useSetAtom(setCartErrorModalAtom);
   const [startParsing, setStartParsing] = useState(false);
   const [error, setError] = useState<
     ZodFormattedError<z.infer<typeof recipientSchema>> | undefined

@@ -1,30 +1,36 @@
-import React, { useEffect } from 'react'
-import { BlockTitle, BlockContent, BlockCol, Block } from './FormBlock'
-import { useAtom } from 'jotai'
-import { getCityAtom, districtDataAtom, districtAtom } from '@/atoms'
-import ErrorMessage from './ErrorMessage'
+import React, { useEffect } from 'react';
+import { BlockTitle, BlockContent, BlockCol, Block } from './FormBlock';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import {
+  getCityAtom,
+  districtDataAtom,
+  setDistrictAtom,
+  getDistrictAtom,
+} from '@/atoms';
+import ErrorMessage from './ErrorMessage';
 
 type Props = {
-  error?: any
-  required?: boolean
-}
+  error?: any;
+  required?: boolean;
+};
 
 const DistrictBlock = (props: Props) => {
-  const { error, required } = props
-  const [selectedCity] = useAtom(getCityAtom)
-  const [districtData, setDistrictData] = useAtom(districtDataAtom)
-  const [selectedDistrict, setDistrict] = useAtom(districtAtom)
+  const { error, required } = props;
+  const selectedCity = useAtomValue(getCityAtom);
+  const [districtData, setDistrictData] = useAtom(districtDataAtom);
+  const selectedDistrict = useAtomValue(getDistrictAtom);
+  const setDistrict = useSetAtom(setDistrictAtom);
 
   useEffect(() => {
     function getDistrictData(city: string | -1) {
       fetch(`/api/getDistrict?city=${city}`)
         .then((res) => res.json())
         .then((data: string[] | null) => setDistrictData(data))
-        .catch((err) => console.error('🚀 ~ .then ~ err:', err))
+        .catch((err) => console.error('🚀 ~ .then ~ err:', err));
     }
 
-    getDistrictData(selectedCity)
-  }, [selectedCity, setDistrictData])
+    getDistrictData(selectedCity);
+  }, [selectedCity, setDistrictData]);
 
   return (
     <BlockCol>
@@ -35,7 +41,9 @@ const DistrictBlock = (props: Props) => {
             id='district'
             name='district'
             value={selectedDistrict}
-            onChange={(e) => setDistrict(e.target.value === '-1' ? -1 : e.target.value)}
+            onChange={(e) =>
+              setDistrict(e.target.value === '-1' ? -1 : e.target.value)
+            }
           >
             {districtData ? (
               <>
@@ -54,7 +62,7 @@ const DistrictBlock = (props: Props) => {
       </Block>
       {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
     </BlockCol>
-  )
-}
+  );
+};
 
-export default DistrictBlock
+export default DistrictBlock;

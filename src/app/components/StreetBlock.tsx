@@ -1,17 +1,18 @@
-import React from 'react'
-import { Block, BlockTitle, BlockContent } from './FormBlock'
-import { useAtom } from 'jotai'
-import { streetAtom } from '@/atoms'
-import ErrorMessage from './ErrorMessage'
+import React from 'react';
+import { Block, BlockTitle, BlockContent } from './FormBlock';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { setStreetAtom, getStreetAtom } from '@/atoms';
+import ErrorMessage from './ErrorMessage';
 
 type Props = {
-  error?: any
-  required?: boolean
-}
+  error?: any;
+  required?: boolean;
+};
 
 const StreetBlock = (props: Props) => {
-  const { error, required = false } = props
-  const [street, setStreet] = useAtom(streetAtom)
+  const { error, required = false } = props;
+  const street = useAtomValue(getStreetAtom);
+  const setStreet = useSetAtom(setStreetAtom);
   return (
     <>
       <Block error={error?._errors[0]} required={required}>
@@ -27,7 +28,7 @@ const StreetBlock = (props: Props) => {
       </Block>
       {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
     </>
-  )
-}
+  );
+};
 
-export default StreetBlock
+export default StreetBlock;
