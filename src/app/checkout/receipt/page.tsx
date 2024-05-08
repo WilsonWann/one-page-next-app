@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import SubmitButton from '../../components/SubmitButton';
 import ReceiptIcon from '../../components/ReceiptIcon';
 import { SingleValue } from 'react-select';
@@ -11,7 +11,7 @@ import FormSelectInput from '../../components/FormSelectInput';
 import { OptionType, ReceiptProps } from '@/types';
 import { receiptAtom } from '@/atoms';
 import { useAtom } from 'jotai';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const receiptTypeOptions: OptionType[] = [
   { value: 'donate', label: '捐贈' },
@@ -35,13 +35,24 @@ const CheckoutFormWrapper = styled.form`
 
 type Props = {};
 
+type CheckoutFormProps = {
+  receiptType: OptionType;
+  carrierType: OptionType;
+  donate: string;
+  heading: string;
+  guiNumber: string;
+  citizenIdentity: string;
+  phoneBarcode: string;
+  memberCarrier: string;
+};
 const CheckoutPage = (props: Props) => {
+  const router = useRouter();
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<CheckoutFormProps>({
     defaultValues: {
       receiptType: receiptTypeOptions[0],
       carrierType: carrierTypeOptions[0],
@@ -68,7 +79,7 @@ const CheckoutPage = (props: Props) => {
 
   console.log('🚀 ~ CheckoutPage ~ receipt:', receipt);
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit: SubmitHandler<CheckoutFormProps> = (data) => {
     console.log('🚀 ~ onSubmit ~ data:', data);
     const formData: ReceiptProps = {
       receiptType: data.receiptType.value,
@@ -98,13 +109,13 @@ const CheckoutPage = (props: Props) => {
     }
 
     setReceipt(formData);
-    redirect();
-  });
+    router.push('/checkout/payment');
+  };
 
   return (
-    <CheckoutFormWrapper onSubmit={onSubmit}>
+    <CheckoutFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <ReceiptIcon name='發票資訊' />
-      <div className='bg-red-300 text-red-700'>請輸入您的發票資訊</div>
+      <div className='bg-red-300 text-red-700'>請輸入您的發票資訊。</div>
       <FormSelectInput
         name='receiptType'
         required={true}

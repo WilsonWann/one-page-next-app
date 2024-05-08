@@ -124,7 +124,17 @@ const styles = {
   }),
 };
 const FormSelectInput = (props: Props) => {
-  const { label, subLabel = undefined, required = false, error } = props;
+  const {
+    label,
+    subLabel = undefined,
+    required = false,
+    error,
+    name,
+    control,
+    options,
+    value,
+    setState,
+  } = props;
 
   const formInput = (children: React.ReactNode) => (
     <CompositedInput error={error}>
@@ -137,8 +147,6 @@ const FormSelectInput = (props: Props) => {
       {children}
     </CompositedInput>
   );
-
-  const { name, control, options, value, setState } = props;
 
   const id = Date.now().toString();
   const [isMounted, setIsMounted] = useState(false);
