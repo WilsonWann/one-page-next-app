@@ -11,10 +11,12 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@plaiceholder/next": "^3.0.0",
     "ecpay_aio_nodejs": "^1.2.2",
     "jotai": "^2.6.0",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
+    "plaiceholder": "^3.0.0",
     "react": "^18",
     "react-cookie": "^7.0.1",
     "react-dom": "^18",
@@ -22,6 +24,7 @@
     "react-icons": "^4.12.0",
     "react-lite-youtube-embed": "^2.4.0",
     "react-select": "^5.8.0",
+    "sharp": "^0.33.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {

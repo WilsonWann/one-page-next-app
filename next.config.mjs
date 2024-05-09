@@ -1,3 +1,5 @@
+import withPlaiceholder from "@plaiceholder/next";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
@@ -11,6 +13,12 @@ const nextConfig = {
         port: '',
         pathname: '/storefront/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+        pathname: '**',
+      },
     ]
   },
   compiler: {
@@ -22,4 +30,4 @@ const nextConfig = {
   }
 }
 
-module.exports = nextConfig
+export default withPlaiceholder(nextConfig)
