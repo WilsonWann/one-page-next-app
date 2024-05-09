@@ -10,7 +10,7 @@ import Logo from './Logo';
 import CloseButton from './CloseButton';
 import { usePathname } from 'next/navigation';
 import Backdrop from './Backdrop';
-import usePreventScroll from '../hook/usePreventScroll';
+import usePreventScroll from '../app/hook/usePreventScroll';
 
 const wordColorAnimation = keyframes`
   0%{

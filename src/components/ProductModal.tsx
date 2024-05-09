@@ -13,7 +13,7 @@ import Counter from './Counter';
 import CloseButton from './CloseButton';
 import AddToCartButton from './AddToCartButton';
 import numberFormat from '@/helper/numberFormat';
-import usePreventScroll from '../hook/usePreventScroll';
+import usePreventScroll from '../app/hook/usePreventScroll';
 
 type ItemSelectorProps = {
   active: boolean;

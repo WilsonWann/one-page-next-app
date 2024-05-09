@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import SubmitButton from '../components/SubmitButton';
-import FormInput from '../components/FormInput';
+import SubmitButton from '../../components/SubmitButton';
+import FormInput from '../../components/FormInput';
 import Link from 'next/link';
 
 interface ILoginForm {

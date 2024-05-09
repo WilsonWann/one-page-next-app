@@ -114,16 +114,14 @@ const Item = (props: Props) => {
     addToCartButton = <AddToCartButton onClick={() => setItemId(item.id)} />,
   } = props;
 
-  const isInProductModal = props.padding ? true : false;
-
   return (
     <ItemWrapper align={align}>
-      <CardImageBlock
+      {/* <CardImageBlock
         image={item.image}
         customType={'width'}
         alt={item.alt}
         customWidth='100%'
-      />
+      /> */}
       <ItemContentWrapper padding={props.padding}>
         <ItemTitle>
           {item.title}

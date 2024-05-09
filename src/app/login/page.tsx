@@ -1,13 +1,14 @@
 'use client';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import styled from '@emotion/styled';
-import UserIcon from '../components/UserIcon';
-import TemplateIconWrapper from '../components/TemplateIconWrapper';
+import UserIcon from '../../components/UserIcon';
+import TemplateIconWrapper from '../../components/TemplateIconWrapper';
 import { FaFacebook } from 'react-icons/fa';
 import { SiLine } from 'react-icons/si';
 import { FcGoogle } from 'react-icons/fc';
 import LoginForm from './LoginForm';
 import Link from 'next/link';
+import ImageBlock from '../../components/ImageBlock';
 
 const LoginPageContainer = styled.div`
   display: flex;
@@ -113,9 +114,15 @@ const LoginPage = (props: Props) => {
   }
 
   return (
-    // TODO: 顯示已登入會員
     <>
       <div>
+        <div>姓名 {sessionData.user.name}</div>
+        <div>Email {sessionData.user.email}</div>
+        {/* <ImageBlock
+          src={sessionData.user.image}
+          alt={'User Image'}
+          customType={'default'}
+        /> */}
         <button>user_icon 會員中心</button>
         <button>order_icon 我的訂單</button>
         <button>point_icon 會員點數</button>
@@ -124,8 +131,8 @@ const LoginPage = (props: Props) => {
       </div>
       <div>
         <div>user_icon 會員中心</div>
-        <div>$username</div>
-        <div>$email</div>
+        <div>姓名：{sessionData.user.name}</div>
+        <div>Email：{sessionData.user.email}</div>
         <div>
           <button>edit_icon 更改會員檔案</button>
           <button>truck_icon 更改收件地址</button>

@@ -75,12 +75,12 @@ const CartListItem = (props: Props) => {
       <RemoveButtonWrapper>
         <TrashIcon onClick={() => removeCart(item.id)} />
       </RemoveButtonWrapper>
-      <ImageBlock
+      {/* <ImageBlock
         image={item.image}
         alt={item.alt}
         customType={'width'}
         customWidth={`3rem`}
-      />
+      /> */}
       <div>
         <CartTitle>{item.title}</CartTitle>
         <PriceWrapper>

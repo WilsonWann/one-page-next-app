@@ -13,24 +13,24 @@ type Props = {
 const ImageArea = (props: Props) => {
   const { data: shoppingItemList } = props;
   console.log('🚀 ~ ImageArea ~ shoppingItemList:', shoppingItemList);
-  //* get arr from API
-  // const arr = [
-  //   { name: wilson, alt: 'Wilson' },
-  //   { name: gubami, alt: '牛肉麵' },
-  //   { name: lalaport, alt: '拉拉寶都' },
-  //   { name: sansanyakiniku, alt: '三三燒肉' },
-  // ];
+
   return (
     <>
-      {shoppingItemList.map(({ image }, index) => (
-        <ImageBlock
-          key={index}
-          image={image}
-          customType={'width'}
-          customWidth={'100%'}
-          // width={item.name.width}
-        />
-      ))}
+      {shoppingItemList.map(({ image }, index) => {
+        if (!image) return null;
+
+        const { src, height, width, blurredDataUrl, alt } = image;
+        return (
+          <ImageBlock
+            key={index}
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            blurDataURL={blurredDataUrl}
+          />
+        );
+      })}
     </>
   );
 };

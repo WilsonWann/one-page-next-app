@@ -1,8 +1,8 @@
 import React from 'react';
-import FormInput from '../../components/FormInput';
-import ImageBlock from '../../components/ImageBlock';
-import IdentityCarrier from '@/assets/identityCarrier.png';
-import PhoneCarrier from '@/assets/phoneCarrier.png';
+import FormInput from '../../../components/FormInput';
+import ImageBlock from '../../../components/ImageBlock';
+import identityCarrier from '@/assets/identityCarrier.png';
+import phoneCarrier from '@/assets/phoneCarrier.png';
 import { SingleValue } from 'react-select';
 import { OptionType } from '@/types';
 
@@ -52,11 +52,11 @@ const IndividualCarrierInput = (props: Props) => {
           })}
           error={errors.citizenIdentity?.type}
         />
-        <ImageBlock
-          image={IdentityCarrier}
+        {/* <ImageBlock
+          image={identityCarrier}
           customType={'width'}
           customWidth={'100%'}
-        />
+        /> */}
       </>
     );
     return identityInput;
@@ -75,11 +75,11 @@ const IndividualCarrierInput = (props: Props) => {
           })}
           error={errors.phoneBarcode?.type}
         />
-        <ImageBlock
-          image={PhoneCarrier}
+        {/* <ImageBlock
+          image={phoneCarrier}
           customType={'width'}
           customWidth={'100%'}
-        />
+        /> */}
       </>
     );
     return phoneBarcodeInput;

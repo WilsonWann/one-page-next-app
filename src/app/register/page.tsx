@@ -2,12 +2,12 @@
 import React from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import styled from '@emotion/styled';
-import UserIcon from '../components/UserIcon';
+import UserIcon from '../../components/UserIcon';
 import { FaFacebook } from 'react-icons/fa';
 import { SiLine } from 'react-icons/si';
 import { FcGoogle } from 'react-icons/fc';
 import RegisterForm from './RegisterForm';
-import TemplateIconWrapper from '../components/TemplateIconWrapper';
+import TemplateIconWrapper from '../../components/TemplateIconWrapper';
 import Link from 'next/link';
 
 const LoginPageContainer = styled.div`

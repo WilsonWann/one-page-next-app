@@ -1,26 +1,31 @@
 import { ShoppingItem } from "@/types";
 import { shoppingList } from "./data";
+import { getBase64, getImage } from "@/lib/getLocalBase64";
 
 export async function GET(request: Request): Promise<Response> {
 
-  // const shoppingList = await fetch('http://localhost:4200/api/product')
-  //   .then((res) => res.json())
-  // console.log("🚀 ~ GET ~ shoppingList:", shoppingList)
+  const data = await Promise.all(
+    shoppingList.map(async (item: ShoppingItem): Promise<ShoppingItem> => {
+      const { image, ...rest } = item
+      if (!image) return item
 
-  // const data = await Promise.all(
-  //   shoppingList.map(async (item: ShoppingItem): Promise<ShoppingItem> => {
-  //     console.log("🚀 ~ shoppingList.map ~ item:", item)
-  //     const imageFile = await convertUrlToStaticFile(item.imageSrc)
-  //     return {
-  //       ...item,
-  //       image: imageFile
-  //     };
-  //   })
-  // )
+      const { src } = image
+      const { base64, img } = await getImage(src)
+      return {
+        ...rest,
+        image: {
+          ...image,
+          blurredDataUrl: base64,
+          height: img.height,
+          width: img.width
+        }
+      };
+    })
+  )
 
   // console.log("🚀 ~ GET ~ data:", data)
 
-  return Response.json(shoppingList)
+  return Response.json(data)
 };
 
 async function convertUrlToStaticFile(url: string) {
