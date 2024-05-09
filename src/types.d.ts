@@ -1,19 +1,25 @@
 import { StaticImageData } from "next/image"
 import { Logistics, InStorePickup, Payment, LogisticsMode, Gender, TimeToReceive } from '@/const'
 
+type Image = {
+  src: string;
+  alt: string;
+  height?: number;
+  width?: number;
+  blurredDataUrl?: string
+}
+
 type ShoppingItem = {
   id: number
-  image: StaticImageData;
+  image?: Image
   title: string;
-  // src: string;
-  alt: string;
-  // name: string;
   subtitle: string;
   content: string;
   price: number;
   specialPrice: number;
   maxQuantity?: number
 }
+
 
 type QuantityProps = {
   quantity: number
