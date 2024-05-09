@@ -1,8 +1,8 @@
 import React from 'react';
-import FormInput from '../../../components/FormInput';
+import FormInput from '@/components/FormInput/FormInput.component';
 import { SingleValue } from 'react-select';
 import { OptionType } from '@/types';
-import FormSelectInput from '../../../components/FormSelectInput';
+import FormSelectInput from '@/components/FormSelectInput/FormSelectInput.component';
 
 type Props = {
   control: any;

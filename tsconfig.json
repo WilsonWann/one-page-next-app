@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/helper/creditCardFormat.js"
+    "src/helper/creditCardFormat.js",
+    "src/components/CartArea/CartArea.component.tsx"
   ],
   "exclude": ["node_modules"]
 }

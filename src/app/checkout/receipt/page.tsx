@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import SubmitButton from '../../../components/SubmitButton';
-import ReceiptIcon from '../../../components/ReceiptIcon';
+import SubmitButton from '@/components/SubmitButton/SubmitButton.component';
+import ReceiptIcon from '@/components/ReceiptIcon/ReceiptIcon.component';
 import { SingleValue } from 'react-select';
 import IndividualCarrierInput from './IndividualCarrierInput';
 import OtherInputWrapper from './OtherInputWrapper';
-import FormSelectInput from '../../../components/FormSelectInput';
+import FormSelectInput from '@/components/FormSelectInput/FormSelectInput.component';
 import { OptionType, ReceiptProps } from '@/types';
 import { receiptAtom, receiptEmailAtom } from '@/atoms';
 import { useAtom } from 'jotai';

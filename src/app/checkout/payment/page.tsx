@@ -2,9 +2,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
-import SubmitButton from '../../../components/SubmitButton';
-import DollarIcon from '../../../components/DollarIcon';
-import FormInput from '@/components/FormInput';
+import SubmitButton from '@/components/SubmitButton/SubmitButton.component';
+import DollarIcon from '@/components/DollarIcon/DollarIcon.component';
+import FormInput from '@/components/FormInput/FormInput.component';
 import { getGoodsDeliverAtom } from '@/atoms';
 import { useAtom } from 'jotai';
 

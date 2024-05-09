@@ -1,17 +1,17 @@
 'use client';
 
-import ShoppingArea from '../components/ShoppingArea';
-import MarketingBlock from '../components/MarketingBlock';
+import ShoppingArea from '@/components/ShoppingArea/ShoppingArea.component';
+import MarketingBlock from '@/components/MarketingBlock/MarketingBlock.component';
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { productModalOpenAtom, shoppingListAtom } from '@/atoms';
 import { ShoppingItem } from '@/types';
-import ProductModal from '../components/ProductModal';
-import CartArea from '../components/CartArea';
-import Promotion from '../components/Promotion';
+import ProductModal from '@/components/ProductModal/ProductModal.component';
+import CartArea from '@/components/CartArea/CartArea.component';
+import Promotion from '@/components/Promotion/Promotion.component';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import ImageArea from '../components/ImageArea';
-import VideoArea from '../components/VideoArea';
+import ImageArea from '@/components/ImageArea/ImageArea.component';
+import VideoArea from '@/components/VideoArea/VideoArea.component';
 
 export default function Home() {
   const [shoppingList, setShoppingList] = useAtom(shoppingListAtom);

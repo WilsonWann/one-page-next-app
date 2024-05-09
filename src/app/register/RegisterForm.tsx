@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import SubmitButton from '../../components/SubmitButton';
-import FormInput from '../../components/FormInput';
+import SubmitButton from '@/components/SubmitButton/SubmitButton.component';
+import FormInput from '@/components/FormInput/FormInput.component';
 
 interface IRegisterForm {
   name: string;

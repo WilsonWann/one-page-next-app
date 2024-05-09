@@ -1,0 +1,19 @@
+import React from 'react';
+import { IoLogoModelS } from 'react-icons/io';
+import NavLink from '@/components/NavLink/NavLink.component';
+
+type Props = {
+  size?: number;
+};
+
+const Logo = (props: Props) => {
+  const { size = 36 } = props;
+
+  return (
+    <NavLink href={'/'}>
+      <IoLogoModelS color={'black'} size={size} />
+    </NavLink>
+  );
+};
+
+export default Logo;

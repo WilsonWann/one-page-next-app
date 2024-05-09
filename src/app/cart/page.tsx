@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import CartArea from '../../components/CartArea';
+import CartArea from '@/components/CartArea/CartArea.component';
 
 type Props = {};
 

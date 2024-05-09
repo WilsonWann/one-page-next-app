@@ -1,6 +1,6 @@
 import React from 'react';
-import FormInput from '../../../components/FormInput';
-import ImageBlock from '../../../components/ImageBlock';
+import FormInput from '@/components/FormInput/FormInput.component';
+import ImageBlock from '@/components/ImageBlock/ImageBlock.component';
 import identityCarrier from '@/assets/identityCarrier.png';
 import phoneCarrier from '@/assets/phoneCarrier.png';
 import { SingleValue } from 'react-select';

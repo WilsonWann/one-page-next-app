@@ -1,14 +1,14 @@
 'use client';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import styled from '@emotion/styled';
-import UserIcon from '../../components/UserIcon';
-import TemplateIconWrapper from '../../components/TemplateIconWrapper';
+import UserIcon from '@/components/UserIcon/UserIcon.component';
+import TemplateIconWrapper from '@/components/TemplateIconWrapper/TemplateIconWrapper.component';
 import { FaFacebook } from 'react-icons/fa';
 import { SiLine } from 'react-icons/si';
 import { FcGoogle } from 'react-icons/fc';
 import LoginForm from './LoginForm';
 import Link from 'next/link';
-import ImageBlock from '../../components/ImageBlock';
+import ImageBlock from '@/components/ImageBlock/ImageBlock.component';
 
 const LoginPageContainer = styled.div`
   display: flex;
