@@ -1,19 +1,12 @@
 import { ShoppingItem } from '@/types'
-import wilson from '@/assets/wilson.jpg'
-import gubami from '@/assets/gubami.jpg'
-import lalaport from '@/assets/lalaport.jpg'
-import sansanyakiniku from '@/assets/sansanyakiniku.png'
-import pokemon from '@/assets/pokemon.jpg'
-import mcdonald from '@/assets/mcdonald.png'
-import scheduled from '@/assets/scheduled.jpg'
 
 export const shoppingList: ShoppingItem[] = [
   {
     id: 0,
-    image: {
-      src: '/wilson.jpg',
-      alt: 'Wilson',
-    },
+    // image: {
+    //   src: '/wilson.jpg',
+    //   alt: 'Wilson',
+    // },
     title: '超值金排球禮盒組',
     subtitle: '送禮首選～原價1860，特價1500，限時春節早鳥優惠再9.5折',
     content: '精緻金排球*1顆\n禮盒*1盒\n沒用氣泡紙*10堆',

@@ -1,27 +1,27 @@
 import { ShoppingItem } from "@/types";
 import { shoppingList } from "./data";
-import { getBase64, getImage } from "@/lib/getLocalBase64";
+import { getImage } from "@/lib/getLocalBase64";
 
-export async function GET(request: Request): Promise<Response> {
+export async function GET(): Promise<Response> {
 
-  const data = await Promise.all(
-    shoppingList.map(async (item: ShoppingItem): Promise<ShoppingItem> => {
-      const { image, ...rest } = item
-      if (!image) return item
+  const shoppingListPromises = shoppingList.map(async (item: ShoppingItem): Promise<ShoppingItem> => {
+    const { image, ...rest } = item
+    if (!image) return { ...rest }
 
-      const { src } = image
-      const { base64, img } = await getImage(src)
-      return {
-        ...rest,
-        image: {
-          ...image,
-          blurredDataUrl: base64,
-          height: img.height,
-          width: img.width
-        }
-      };
-    })
-  )
+    const { src } = image
+    const { base64, img } = await getImage(src)
+    return {
+      ...rest,
+      image: {
+        ...image,
+        blurDataURL: base64,
+        height: img.height,
+        width: img.width
+      }
+    };
+  })
+
+  const data = await Promise.all(shoppingListPromises)
 
   // console.log("🚀 ~ GET ~ data:", data)
 

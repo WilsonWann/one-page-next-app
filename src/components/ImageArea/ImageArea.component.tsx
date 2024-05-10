@@ -15,17 +15,7 @@ const ImageArea = (props: Props) => {
       {shoppingItemList.map(({ image }, index) => {
         if (!image) return null;
 
-        const { src, height, width, blurredDataUrl, alt } = image;
-        return (
-          <ImageBlock
-            key={index}
-            src={src}
-            alt={alt}
-            width={width}
-            height={height}
-            blurDataURL={blurredDataUrl}
-          />
-        );
+        return <ImageBlock key={index} {...image} />;
       })}
     </>
   );

@@ -1,12 +1,17 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { useForm } from 'react-hook-form';
+import { useController, useForm } from 'react-hook-form';
 import SubmitButton from '@/components/SubmitButton/SubmitButton.component';
 import DollarIcon from '@/components/DollarIcon/DollarIcon.component';
 import FormInput from '@/components/FormInput/FormInput.component';
 import { getGoodsDeliverAtom } from '@/atoms';
 import { useAtom } from 'jotai';
+import {
+  onCreditCardStringChange,
+  onExpiryDateStringChange,
+  onSecurityCodeStringChange,
+} from '@/helper/creditCardHelper';
 
 const PaymentContainer = styled.form`
   display: flex;
@@ -16,8 +21,6 @@ const PaymentContainer = styled.form`
   gap: 1rem;
 `;
 
-type Props = {};
-
 type PaymentFormProps = {
   payment: number;
   creditCardNumber: string;
@@ -25,7 +28,7 @@ type PaymentFormProps = {
   securityCode: string;
 };
 
-const Payment = (props: Props) => {
+const Payment = () => {
   const [goodsDeliver] = useAtom(getGoodsDeliverAtom);
 
   const {
@@ -42,12 +45,33 @@ const Payment = (props: Props) => {
     },
   });
 
-  // console.log('🚀 ~ Payment ~ goodsDeliver.subtotal:', goodsDeliver.subtotal);
+  const { field: creditCardField, fieldState: creditCardError } = useController(
+    {
+      name: 'creditCardNumber',
+      control: control,
+      rules: { required: true, pattern: /[\d|\s]{19}/ },
+    },
+  );
+  const { field: expiryDateField, fieldState: expiryDateError } = useController(
+    {
+      name: 'expiryDate',
+      control: control,
+      rules: { required: true, pattern: /[\d|\/|\s]{7}/ },
+    },
+  );
+  const { field: securityCodeField, fieldState: securityCodeError } =
+    useController({
+      name: 'securityCode',
+      control: control,
+      rules: { required: true, pattern: /[\d]{3}/ },
+    });
 
   const onSubmit = handleSubmit((data) => {
     console.log('🚀 ~ onSubmit ~ data:', data);
   });
-
+  const [creditCardString, setCreditCardString] = useState<string>('');
+  const [expiryDateString, setExpiryDateString] = useState<string>('');
+  const [securityCode, setSecurityCode] = useState<string>('');
   return (
     <PaymentContainer onSubmit={onSubmit}>
       <DollarIcon name='付款' />
@@ -63,21 +87,41 @@ const Payment = (props: Props) => {
       <FormInput
         required
         name='creditCardNumber'
+        value={creditCardString}
+        onChange={(e) => {
+          const creditCardString = onCreditCardStringChange(e);
+          setCreditCardString(creditCardString);
+          creditCardField.onChange(e);
+        }}
         label={'信用卡號'}
-        type='creditCard'
-        control={control}
+        type='tel'
+        error={creditCardError.error?.type}
       />
       <FormInput
         required
+        name='expiryDate'
+        value={expiryDateString}
+        onChange={(e) => {
+          const expiryDateString = onExpiryDateStringChange(e);
+          setExpiryDateString(expiryDateString);
+          expiryDateField.onChange(e);
+        }}
         label={'有效期限'}
-        type='expiryDate'
-        control={control}
+        type='tel'
+        error={expiryDateError.error?.type}
       />
       <FormInput
         required
+        name='securityCode'
+        value={securityCode}
+        onChange={(e) => {
+          const securityCodeString = onSecurityCodeStringChange(e);
+          setSecurityCode(securityCodeString);
+          securityCodeField.onChange(e);
+        }}
         label={'安全碼'}
-        type='securityCode'
-        control={control}
+        type='tel'
+        error={securityCodeError.error?.type}
       />
       <SubmitButton text={'確認付款'} />
     </PaymentContainer>

@@ -20,10 +20,17 @@ export const DisplayArea = styled.div<DisplayAreaProps>`
   padding: ${(props) => (props.gap ? `0 ${props.gap}` : '0')};
 
   display: grid;
-  grid-template-columns: repeat(${(props) => props.columnItems}, 1fr);
+  grid-template-columns: repeat(
+    ${(props) => props.columnItems},
+    minmax(0, 1fr)
+  );
   grid-template-rows: 1fr;
 
   gap: ${(props) => props.gap ?? '0'};
   row-gap: 3rem;
   margin-bottom: 2rem;
+
+  & > div {
+    overflow-x: clip;
+  }
 `;

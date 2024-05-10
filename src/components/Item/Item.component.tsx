@@ -27,11 +27,22 @@ type Props = {
   children?: React.ReactNode;
   subtotal?: React.ReactNode;
   addToCartButton?: React.ReactNode;
+
+  imageEl?: React.ReactNode;
 };
 
-const Item = (props: Props) => {
+const Item: React.FC<Props> = (props) => {
   const [columnNumber] = useAtom(shoppingAreaDisplayColumnAtom);
   const [, setItemId] = useAtom(setTakeOnHandItemIdAtom);
+
+  const calcHeight = (columnNumber: number) => {
+    if (columnNumber === 0) return '0';
+    return `calc((100vw - 1rem * 2 - 1rem  * ${
+      columnNumber - 1
+    }) / ${columnNumber})`;
+  };
+  const imageWrapperHeight = calcHeight(columnNumber);
+
   const {
     item,
     align = 'center',
@@ -40,14 +51,34 @@ const Item = (props: Props) => {
     addToCartButton = <AddToCartButton onClick={() => setItemId(item.id)} />,
   } = props;
 
+  if (!item.image) return null;
+
+  const { image } = item;
+
+  const {
+    imageEl = (
+      <CardImageBlock
+        {...image}
+        restrict={'square'}
+        setSize={imageWrapperHeight}
+      />
+    ),
+  } = props;
+
+  // const style: React.CSSProperties = {
+  //   display: 'flex',
+  //   alignItems: 'stretch',
+  //   justifyContent: 'center',
+  //   height: imageWrapperHeight,
+  //   width: '100%',
+  //   overflow: 'clip',
+  // };
+
   return (
     <ItemWrapper align={align}>
-      {/* <CardImageBlock
-        image={item.image}
-        customType={'width'}
-        alt={item.alt}
-        customWidth='100%'
-      /> */}
+      {/* <div style={style}> */}
+      {imageEl}
+      {/* </div> */}
       <ItemContentWrapper padding={props.padding}>
         <ItemTitle>
           {item.title}

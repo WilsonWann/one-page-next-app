@@ -8,6 +8,7 @@ export const ItemSelector = styled.div<ItemSelectorProps>`
   position: fixed;
   top: ${(props) => (props.active ? '0' : '100vh')};
   left: 0;
+  right: 0;
   background-color: white;
   height: 100dvh;
   width: 100%;

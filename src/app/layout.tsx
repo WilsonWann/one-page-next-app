@@ -19,6 +19,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang='en'>
       <body className={`${inter.className} pt-12 pb-0 `}>
+        <div id='product-modal' />
         <JotaiProvider>
           <SessionProvider session={session}>
             <Header />

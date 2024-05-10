@@ -6,7 +6,7 @@ type Image = {
   alt: string;
   height?: number;
   width?: number;
-  blurredDataUrl?: string
+  blurDataURL?: string
 }
 
 type ShoppingItem = {

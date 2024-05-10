@@ -24,17 +24,15 @@ const CartListItem = (props: Props) => {
   const { item } = props;
   const [, removeCart] = useAtom(removeCartAtom);
 
+  if (!item.image) return null;
+
+  const { image } = item;
   return (
     <CartWrapper>
       <RemoveButtonWrapper>
         <TrashIcon onClick={() => removeCart(item.id)} />
       </RemoveButtonWrapper>
-      {/* <ImageBlock
-        image={item.image}
-        alt={item.alt}
-        customType={'width'}
-        customWidth={`3rem`}
-      /> */}
+      <ImageBlock {...image} restrict={'width'} setWidth={8} />
       <div>
         <CartTitle>{item.title}</CartTitle>
         <PriceWrapper>
