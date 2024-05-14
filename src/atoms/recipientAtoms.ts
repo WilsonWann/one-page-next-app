@@ -108,8 +108,8 @@ export const setStreetAtom = atom(
 const addressAtom = atom(
   get => {
     const city = get(getCityAtom)
-    const district = get(districtAtom)
-    const street = get(streetAtom)
+    const district = get(getDistrictAtom)
+    const street = get(getStreetAtom)
     return {
       city: city,
       district: district,
