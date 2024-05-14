@@ -64,21 +64,9 @@ const Item: React.FC<Props> = (props) => {
       />
     ),
   } = props;
-
-  // const style: React.CSSProperties = {
-  //   display: 'flex',
-  //   alignItems: 'stretch',
-  //   justifyContent: 'center',
-  //   height: imageWrapperHeight,
-  //   width: '100%',
-  //   overflow: 'clip',
-  // };
-
   return (
     <ItemWrapper align={align}>
-      {/* <div style={style}> */}
       {imageEl}
-      {/* </div> */}
       <ItemContentWrapper padding={props.padding}>
         <ItemTitle>
           {item.title}
