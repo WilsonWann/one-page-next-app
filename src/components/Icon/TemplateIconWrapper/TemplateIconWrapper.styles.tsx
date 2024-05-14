@@ -40,6 +40,7 @@ export const IconWrapper = styled.div<IconWrapperProps>`
         return {
           width: '100%',
           height: '100%',
+          borderRadius: '50%',
 
           backgroundColor: bg ?? 'unset',
         };
