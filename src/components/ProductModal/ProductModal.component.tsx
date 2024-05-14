@@ -17,7 +17,7 @@ import Counter from '@/components/Counter/Counter.component';
 import CloseButton from '@/components/CloseButton/CloseButton.component';
 import AddToCartButton from '@/components/AddToCartButton/AddToCartButton.component';
 import numberFormat from '@/helper/numberFormat';
-import usePreventScroll from '@/app/hook/usePreventScroll';
+import usePreventScroll from '@/hook/usePreventScroll';
 import { CardImageBlock } from '../Item/Item.styles';
 
 type Props = {

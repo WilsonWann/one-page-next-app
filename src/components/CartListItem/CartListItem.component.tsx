@@ -8,7 +8,7 @@ import {
   SpecialPrice,
 } from './CartListItem.styles';
 import { CartItem } from '@/types';
-import TrashIcon from '@/components/TrashIcon/TrashIcon.component';
+import TrashIcon from '@/components/Icon/TrashIcon/TrashIcon.component';
 import ImageBlock from '@/components/ImageBlock/ImageBlock.component';
 import Counter from '@/components/Counter/Counter.component';
 import { useAtom } from 'jotai';

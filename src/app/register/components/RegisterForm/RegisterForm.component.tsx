@@ -1,21 +1,13 @@
-import styled from '@emotion/styled';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import SubmitButton from '@/components/SubmitButton/SubmitButton.component';
 import FormInput from '@/components/FormInput/FormInput.component';
+import { RegisterFormWrapper } from './RegisterForm.styles';
 
 interface IRegisterForm {
   name: string;
   email: string;
   password: string;
 }
-
-const RegisterFormWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: 1rem;
-`;
 
 const RegisterForm = () => {
   const {

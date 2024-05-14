@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { useController, useForm } from 'react-hook-form';
 import SubmitButton from '@/components/SubmitButton/SubmitButton.component';
-import DollarIcon from '@/components/DollarIcon/DollarIcon.component';
+import DollarIcon from '@/components/Icon/DollarIcon/DollarIcon.component';
 import FormInput from '@/components/FormInput/FormInput.component';
 import { getGoodsDeliverAtom } from '@/atoms';
 import { useAtom } from 'jotai';

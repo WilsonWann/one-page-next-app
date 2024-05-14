@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import SubmitButton from '@/components/SubmitButton/SubmitButton.component';
-import ReceiptIcon from '@/components/ReceiptIcon/ReceiptIcon.component';
+import ReceiptIcon from '@/components/Icon/ReceiptIcon/ReceiptIcon.component';
 import { SingleValue } from 'react-select';
 import IndividualCarrierInput from './IndividualCarrierInput';
 import OtherInputWrapper from './OtherInputWrapper';

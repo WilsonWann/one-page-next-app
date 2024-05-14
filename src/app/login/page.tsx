@@ -1,14 +1,13 @@
 'use client';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import styled from '@emotion/styled';
-import UserIcon from '@/components/UserIcon/UserIcon.component';
-import TemplateIconWrapper from '@/components/TemplateIconWrapper/TemplateIconWrapper.component';
-import { FaFacebook } from 'react-icons/fa';
-import { SiLine } from 'react-icons/si';
-import { FcGoogle } from 'react-icons/fc';
-import LoginForm from './LoginForm';
+import { UserIcon } from '@/components/Icon/UserIcon/UserIcon.component';
+
+import LoginForm from './components/LoginForm/LoginForm.component';
 import Link from 'next/link';
-import ImageBlock from '@/components/ImageBlock/ImageBlock.component';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import AuthIcon from '@/components/Icon/AuthIcon/AuthIcon.component';
 
 const LoginPageContainer = styled.div`
   display: flex;
@@ -72,32 +71,21 @@ type Props = {};
 
 const LoginPage = (props: Props) => {
   const { data: sessionData } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (sessionData && sessionData.user) {
+      router.push('/member/dashboard');
+    }
+  }, [sessionData]);
 
   if (!sessionData || !sessionData.user) {
     return (
       <LoginPageContainer>
-        <UserIcon type='default' name={'會員登入'} size={28} />
-        <TemplateIconWrapper
-          width={'100%'}
-          iconText='Facebook 登入'
-          onClick={() => signIn('facebook')}
-        >
-          <FaFacebook size={22} color={'#3b5998'} />
-        </TemplateIconWrapper>
-        <TemplateIconWrapper
-          width={'100%'}
-          iconText='Google 登入'
-          onClick={() => signIn('google')}
-        >
-          <FcGoogle size={22} />
-        </TemplateIconWrapper>
-        <TemplateIconWrapper
-          width={'100%'}
-          iconText='Line 登入'
-          onClick={() => signIn('line')}
-        >
-          <SiLine size={22} color={'#06c755'} />
-        </TemplateIconWrapper>
+        <UserIcon name={'會員登入'} size={28} />
+        <AuthIcon type='facebook' iconText={'Facebook 登入'} width={'100%'} />
+        <AuthIcon type='google' iconText={'Google 登入'} width={'100%'} />
+        <AuthIcon type='line' iconText={'Line 登入'} width={'100%'} />
 
         <LoginFormContainer>
           <div>
@@ -112,54 +100,6 @@ const LoginPage = (props: Props) => {
       </LoginPageContainer>
     );
   }
-
-  return (
-    <>
-      <div>
-        <div>姓名 {sessionData.user.name}</div>
-        <div>Email {sessionData.user.email}</div>
-        {/* <ImageBlock
-          src={sessionData.user.image}
-          alt={'User Image'}
-          customType={'default'}
-        /> */}
-        <button>user_icon 會員中心</button>
-        <button>order_icon 我的訂單</button>
-        <button>point_icon 會員點數</button>
-        <button>lock_icon 更改密碼</button>
-        <button>logout_icon 登出</button>
-      </div>
-      <div>
-        <div>user_icon 會員中心</div>
-        <div>姓名：{sessionData.user.name}</div>
-        <div>Email：{sessionData.user.email}</div>
-        <div>
-          <button>edit_icon 更改會員檔案</button>
-          <button>truck_icon 更改收件地址</button>
-        </div>
-      </div>
-      <div>
-        <div>login_icon 登入綁定</div>
-        <div>綁定 $facebook_login 登入</div>
-        {sessionData.user ? (
-          <div>
-            <div>line_icon $username</div>
-            <div>
-              <button>取消綁定</button>
-              <button>重新綁定</button>
-            </div>
-          </div>
-        ) : (
-          <div>綁定 $google_login 登入</div>
-        )}
-        <div>綁定 $line_login 登入</div>
-        <div>
-          <span>edit_icon 更改會員檔案</span>
-          <span>truck_icon 更改收件地址</span>
-        </div>
-      </div>
-    </>
-  );
 };
 
 export default LoginPage;

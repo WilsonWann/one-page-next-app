@@ -18,7 +18,7 @@ import Logo from '@/components/Logo/Logo.component';
 import CloseButton from '@/components/CloseButton/CloseButton.component';
 import { usePathname } from 'next/navigation';
 import Backdrop from '@/components/Backdrop/Backdrop.component';
-import usePreventScroll from '@/app/hook/usePreventScroll';
+import usePreventScroll from '@/hook/usePreventScroll';
 
 const Navbar = () => {
   const { data: sessionData } = useSession();

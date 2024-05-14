@@ -7,7 +7,7 @@ import React, {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navbarOpenAtom } from '@/atoms';
-import { useAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 
 const DEFAULT_TYPE = Link;
 
@@ -29,7 +29,7 @@ function NavLink<T extends ElementType = typeof DEFAULT_TYPE>({
 }: Props<T>) {
   const Component = As ?? DEFAULT_TYPE;
 
-  const [, toggleNavbar] = useAtom(navbarOpenAtom);
+  const toggleNavbar = useSetAtom(navbarOpenAtom);
 
   const onClickHandler = useCallback(() => {
     if (onClick) {

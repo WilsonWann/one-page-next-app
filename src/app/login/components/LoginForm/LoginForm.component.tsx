@@ -1,29 +1,12 @@
-import styled from '@emotion/styled';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import SubmitButton from '@/components/SubmitButton/SubmitButton.component';
 import FormInput from '@/components/FormInput/FormInput.component';
-import Link from 'next/link';
+import { LoginFormWrapper, ForgetPasswordLink } from './LoginForm.styles';
 
 interface ILoginForm {
   email: string;
   password: string;
 }
-
-const LoginFormWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: 1rem;
-`;
-
-const ForgetPasswordLink = styled(Link)`
-  display: block;
-  width: fit-content;
-  color: #2088cd;
-  font-size: small;
-  margin-left: auto;
-`;
 
 const LoginForm = () => {
   const {

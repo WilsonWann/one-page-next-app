@@ -1,7 +1,7 @@
 import React from 'react';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import Backdrop from '@/components/Backdrop/Backdrop.component';
-import usePreventScroll from '@/app/hook/usePreventScroll';
+import usePreventScroll from '@/hook/usePreventScroll';
 import { ModalDiv } from './CartErrorModal.styles';
 
 type Props = {

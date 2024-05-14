@@ -6,7 +6,7 @@ import CheckoutContainer from '@/components/CheckoutContainer/CheckoutContainer.
 import CartErrorModal from '@/components/CartErrorModal/CartErrorModal.component';
 import { useAtom } from 'jotai';
 import { cartErrorModalAtom } from '@/atoms';
-import usePreventScroll from '@/app/hook/usePreventScroll';
+import usePreventScroll from '@/hook/usePreventScroll';
 
 const CartArea = () => {
   const [cartModalError] = useAtom(cartErrorModalAtom);

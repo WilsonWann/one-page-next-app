@@ -34,7 +34,6 @@ export const RemoveButtonWrapper = styled.div`
   height: 2rem;
   width: 2rem;
   border-radius: 50%;
-  background-color: lightgray;
 `;
 export const CartTitle = styled.h3`
   display: flex;

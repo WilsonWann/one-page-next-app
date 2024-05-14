@@ -4,8 +4,8 @@ import { HeaderWrapper, ButtonWrapper } from './Header.styles';
 import { useAtom } from 'jotai';
 import { getCartItemQuantityAtom, navbarOpenAtom } from '@/atoms';
 import Logo from '@/components/Logo/Logo.component';
-import CartIcon from '@/components/CartIcon/CartIcon.component';
-import UserIcon from '@/components/UserIcon/UserIcon.component';
+import CartIcon from '@/components/Icon/CartIcon/CartIcon.component';
+import { UserIcon } from '@/components/Icon/UserIcon/UserIcon.component';
 import { useRouter } from 'next/navigation';
 
 const Header = () => {
@@ -17,9 +17,9 @@ const Header = () => {
     <HeaderWrapper>
       <Logo />
       <ButtonWrapper>
-        <UserIcon type='default' onClick={() => router.push('/login')} />
+        <UserIcon onClick={() => router.push('/login')} />
         <CartIcon
-          itemNumber={cartItemQuantity}
+          iconText={cartItemQuantity}
           onClick={() => router.push('/cart')}
         />
         <RxHamburgerMenu

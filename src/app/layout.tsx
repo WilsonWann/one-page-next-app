@@ -6,8 +6,8 @@ import { Header, Navbar, FixedButtons, Footer } from '@/lib/components';
 const inter = Inter({ subsets: ['latin'] });
 
 import { getServerSession } from 'next-auth';
-import SessionProvider from '@/app/Providers/SessionProvider';
-import JotaiProvider from '@/app/Providers/JotaiProvider';
+import SessionProvider from '@/Providers/SessionProvider';
+import JotaiProvider from '@/Providers/JotaiProvider';
 
 export const metadata: Metadata = {
   title: '陌聲一頁式廣告',
