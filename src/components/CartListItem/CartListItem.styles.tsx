@@ -10,9 +10,23 @@ export const CartWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 0.5rem;
 
   border-top: 1px solid rgba(87, 90, 93, 1);
+
+  & > *:first-child {
+    flex-shrink: 0;
+  }
+  & > *:nth-child(2) {
+    min-width: 4.5rem;
+  }
+  & > *:nth-child(3) {
+    min-width: 10rem;
+  }
+  & > *:last-child {
+    margin-top: auto;
+  }
 `;
 
 export const RemoveButtonWrapper = styled.div`
@@ -31,11 +45,12 @@ export const CartTitle = styled.h3`
 
 export const PriceWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
-  column-gap: 1rem;
-  row-gap: 0.5rem;
+  /* column-gap: 1rem; */
+  row-gap: 0rem;
 `;
 
 export const Price = styled.div`
