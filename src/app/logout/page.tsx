@@ -1,10 +1,8 @@
 'use client';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { signOut } from 'next-auth/react';
 
-type Props = {};
-
-const Logout = (props: Props) => {
+const Logout = () => {
   useEffect(() => {
     signOut({ redirect: true, callbackUrl: '/login' });
   }, []);
