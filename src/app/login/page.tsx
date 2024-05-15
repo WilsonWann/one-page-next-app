@@ -75,7 +75,7 @@ const LoginPage = (props: Props) => {
 
   useEffect(() => {
     if (sessionData && sessionData.user) {
-      router.push('/member/dashboard');
+      router.push('/member');
     }
   }, [sessionData]);
 

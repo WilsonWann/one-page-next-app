@@ -5,10 +5,11 @@ type Props = {
   children: React.ReactNode;
   onClick?: () => void;
   iconText?: string | number;
+  textType?: 'text' | 'alert';
+  textColor?: string;
 
   width?: number | string;
   type?: 'minimal' | 'oval' | 'circle' | 'unset';
-  spanType?: 'text' | 'alert';
   bg?: string;
 };
 
@@ -19,13 +20,15 @@ const TemplateIconWrapper = (props: Props) => {
     iconText = undefined,
     width,
     type = 'unset',
-    spanType = 'text',
+    textType = 'text',
+    textColor = 'black',
     bg = undefined,
   } = props;
   return (
     <IconWrapper
       type={type}
-      spanType={spanType}
+      textType={textType}
+      textColor={textColor}
       onClick={onClick}
       width={width}
       bg={bg}

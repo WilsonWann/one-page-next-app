@@ -6,16 +6,26 @@ import TemplateIconWrapper from '../TemplateIconWrapper/TemplateIconWrapper.comp
 type Props = {
   size?: number;
   color?: string;
-  iconText?: number;
+  iconText?: number | string;
+  textType?: 'alert' | 'text';
+  textColor?: string;
   onClick?: () => void;
 };
 
 const CartIcon = (props: Props) => {
-  const { size = 22, color = 'black', iconText = 0, onClick } = props;
+  const {
+    size = 22,
+    textType = 'alert',
+    textColor = 'black',
+    color = 'black',
+    iconText = 0,
+    onClick,
+  } = props;
   return (
     <TemplateIconWrapper
-      spanType={'alert'}
       iconText={iconText}
+      textType={textType}
+      textColor={textColor}
       onClick={onClick}
     >
       <IoCartOutline size={size} color={color} />

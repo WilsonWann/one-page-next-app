@@ -1,14 +1,11 @@
 'use client';
-import React from 'react';
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
-type Props = {};
-
-const MemberPage = (props: Props) => {
+const MemberPage = () => {
   const { data: sessionData } = useSession();
   if (!sessionData || !sessionData.user) redirect('/login');
-  return <div>MemberPage</div>;
+  return redirect('/member/dashboard');
 };
 
 export default MemberPage;

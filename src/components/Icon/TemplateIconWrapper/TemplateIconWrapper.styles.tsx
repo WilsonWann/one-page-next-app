@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 type IconWrapperProps = {
   width?: number | string;
   type: string;
-  spanType: string;
+  textType: string;
+  textColor: string;
   onClick?: () => void;
   bg?: string;
 };
@@ -60,8 +61,8 @@ export const IconWrapper = styled.div<IconWrapperProps>`
     }}
 
   &>span {
-    ${({ spanType }) => {
-      switch (spanType) {
+    ${({ textType, textColor }) => {
+      switch (textType) {
         case 'alert':
           return {
             position: 'absolute',
@@ -77,7 +78,9 @@ export const IconWrapper = styled.div<IconWrapperProps>`
             fontSize: '0.7rem',
           };
         default:
-          return {};
+          return {
+            color: textColor ?? 'black',
+          };
       }
     }}
   }

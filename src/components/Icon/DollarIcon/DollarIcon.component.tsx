@@ -13,10 +13,6 @@ const DollarIcon = (props: Props) => {
     <TemplateIconWrapper iconText={name}>
       <PiCurrencyCircleDollarLight size={size} color='black' />
     </TemplateIconWrapper>
-    // <DollarIconWrapper size={size}>
-    //   <PiCurrencyCircleDollarLight color='black' />
-    //   {name && <span>{name}</span>}
-    // </DollarIconWrapper>
   );
 };
 

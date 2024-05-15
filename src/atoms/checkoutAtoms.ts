@@ -141,3 +141,15 @@ export const getGoodsDeliverAtom = atom<GoodsDeliverType>(
     } satisfies GoodsDeliverType
   }
 )
+
+
+const getCheckoutAtom = atom(
+  get => {
+    const goodsDeliver = get(getGoodsDeliverAtom)
+    const paymentType = get(getPaymentTypeAtom)
+    return {
+      ...goodsDeliver,
+      paymentType
+    }
+  }
+)
