@@ -7,25 +7,22 @@ import LogoutIcon from '@/components/Icon/LogoutIcon/LogoutIcon.component';
 import ListIcon from '@/components/Icon/ListIcon/ListIcon.component';
 import LockIcon from '@/components/Icon/LockIcon/LockIcon.component';
 import IconLayout from './components/IconLayout/IconLayout.component';
+import { ListWrapper } from './components/ListLayout/ListLayout.styles';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 type Props = {
   children: React.ReactNode;
 };
 
 const MemberLayout: React.FC<Props> = ({ children }) => {
+  const { data: sessionData } = useSession();
+  if (!sessionData || !sessionData.user) return redirect('/login');
+
   return (
     <div className='w-full flex flex-col justify-between items-stretch p-4'>
       <div>
-        <ul
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            columnGap: '1rem',
-            rowGap: '0.5rem',
-            flexWrap: 'wrap',
-          }}
-        >
+        <ListWrapper>
           <li>
             <NavLink href={'/member/dashboard'}>
               <IconLayout>
@@ -49,7 +46,6 @@ const MemberLayout: React.FC<Props> = ({ children }) => {
           </li>
           <li>
             <NavLink href={'/member/changePwd'}>
-              {' '}
               <IconLayout>
                 <LockIcon size={22} name='更改密碼' />
               </IconLayout>
@@ -62,7 +58,7 @@ const MemberLayout: React.FC<Props> = ({ children }) => {
               </IconLayout>
             </NavLink>
           </li>
-        </ul>
+        </ListWrapper>
         {children}
       </div>
     </div>

@@ -1,36 +1,34 @@
 import React from 'react';
 import TemplateIconWrapper from '../TemplateIconWrapper/TemplateIconWrapper.component';
-
-import { signIn } from 'next-auth/react';
 import InnerIcon from './InnerIcon.component';
 
-export type AuthIconProps = {
-  type: 'facebook' | 'google' | 'line' | 'email';
-  layout?: 'minimal' | 'oval';
+export type EditIconProps = {
+  size?: number;
+  type?: 'edit' | 'address';
   width?: string | number;
   iconText?: string;
   onClick?: () => void;
 };
 
-const AuthIcon: React.FC<AuthIconProps> = (props) => {
+const EditIcon: React.FC<EditIconProps> = (props) => {
   const {
-    type,
-    layout = 'oval',
+    size = 22,
+    type = undefined,
     width = undefined,
-    iconText = undefined,
-    onClick = () => signIn(type),
+    iconText = 'Edit',
+    onClick = () => {},
   } = props;
 
   return (
     <TemplateIconWrapper
-      type={layout}
+      type='oval'
       width={width}
       iconText={iconText}
       onClick={onClick}
     >
-      <InnerIcon type={type} />
+      <InnerIcon type={type} size={size} />
     </TemplateIconWrapper>
   );
 };
 
-export default AuthIcon;
+export default EditIcon;

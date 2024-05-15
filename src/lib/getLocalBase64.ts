@@ -51,7 +51,7 @@ export async function addBlurredDataUrls(images: ImagesResults): Promise<Photo[]
 }
 
 export async function getImage(src: string) {
-  console.log('🚀 ~ getImage ~ src:', src)
+  // console.log('🚀 ~ getImage ~ src:', src)
   const buffer = await fs.readFile(path.join("./public", src));
 
   const {
