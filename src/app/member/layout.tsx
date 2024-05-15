@@ -6,6 +6,7 @@ import DollarIcon from '@/components/Icon/DollarIcon/DollarIcon.component';
 import LogoutIcon from '@/components/Icon/LogoutIcon/LogoutIcon.component';
 import ListIcon from '@/components/Icon/ListIcon/ListIcon.component';
 import LockIcon from '@/components/Icon/LockIcon/LockIcon.component';
+import IconLayout from './components/IconLayout/IconLayout.component';
 
 type Props = {
   children: React.ReactNode;
@@ -27,38 +28,38 @@ const MemberLayout: React.FC<Props> = ({ children }) => {
         >
           <li>
             <NavLink href={'/member/dashboard'}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
+              <IconLayout>
                 <UserIcon size={22} name='會員中心' />
-              </div>
+              </IconLayout>
             </NavLink>
           </li>
           <li>
             <NavLink href={'/member/orders'}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
+              <IconLayout>
                 <ListIcon size={22} name='我的訂單' />
-              </div>
+              </IconLayout>
             </NavLink>
           </li>
           <li>
             <NavLink href={'/member/points'}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
+              <IconLayout>
                 <DollarIcon size={22} name='會員點數' />
-              </div>
+              </IconLayout>
             </NavLink>
           </li>
           <li>
             <NavLink href={'/member/changePwd'}>
               {' '}
-              <div style={{ display: 'flex', alignItems: 'center' }}>
+              <IconLayout>
                 <LockIcon size={22} name='更改密碼' />
-              </div>
+              </IconLayout>
             </NavLink>
           </li>
           <li>
             <NavLink href={'/logout'}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
+              <IconLayout>
                 <LogoutIcon size={22} name='登出' />
-              </div>
+              </IconLayout>
             </NavLink>
           </li>
         </ul>

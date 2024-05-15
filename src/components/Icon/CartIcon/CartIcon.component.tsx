@@ -1,5 +1,4 @@
 import React from 'react';
-import { CartIconWrapper } from './CartIcon.styles';
 import { IoCartOutline } from 'react-icons/io5';
 import TemplateIconWrapper from '../TemplateIconWrapper/TemplateIconWrapper.component';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { DollarIconWrapper } from './DollarIcon.styles';
 import { PiCurrencyCircleDollarLight } from 'react-icons/pi';
 import TemplateIconWrapper from '../TemplateIconWrapper/TemplateIconWrapper.component';
 

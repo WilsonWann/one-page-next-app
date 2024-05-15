@@ -1,5 +1,4 @@
 import React from 'react';
-import { ReceiptIconWrapper } from './ReceiptIcon.styles';
 import { TbReceipt2 } from 'react-icons/tb';
 import TemplateIconWrapper from '../TemplateIconWrapper/TemplateIconWrapper.component';
 
