@@ -1,16 +1,22 @@
 import React from 'react';
-import { AuthFormWrapper } from './AuthFormContainer.styles';
+import { AuthFormWrapper, Divider } from './AuthFormContainer.styles';
 
 type Props = {
   children: React.ReactNode;
+  showDivider?: boolean;
 };
 
-const AuthFormContainer: React.FC<Props> = ({ children }) => {
+const AuthFormContainer: React.FC<Props> = ({
+  children,
+  showDivider = true,
+}) => {
   return (
     <AuthFormWrapper>
-      <div>
-        <span>或</span>
-      </div>
+      {showDivider && (
+        <Divider>
+          <span>或</span>
+        </Divider>
+      )}
       {children}
     </AuthFormWrapper>
   );

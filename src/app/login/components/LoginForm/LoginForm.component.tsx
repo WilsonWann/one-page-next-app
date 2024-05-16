@@ -34,7 +34,7 @@ const LoginForm = () => {
         inputProps={register('password', { required: 'required' })}
         error={errors.password?.message}
       />
-      <ForgetPasswordLink href={'/'}>忘記密碼？</ForgetPasswordLink>
+      <ForgetPasswordLink href={'/forgot'}>忘記密碼？</ForgetPasswordLink>
       <SubmitButton text='登入' />
     </LoginFormWrapper>
   );
