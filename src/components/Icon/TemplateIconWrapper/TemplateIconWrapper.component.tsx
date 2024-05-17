@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IconSpan, IconWrapper } from './TemplateIconWrapper.styles';
 
 type Props = {
@@ -24,6 +24,17 @@ const TemplateIconWrapper = (props: Props) => {
     textColor = 'black',
     bg = undefined,
   } = props;
+
+  const isValid = (value?: string | number) => {
+    if (typeof value === 'number') {
+      return value > 0;
+    }
+
+    if (typeof value === 'string') {
+      return value;
+    }
+  };
+
   return (
     <IconWrapper
       type={type}
@@ -34,7 +45,7 @@ const TemplateIconWrapper = (props: Props) => {
       bg={bg}
     >
       {children}
-      {iconText && <IconSpan>{iconText}</IconSpan>}
+      {isValid(iconText) && <IconSpan>{iconText}</IconSpan>}
     </IconWrapper>
   );
 };
