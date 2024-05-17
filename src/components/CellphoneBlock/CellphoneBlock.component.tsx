@@ -7,9 +7,10 @@ import {
 import { useAtom } from 'jotai';
 import { cellphoneAtom } from '@/atoms';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
+import { ErrorProps } from '@/types';
 
 type Props = {
-  error?: any;
+  error?: ErrorProps;
   required: boolean;
 };
 
@@ -18,7 +19,7 @@ const CellphoneBlock = (props: Props) => {
   const [cellphone, setCellphone] = useAtom(cellphoneAtom);
   return (
     <>
-      <Block error={error?._errors[0]} required={required}>
+      <Block error={error} required={required}>
         <BlockTitle htmlFor={'cellphone'}>手機號碼</BlockTitle>
         <BlockContent>
           <input
@@ -29,7 +30,7 @@ const CellphoneBlock = (props: Props) => {
           />
         </BlockContent>
       </Block>
-      {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
+      <ErrorMessage error={error} />
     </>
   );
 };

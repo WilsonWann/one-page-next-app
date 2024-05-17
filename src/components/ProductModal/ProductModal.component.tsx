@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  ItemSelector,
-  CloseButtonWrapper,
-  ErrorMessage,
-} from './ProductModal.styles';
+import { ItemSelector, CloseButtonWrapper } from './ProductModal.styles';
 import Backdrop from '@/components/Backdrop/Backdrop.component';
 import Item from '@/components/Item/Item.component';
 import {
@@ -19,6 +15,7 @@ import AddToCartButton from '@/components/AddToCartButton/AddToCartButton.compon
 import numberFormat from '@/helper/numberFormat';
 import usePreventScroll from '@/hook/usePreventScroll';
 import { CardImageBlock } from '../Item/Item.styles';
+import ErrorMessage from '../ErrorMessage/ErrorMessage.component';
 
 type Props = {
   active: boolean;
@@ -78,9 +75,7 @@ const ProductModal = (props: Props) => {
             <CloseButton onClick={() => setModalOpen(false)} />
           </CloseButtonWrapper>
           <Counter count={takeOnHandItem.quantity} />
-          {productModalError.error && (
-            <ErrorMessage>{productModalError.error.errorMessage}</ErrorMessage>
-          )}
+          <ErrorMessage error={productModalError.error} />
         </Item>
       </ItemSelector>
     </>

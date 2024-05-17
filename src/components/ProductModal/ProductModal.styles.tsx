@@ -27,7 +27,3 @@ export const CloseButtonWrapper = styled.div`
   border-radius: 50%;
   background-color: white;
 `;
-
-export const ErrorMessage = styled.p`
-  color: red;
-`;

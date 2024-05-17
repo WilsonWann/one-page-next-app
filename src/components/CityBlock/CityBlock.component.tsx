@@ -8,6 +8,7 @@ import {
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { cityDataAtom, setCityAtom, getCityAtom } from '@/atoms';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
+import { storage_AddressAtom } from '@/atoms/storageAtoms';
 
 type Props = {
   error?: any;
@@ -15,6 +16,8 @@ type Props = {
 };
 
 const CityBlock = (props: Props) => {
+  const favoriteAddress = useAtomValue(storage_AddressAtom);
+  console.log('🚀 ~ CityBlock ~ favoriteAddress:', favoriteAddress);
   const { error, required } = props;
   const [cityData, setCityData] = useAtom(cityDataAtom);
   const selectedCity = useAtomValue(getCityAtom);
@@ -30,6 +33,13 @@ const CityBlock = (props: Props) => {
     getCityData();
   }, [setCityData]);
 
+  useEffect(() => {
+    setCity(favoriteAddress?.city || -1);
+  }, [favoriteAddress]);
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    return setCity(event.target.value === '-1' ? -1 : event.target.value);
+  };
   return (
     <>
       <BlockCol>
@@ -40,9 +50,7 @@ const CityBlock = (props: Props) => {
               id='country'
               name='country'
               value={selectedCity}
-              onChange={(e) =>
-                setCity(e.target.value === '-1' ? -1 : e.target.value)
-              }
+              onChange={handleSelectChange}
             >
               <option value={-1}>請選擇</option>
               {cityData.map((city, index) => (
@@ -53,7 +61,7 @@ const CityBlock = (props: Props) => {
             </select>
           </BlockContent>
         </Block>
-        {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
+        {/* <ErrorMessage error={error._errors[0]} /> */}
       </BlockCol>
     </>
   );

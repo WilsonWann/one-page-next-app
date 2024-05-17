@@ -1,3 +1,4 @@
+import { ErrorProps } from '@/types';
 import styled from '@emotion/styled';
 
 type BlockTitle = {
@@ -52,7 +53,7 @@ type BlockProps = {
   required?: boolean;
   direction?: 'row' | 'column';
   gap?: string;
-  error?: boolean;
+  error?: boolean | string | ErrorProps;
   suppressBorder?: boolean;
 };
 

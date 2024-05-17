@@ -8,9 +8,10 @@ import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 import { useAtom } from 'jotai';
 import { passwordAtom } from '@/atoms';
+import { ErrorProps } from '@/types';
 
 type PasswordProps = {
-  error?: any;
+  error?: ErrorProps;
   required?: boolean;
 };
 
@@ -22,7 +23,7 @@ const PasswordBlock = (props: PasswordProps) => {
 
   return (
     <>
-      <Block error={error?._errors[0]} required={required}>
+      <Block error={error} required={required}>
         <BlockTitle htmlFor={'password'}>密碼</BlockTitle>
         <BlockContent>
           <input
@@ -38,7 +39,7 @@ const PasswordBlock = (props: PasswordProps) => {
           )}
         </BlockContent>
       </Block>
-      {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
+      <ErrorMessage error={error} />
     </>
   );
 };

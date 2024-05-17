@@ -7,9 +7,10 @@ import {
 import { useAtom } from 'jotai';
 import { receiptNameAtom } from '@/atoms';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
+import { ErrorProps } from '@/types';
 
 type Props = {
-  error?: any;
+  error?: ErrorProps;
   required?: boolean;
 };
 
@@ -18,7 +19,7 @@ const ReceiptNameBlock = (props: Props) => {
   const [name, setName] = useAtom(receiptNameAtom);
   return (
     <>
-      <Block error={error?._errors[0]} required={required}>
+      <Block error={error} required={required}>
         <BlockTitle htmlFor={'recipient'}>
           收件人<span>請填寫姓名</span>
         </BlockTitle>
@@ -31,7 +32,7 @@ const ReceiptNameBlock = (props: Props) => {
           />
         </BlockContent>
       </Block>
-      {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
+      <ErrorMessage error={error} />
     </>
   );
 };

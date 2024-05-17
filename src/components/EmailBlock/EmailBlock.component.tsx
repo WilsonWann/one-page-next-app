@@ -7,9 +7,10 @@ import {
 } from '@/components/FormBlock/FormBlock.component';
 import { emailAtom } from '@/atoms';
 import { useAtom } from 'jotai';
+import { ErrorProps } from '@/types';
 
 type EmailProps = {
-  error?: any;
+  error?: ErrorProps;
   required?: boolean;
 };
 
@@ -19,7 +20,7 @@ const EmailBlock = (props: EmailProps) => {
 
   return (
     <>
-      <Block error={error?._errors[0]} required={required}>
+      <Block error={error} required={required}>
         <BlockTitle htmlFor={'email'}>Email</BlockTitle>
         <BlockContent>
           <input
@@ -30,7 +31,7 @@ const EmailBlock = (props: EmailProps) => {
           />
         </BlockContent>
       </Block>
-      {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
+      <ErrorMessage error={error} />
     </>
   );
 };

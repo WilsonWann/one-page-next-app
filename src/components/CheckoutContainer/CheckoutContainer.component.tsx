@@ -13,6 +13,8 @@ import {
   setValidateAddressAtom,
   setCartErrorModalAtom,
   getCartItemQuantityAtom,
+  getStreetAtom,
+  getDefaultAddressAtom,
 } from '@/atoms';
 import HomeDeliveryContainer from '@/components/HomeDeliveryContainer/HomeDeliveryContainer.component';
 import InStorePickupContainer from '@/components/InStorePickupContainer/InStorePickupContainer.component';
@@ -27,22 +29,28 @@ import ScamReminderBlock from '@/components/ScamReminderBlock/ScamReminderBlock.
 import CartTotalBlock from '@/components/CartTotalBlock/CartTotalBlock.component';
 import CheckAuthBlock from '@/components/CheckAuthBlock/CheckAuthBlock.component';
 import { recipientSchema } from '@/zodSchema';
-import { z, ZodFormattedError } from 'zod';
+
 import { useRouter } from 'next/navigation';
+import { CheckoutErrorProps, formatZodError } from '@/helper/errorPropsHelper';
+import { storage_AddressAtom } from '@/atoms/storageAtoms';
 
 const CheckoutContainer = () => {
+  const setFavoriteAddress = useSetAtom(storage_AddressAtom);
   const router = useRouter();
   const mainLogistics = useAtomValue(mainLogisticsAtom);
   const cartItemQuantity = useAtomValue(getCartItemQuantityAtom);
   const recipient = useAtomValue(getRecipientAtom);
   const validateCity = useAtomValue(getCityAtom);
   const validateDistrict = useAtomValue(getDistrictAtom);
+  const street = useAtomValue(getStreetAtom);
   const setValidateAddress = useSetAtom(setValidateAddressAtom);
   const setCartErrorModal = useSetAtom(setCartErrorModalAtom);
+  const defaultAddressStatus = useAtomValue(getDefaultAddressAtom);
+
   const [startParsing, setStartParsing] = useState(false);
-  const [error, setError] = useState<
-    ZodFormattedError<z.infer<typeof recipientSchema>> | undefined
-  >(undefined);
+  const [error, setError] = useState<CheckoutErrorProps | undefined>(undefined);
+
+  console.log('🚀 ~ CheckoutContainer ~ error:', error);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (cartItemQuantity === 0) {
@@ -59,14 +67,23 @@ const CheckoutContainer = () => {
     if (startParsing) {
       const results = recipientSchema.safeParse(recipient);
       if (!results.success) {
-        const error = results.error.format();
-        setError(error);
+        const error = results.error;
+
+        setError(formatZodError(error));
         return;
       }
       setStartParsing(false);
       setError(undefined);
       const city = validateCity as string;
       const district = validateDistrict as string;
+
+      if (defaultAddressStatus) {
+        setFavoriteAddress({
+          city,
+          district,
+          street,
+        });
+      }
       setValidateAddress(city, district);
       router.push('/checkout');
     }
@@ -84,7 +101,7 @@ const CheckoutContainer = () => {
       <ReceiptNameBlock required error={error?.name} />
       <CellphoneBlock required error={error?.cellphone} />
       {mainLogistics.logisticsMode === 'homeDelivery' ? (
-        <HomeDeliveryContainer addressError={error?.address} />
+        <HomeDeliveryContainer />
       ) : (
         <InStorePickupContainer />
       )}

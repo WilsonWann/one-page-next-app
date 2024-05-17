@@ -51,14 +51,7 @@ export const receiptNameAtom = atom<string>('')
 export const cellphoneAtom = atom<string>('')
 
 const cityAtom = atom<string | -1>(-1)
-export const getCityAtom = atom(get => {
-  const favoriteAddress = get(storage_AddressAtom)
-  if (favoriteAddress) {
-    const { city } = favoriteAddress
-    return city
-  }
-  return get(cityAtom)
-})
+export const getCityAtom = atom(get => get(cityAtom))
 export const setCityAtom = atom(
   null,
   (get, set, city: string | -1) => {
@@ -69,14 +62,7 @@ export const setCityAtom = atom(
 export const cityDataAtom = atom<string[]>([])
 
 const districtAtom = atom<string | -1>(-1)
-export const getDistrictAtom = atom(get => {
-  const favoriteAddress = get(storage_AddressAtom)
-  if (favoriteAddress) {
-    const { district } = favoriteAddress
-    return district
-  }
-  return get(districtAtom)
-})
+export const getDistrictAtom = atom(get => get(districtAtom))
 
 export const setDistrictAtom = atom(
   null,
@@ -89,14 +75,7 @@ export const districtDataAtom = atom<string[] | null>(null)
 
 const streetAtom = atom<string>('')
 
-export const getStreetAtom = atom(get => {
-  const favoriteAddress = get(storage_AddressAtom)
-  if (favoriteAddress) {
-    const { street } = favoriteAddress
-    return street
-  }
-  return get(streetAtom)
-})
+export const getStreetAtom = atom(get => get(streetAtom))
 
 export const setStreetAtom = atom(
   null,
@@ -196,12 +175,6 @@ export const setValidateAddressAtom = atom(
   (get, set, city: string, district: string) => {
     set(setValidateCityAtom, city)
     set(setValidateDistrictAtom, district)
-
-    if (get(getDefaultAddressAtom)) {
-      set(storage_AddressAtom, get(getValidateAddressAtom))
-    } else {
-      set(storage_AddressAtom, RESET)
-    }
   }
 )
 export const getValidateRecipientAtom = atom(

@@ -7,9 +7,10 @@ import {
 import { useAtom } from 'jotai';
 import { receiptEmailAtom } from '@/atoms';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
+import { ErrorProps } from '@/types';
 
 type Props = {
-  error?: any;
+  error?: ErrorProps;
   required?: boolean;
 };
 
@@ -18,7 +19,7 @@ const ReceiptEmailBlock = (props: Props) => {
   const [email, setEmail] = useAtom(receiptEmailAtom);
   return (
     <>
-      <Block error={error?._errors[0]} required={required}>
+      <Block error={error} required={required}>
         <BlockTitle htmlFor={'email'}>
           電子發票寄送信箱(無開立紙本發票)<span>建議填寫Yahoo以外的信箱</span>
         </BlockTitle>
@@ -31,7 +32,7 @@ const ReceiptEmailBlock = (props: Props) => {
           />
         </BlockContent>
       </Block>
-      {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
+      <ErrorMessage error={error} />
     </>
   );
 };

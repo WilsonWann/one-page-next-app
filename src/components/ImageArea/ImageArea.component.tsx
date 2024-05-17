@@ -8,7 +8,7 @@ type Props = {
 
 const ImageArea = (props: Props) => {
   const { data: shoppingItemList } = props;
-  console.log('🚀 ~ ImageArea ~ shoppingItemList:', shoppingItemList);
+  // console.log('🚀 ~ ImageArea ~ shoppingItemList:', shoppingItemList);
 
   return (
     <>

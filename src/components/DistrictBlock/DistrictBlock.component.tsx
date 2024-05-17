@@ -13,6 +13,7 @@ import {
   getDistrictAtom,
 } from '@/atoms';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
+import { storage_AddressAtom } from '@/atoms/storageAtoms';
 
 type Props = {
   error?: any;
@@ -20,6 +21,7 @@ type Props = {
 };
 
 const DistrictBlock = (props: Props) => {
+  const favoriteAddress = useAtomValue(storage_AddressAtom);
   const { error, required } = props;
   const selectedCity = useAtomValue(getCityAtom);
   const [districtData, setDistrictData] = useAtom(districtDataAtom);
@@ -37,6 +39,14 @@ const DistrictBlock = (props: Props) => {
     getDistrictData(selectedCity);
   }, [selectedCity, setDistrictData]);
 
+  useEffect(() => {
+    setDistrict(favoriteAddress?.district || -1);
+  }, [favoriteAddress]);
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    return setDistrict(event.target.value === '-1' ? -1 : event.target.value);
+  };
+
   return (
     <BlockCol>
       <Block required={required} error={error?._errors[0]}>
@@ -46,9 +56,7 @@ const DistrictBlock = (props: Props) => {
             id='district'
             name='district'
             value={selectedDistrict}
-            onChange={(e) =>
-              setDistrict(e.target.value === '-1' ? -1 : e.target.value)
-            }
+            onChange={handleSelectChange}
           >
             {districtData ? (
               <>
@@ -65,7 +73,7 @@ const DistrictBlock = (props: Props) => {
           </select>
         </BlockContent>
       </Block>
-      {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
+      {/* <ErrorMessage error={error._errors[0]} /> */}
     </BlockCol>
   );
 };

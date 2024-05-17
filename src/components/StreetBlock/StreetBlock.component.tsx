@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Block,
   BlockTitle,
@@ -7,6 +7,7 @@ import {
 import { useAtomValue, useSetAtom } from 'jotai';
 import { setStreetAtom, getStreetAtom } from '@/atoms';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
+import { storage_AddressAtom } from '@/atoms/storageAtoms';
 
 type Props = {
   error?: any;
@@ -14,9 +15,19 @@ type Props = {
 };
 
 const StreetBlock = (props: Props) => {
+  const favoriteAddress = useAtomValue(storage_AddressAtom);
   const { error, required = false } = props;
   const street = useAtomValue(getStreetAtom);
   const setStreet = useSetAtom(setStreetAtom);
+
+  useEffect(() => {
+    setStreet(favoriteAddress?.street || '');
+  }, [favoriteAddress]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    return setStreet(event.target.value);
+  };
+
   return (
     <>
       <Block error={error?._errors[0]} required={required}>
@@ -26,11 +37,11 @@ const StreetBlock = (props: Props) => {
             id='street'
             type='text'
             value={street}
-            onChange={(e) => setStreet(e.target.value)}
+            onChange={handleInputChange}
           />
         </BlockContent>
       </Block>
-      {error && <ErrorMessage>{error._errors[0]}</ErrorMessage>}
+      {/* <ErrorMessage error={error._errors[0]} /> */}
     </>
   );
 };

@@ -1,11 +1,11 @@
 import React from 'react';
 import TemplateIconWrapper from '../TemplateIconWrapper/TemplateIconWrapper.component';
 
-import { signIn } from 'next-auth/react';
+import { signInRedirect } from '@/utils/firebase/firebase.utils';
 import InnerIcon from './InnerIcon.component';
 
 export type AuthIconProps = {
-  type: 'facebook' | 'google' | 'line' | 'email';
+  type: 'facebook' | 'google' | 'line';
   layout?: 'minimal' | 'oval';
   width?: string | number;
   iconText?: string;
@@ -18,7 +18,7 @@ const AuthIcon: React.FC<AuthIconProps> = (props) => {
     layout = 'oval',
     width = undefined,
     iconText = undefined,
-    onClick = () => signIn(type),
+    onClick = () => signInRedirect(type),
   } = props;
 
   return (

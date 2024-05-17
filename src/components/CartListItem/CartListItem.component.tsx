@@ -42,7 +42,7 @@ const CartListItem = (props: Props) => {
           </SpecialPrice>
         </PriceWrapper>
         <Counter cartItemId={item.id} count={item.quantity} />
-        {item.error && <ErrorMessage>{item.error.errorMessage}</ErrorMessage>}
+        <ErrorMessage error={item.error} />
       </div>
       <div>{numberFormat(item.subtotal)}</div>
     </CartWrapper>

@@ -16,7 +16,7 @@ import { createPortal } from 'react-dom';
 
 export default function Home() {
   const [shoppingList, setShoppingList] = useAtom(shoppingListAtom);
-  console.log('🚀 ~ Home ~ shoppingList:', shoppingList);
+  // console.log('🚀 ~ Home ~ shoppingList:', shoppingList);
 
   const [modalOpen] = useAtom(productModalOpenAtom);
 
