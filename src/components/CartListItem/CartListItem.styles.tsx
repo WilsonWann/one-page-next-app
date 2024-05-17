@@ -15,16 +15,16 @@ export const CartWrapper = styled.div`
 
   border-top: 1px solid rgba(87, 90, 93, 1);
 
-  & > *:first-child {
+  & > *:first-of-type {
     flex-shrink: 0;
   }
-  & > *:nth-child(2) {
+  & > *:nth-of-type(2) {
     min-width: 4.5rem;
   }
-  & > *:nth-child(3) {
+  & > *:nth-of-type(3) {
     min-width: 10rem;
   }
-  & > *:last-child {
+  & > *:last-of-type {
     margin-top: auto;
   }
 `;

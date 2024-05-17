@@ -1,12 +1,12 @@
 import { ShoppingItem } from '@/types'
 
-export const shoppingList: ShoppingItem[] = [
+const SHOPPING_LIST: ShoppingItem[] = [
   {
     id: 0,
-    // image: {
-    //   src: '/wilson.jpg',
-    //   alt: 'Wilson',
-    // },
+    image: {
+      src: 'https://raw.githubusercontent.com/WilsonWann/one-page-next-app/main/public/wilson.jpg',
+      alt: 'Wilson',
+    },
     title: '超值金排球禮盒組',
     subtitle: '送禮首選～原價1860，特價1500，限時春節早鳥優惠再9.5折',
     content: '精緻金排球*1顆\n禮盒*1盒\n沒用氣泡紙*10堆',
@@ -17,7 +17,7 @@ export const shoppingList: ShoppingItem[] = [
   {
     id: 1,
     image: {
-      src: '/gubami.jpg',
+      src: 'https://raw.githubusercontent.com/WilsonWann/one-page-next-app/main/public/gubami.jpg',
       alt: '牛肉麵',
     },
     title: '超值牛肉麵禮盒組',
@@ -30,7 +30,7 @@ export const shoppingList: ShoppingItem[] = [
   {
     id: 2,
     image: {
-      src: '/lalaport.jpg',
+      src: 'https://raw.githubusercontent.com/WilsonWann/one-page-next-app/main/public/lalaport.jpg',
       alt: '拉拉寶都對面臭豆腐',
     },
     title: '拉拉寶都對面臭豆腐',
@@ -42,7 +42,7 @@ export const shoppingList: ShoppingItem[] = [
   {
     id: 3,
     image: {
-      src: '/sansanyakiniku.png',
+      src: 'https://raw.githubusercontent.com/WilsonWann/one-page-next-app/main/public/sansanyakiniku.png',
       alt: '姍姍燒肉',
     },
     title: 'VIP專屬六入組',
@@ -54,7 +54,7 @@ export const shoppingList: ShoppingItem[] = [
   {
     id: 4,
     image: {
-      src: '/scheduled.jpg',
+      src: 'https://raw.githubusercontent.com/WilsonWann/one-page-next-app/main/public/scheduled.jpg',
       alt: '時刻表',
     },
     title: '時刻表-四入組(增量版)',
@@ -67,7 +67,7 @@ export const shoppingList: ShoppingItem[] = [
   {
     id: 5,
     image: {
-      src: '/pokemon.jpg',
+      src: 'https://raw.githubusercontent.com/WilsonWann/one-page-next-app/main/public/pokemon.jpg',
       alt: '皮卡丘',
     },
     title: '獨家皮卡丘二XO醬入組',
@@ -80,7 +80,7 @@ export const shoppingList: ShoppingItem[] = [
   {
     id: 6,
     image: {
-      src: '/mcdonald.png',
+      src: 'https://raw.githubusercontent.com/WilsonWann/one-page-next-app/main/public/mcdonald.png',
       alt: '麥當勞',
     },
     title: '好食成雙組',
@@ -90,3 +90,5 @@ export const shoppingList: ShoppingItem[] = [
     specialPrice: 880
   }
 ]
+
+export default SHOPPING_LIST

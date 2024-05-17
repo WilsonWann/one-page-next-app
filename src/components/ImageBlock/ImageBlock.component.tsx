@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ImageDiv, type ImageDivProps } from './ImageBlock.styles';
 
 type RestrictTypeProps = {
   src: string;
   alt: string;
-  width?: number;
-  height?: number;
-  blurDataURL?: string;
 } & (
   | NoneRestrictImageProps
   | WidthRestrictImageProps
@@ -35,14 +32,36 @@ type SquareRestrictImageProps = {
 };
 
 const ImageBlock: React.FC<RestrictTypeProps> = (props) => {
-  const { restrict = 'none', ...imageProps } = props;
+  const { restrict = 'none', src, alt, ...imageProps } = props;
+
+  const [blurDataURLSet, setBlurDataURLSet] = useState<
+    { blurDataURL: string; height: number; width: number } | undefined
+  >(undefined);
+
+  // console.log('🚀 ~ blurDataURLSet:', blurDataURLSet);
+  useEffect(() => {
+    const getBlurredImage = async () => {
+      const response = await fetch(`/api/getBase64?imageUrl=${src}`);
+      const { base64, height, width } = await response.json();
+
+      setBlurDataURLSet({
+        blurDataURL: base64,
+        height,
+        width,
+      });
+    };
+
+    getBlurredImage();
+  }, [src]);
+
+  if (!blurDataURLSet) return null;
 
   let InnerImageStyle: React.CSSProperties = {
     width: '100%',
     objectFit: 'cover',
   };
   let ImageDivProps: ImageDivProps = {
-    aspectRatio: `${imageProps.width} / ${imageProps.height}`,
+    aspectRatio: `${blurDataURLSet.width} / ${blurDataURLSet.height}`,
   };
 
   if (restrict === 'width' && 'setWidth' in imageProps) {
@@ -99,15 +118,17 @@ const ImageBlock: React.FC<RestrictTypeProps> = (props) => {
     };
   }
 
-  const placeholder = 'blur' as const;
-
-  const commonImageProps = {
-    ...imageProps,
-    placeholder,
-    style: InnerImageStyle,
-  };
-
-  const imageChildren = <Image {...commonImageProps} />;
+  const imageChildren = (
+    <Image
+      src={src}
+      height={blurDataURLSet.height}
+      width={blurDataURLSet.width}
+      blurDataURL={blurDataURLSet.blurDataURL}
+      placeholder={'blur'}
+      style={InnerImageStyle}
+      alt={alt}
+    />
+  );
 
   const imageWrapper = (
     children: React.ReactNode,
