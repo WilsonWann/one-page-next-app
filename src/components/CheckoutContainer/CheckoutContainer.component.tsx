@@ -69,11 +69,11 @@ const CheckoutContainer = () => {
       if (!results.success) {
         const error = results.error;
         // console.log('🚀 ~ useEffect ~ error:', error);
-
+        setStartParsing(false);
         setError(formatZodError(error));
         return;
       }
-      setStartParsing(false);
+
       setError(undefined);
       const city = validateCity as string;
       const district = validateDistrict as string;
@@ -86,6 +86,7 @@ const CheckoutContainer = () => {
         });
       }
       setValidateAddress(city, district);
+      setStartParsing(false);
       router.push('/checkout');
     }
   }, [recipient, startParsing]);
