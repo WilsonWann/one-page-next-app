@@ -1,5 +1,5 @@
 
-import { ChangeType, ErrorProps } from '@/types';
+import { AddressErrorProps, ChangeType, ChangeTypeOfKeys, ErrorProps } from '@/types';
 import { recipientSchema } from '@/zodSchema';
 import { z, ZodError, ZodIssue } from 'zod';
 
@@ -16,7 +16,24 @@ export function formatZodError<T = CheckoutErrorProps>(error: ZodError) {
   console.log('🚀 ~ formatZodError ~ issues:', issues);
 
   if (issues.length > 0) {
+    let secondPath = {}
     const flattenIssues = issues.reduce((accIssues, currentIssue) => {
+      if (currentIssue.path.length > 1) {
+        secondPath = {
+          ...secondPath,
+          [currentIssue.path[1]]: {
+            errorType: currentIssue.path[1],
+            errorMessage: currentIssue.message,
+          },
+        }
+
+        return {
+          ...accIssues,
+          [currentIssue.path[0]]: {
+            ...secondPath
+          }
+        }
+      }
       return {
         ...accIssues,
         [currentIssue.path[0]]: {
@@ -32,7 +49,13 @@ export function formatZodError<T = CheckoutErrorProps>(error: ZodError) {
   return undefined;
 };
 
-export type CheckoutErrorProps = ChangeType<
+
+export type CheckoutErrorProps = ChangeTypeOfKeys<
   Partial<z.infer<typeof recipientSchema>>,
+  'name' | 'cellphone' | 'email',
   ErrorProps
->;
+> & ChangeTypeOfKeys<
+  Partial<z.infer<typeof recipientSchema>>,
+  'address',
+  AddressErrorProps
+> 

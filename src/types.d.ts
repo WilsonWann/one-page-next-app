@@ -46,6 +46,13 @@ type CartEmptyProps = {
   errorMessage: string
 }
 
+
+type AddressErrorProps = {
+  city: ErrorProps;
+  district: ErrorProps;
+  street: ErrorProps;
+};
+
 type ProductErrorProps = { error?: ErrorProps }
 
 type ErrorProps = DefaultErrorProps | UpperErrorProps | LowerErrorProps | CartEmptyProps

@@ -12,11 +12,12 @@ import {
   setDistrictAtom,
   getDistrictAtom,
 } from '@/atoms';
-import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
+// import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
 import { storage_AddressAtom } from '@/atoms/storageAtoms';
+import { ErrorProps } from '@/types';
 
 type Props = {
-  error?: any;
+  error?: ErrorProps;
   required?: boolean;
 };
 
@@ -49,7 +50,7 @@ const DistrictBlock = (props: Props) => {
 
   return (
     <BlockCol>
-      <Block required={required} error={error?._errors[0]}>
+      <Block required={required} error={error}>
         <BlockTitle htmlFor={'district'}>區域</BlockTitle>
         <BlockContent>
           <select

@@ -5,13 +5,7 @@ import DistrictBlock from '@/components/DistrictBlock/DistrictBlock.component';
 import TimeToReceiveBlock from '@/components/TimeToReceiveBlock/TimeToReceiveBlock.component';
 import StreetBlock from '@/components/StreetBlock/StreetBlock.component';
 import DefaultAddress from '@/components/DefaultAddress/DefaultAddress.component';
-import { ErrorProps } from '@/types';
-
-type AddressErrorProps = {
-  city: ErrorProps;
-  district: ErrorProps;
-  street: ErrorProps;
-};
+import { AddressErrorProps } from '@/types';
 
 type Props = {
   addressError?: AddressErrorProps;

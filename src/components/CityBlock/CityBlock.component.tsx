@@ -7,17 +7,18 @@ import {
 } from '@/components/FormBlock/FormBlock.component';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { cityDataAtom, setCityAtom, getCityAtom } from '@/atoms';
-import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
+// import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
 import { storage_AddressAtom } from '@/atoms/storageAtoms';
+import { ErrorProps } from '@/types';
 
 type Props = {
-  error?: any;
+  error?: ErrorProps;
   required?: boolean;
 };
 
 const CityBlock = (props: Props) => {
   const favoriteAddress = useAtomValue(storage_AddressAtom);
-  console.log('🚀 ~ CityBlock ~ favoriteAddress:', favoriteAddress);
+  // console.log('🚀 ~ CityBlock ~ favoriteAddress:', favoriteAddress);
   const { error, required } = props;
   const [cityData, setCityData] = useAtom(cityDataAtom);
   const selectedCity = useAtomValue(getCityAtom);
@@ -43,7 +44,7 @@ const CityBlock = (props: Props) => {
   return (
     <>
       <BlockCol>
-        <Block required={required} error={error?._errors[0]}>
+        <Block required={required} error={error}>
           <BlockTitle htmlFor={'country'}>縣市</BlockTitle>
           <BlockContent>
             <select

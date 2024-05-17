@@ -6,11 +6,12 @@ import {
 } from '@/components/FormBlock/FormBlock.component';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { setStreetAtom, getStreetAtom } from '@/atoms';
-import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
+// import ErrorMessage from '@/components/ErrorMessage/ErrorMessage.component';
 import { storage_AddressAtom } from '@/atoms/storageAtoms';
+import { ErrorProps } from '@/types';
 
 type Props = {
-  error?: any;
+  error?: ErrorProps;
   required?: boolean;
 };
 
@@ -30,7 +31,7 @@ const StreetBlock = (props: Props) => {
 
   return (
     <>
-      <Block error={error?._errors[0]} required={required}>
+      <Block error={error} required={required}>
         <BlockTitle htmlFor={'street'}>街道地址</BlockTitle>
         <BlockContent>
           <input

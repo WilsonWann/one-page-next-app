@@ -50,7 +50,7 @@ const CheckoutContainer = () => {
   const [startParsing, setStartParsing] = useState(false);
   const [error, setError] = useState<CheckoutErrorProps | undefined>(undefined);
 
-  console.log('🚀 ~ CheckoutContainer ~ error:', error);
+  // console.log('🚀 ~ CheckoutContainer ~ error:', error);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (cartItemQuantity === 0) {
@@ -68,6 +68,7 @@ const CheckoutContainer = () => {
       const results = recipientSchema.safeParse(recipient);
       if (!results.success) {
         const error = results.error;
+        // console.log('🚀 ~ useEffect ~ error:', error);
 
         setError(formatZodError(error));
         return;
@@ -101,7 +102,7 @@ const CheckoutContainer = () => {
       <ReceiptNameBlock required error={error?.name} />
       <CellphoneBlock required error={error?.cellphone} />
       {mainLogistics.logisticsMode === 'homeDelivery' ? (
-        <HomeDeliveryContainer />
+        <HomeDeliveryContainer addressError={error?.address} />
       ) : (
         <InStorePickupContainer />
       )}
