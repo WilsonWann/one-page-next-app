@@ -19,9 +19,9 @@ const InnerIcon: React.FC<InnerProps> = (props) => {
     case 'line':
       icon = <SiLine size={22} color={'#06c755'} />;
       break;
-    // case 'email':
-    //   icon = <MdOutlineEmail size={22} color={'#000000'} />;
-    //   break;
+    case 'email':
+      icon = <MdOutlineEmail size={22} color={'#000000'} />;
+      break;
 
     default:
       break;

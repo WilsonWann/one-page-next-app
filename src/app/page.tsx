@@ -37,32 +37,34 @@ export default function Home() {
     productModalWrapper.current = document.querySelector('#product-modal');
   }, [productModalWrapper]);
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between'>
-      <Promotion
-        title={
-          '🎄聖誕佳節滿800元超商免運費！滿1500元宅配免運,加入會員好處多~紅利點數可折抵現金喔!!'
-        }
-      />
-
-      <VideoArea />
-
-      <ImageArea data={shoppingList} />
-
-      <MarketingBlock
-        title={'優惠折扣'}
-        label={'優惠折扣'}
-        content={
-          ' ～ 🎄聖誕佳節滿800元超商免運費！滿1500元宅配免運,加入會員好處多~紅利點數可折抵現金喔!!'
-        }
-      />
-      <ShoppingArea data={shoppingList} />
-
+    <>
       {productModalWrapper.current &&
         createPortal(
           <ProductModal active={modalOpen} />,
           productModalWrapper.current,
         )}
-      <CartArea />
-    </main>
+      <main className='flex min-h-screen flex-col items-center justify-between'>
+        <Promotion
+          title={
+            '🎄聖誕佳節滿800元超商免運費！滿1500元宅配免運,加入會員好處多~紅利點數可折抵現金喔!!'
+          }
+        />
+
+        <VideoArea />
+
+        <ImageArea data={shoppingList} />
+
+        <MarketingBlock
+          title={'優惠折扣'}
+          label={'優惠折扣'}
+          content={
+            ' ～ 🎄聖誕佳節滿800元超商免運費！滿1500元宅配免運,加入會員好處多~紅利點數可折抵現金喔!!'
+          }
+        />
+        <ShoppingArea data={shoppingList} />
+
+        <CartArea />
+      </main>
+    </>
   );
 }

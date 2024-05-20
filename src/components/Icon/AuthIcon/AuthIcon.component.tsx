@@ -5,7 +5,7 @@ import { signInRedirect } from '@/utils/firebase/firebase.utils';
 import InnerIcon from './InnerIcon.component';
 
 export type AuthIconProps = {
-  type: 'facebook' | 'google' | 'line';
+  type: 'facebook' | 'google' | 'line' | 'email';
   layout?: 'minimal' | 'oval';
   width?: string | number;
   iconText?: string;

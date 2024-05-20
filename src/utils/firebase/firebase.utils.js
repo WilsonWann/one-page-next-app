@@ -48,6 +48,7 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 export const signInWithFacebookPopup = () => signInWithPopup(auth, facebookProvider)
 export const signInWithFacebookRedirect = () => signInWithRedirect(auth, facebookProvider)
 
+// export const signInWithEmailAndPasswordRedirect = (email, password) => signInWithEmailAndPassword(auth, email, password)
 export const signInRedirect = async (provider) => {
   switch (provider) {
     case 'google':
@@ -61,18 +62,18 @@ export const signInRedirect = async (provider) => {
 
 export const db = getFirestore()
 
-// export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
-//   const collectionRef = collection(db, collectionKey)
-//   const batch = writeBatch(db)
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  const collectionRef = collection(db, collectionKey)
+  const batch = writeBatch(db)
 
-//   objectsToAdd.forEach((object) => {
-//     const docRef = doc(collectionRef, object.title.toLowerCase())
-//     batch.set(docRef, object)
-//   })
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase())
+    batch.set(docRef, object)
+  })
 
-//   await batch.commit()
-//   console.log('done')
-// }
+  await batch.commit()
+  console.log('done')
+}
 
 export const createUserDocumentFromAuth = async (
   userAuth,

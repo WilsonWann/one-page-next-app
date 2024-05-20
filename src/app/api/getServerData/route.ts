@@ -1,9 +1,10 @@
 import { ShoppingItem } from "@/types";
-import SHOPPING_LIST from "./data";
-import { getImage } from "@/lib/getLocalBase64";
+import { addCollectionAndDocuments } from "@/utils/firebase/firebase.utils";
 
 export async function GET(): Promise<Response> {
 
+
+  // await addCollectionAndDocuments("categories", SHOPPING_LIST)
   // const shoppingListPromises = SHOPPING_LIST
   // .map(async (item: ShoppingItem): Promise<ShoppingItem> => {
   //   const { image, ...rest } = item
